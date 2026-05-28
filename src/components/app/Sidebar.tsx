@@ -56,13 +56,10 @@ export default function Sidebar({ address, isConnected }: SidebarProps) {
     <div className="flex h-full flex-col">
       <div className="px-4 pb-5 pt-5">
         <Link href="/" className="group inline-flex">
-          <span className="font-display text-sm font-bold tracking-[0.08em] text-ink">
+          <span className="font-display text-lg font-bold tracking-[0.05em] text-ink">
             Nythera
           </span>
         </Link>
-        <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/45">
-          Recovery
-        </p>
       </div>
 
       <nav className="space-y-1 px-2">
