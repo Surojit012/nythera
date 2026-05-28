@@ -50,8 +50,8 @@ function ConnectedAppLayout({
         </div>
 
         <div className="ny-panel relative z-10 mx-auto w-full max-w-[420px] p-6 md:p-7">
-          <div className="mb-6 flex items-center gap-3">
-            <div className="grid h-9 w-9 place-items-center rounded-lg bg-warm-clay/12 text-warm-clay">
+          <div className="mb-6 flex flex-col items-center text-center">
+            <div className="mb-3 grid h-9 w-9 place-items-center rounded-lg bg-warm-clay/12 text-warm-clay">
               <LockIcon size={18} />
             </div>
             <div>
@@ -60,19 +60,19 @@ function ConnectedAppLayout({
             </div>
           </div>
 
-          <h2 className="ny-heading text-xl">
+          <h2 className="ny-heading text-xl text-center">
             Sign in to Nythera
           </h2>
 
-          <p className="mt-3 text-sm leading-6 text-ink/60">
+          <p className="mt-3 text-sm leading-6 text-ink/60 text-center">
             Use email, Google, or an existing wallet. Nythera will create an in-app wallet for email signups where supported.
           </p>
 
-          <div className="mt-6">
+          <div className="mt-6 flex justify-center">
             <WalletButton />
           </div>
 
-          <p className="mt-6 border-t border-ink/[0.08] pt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/45">
+          <p className="mt-6 border-t border-ink/[0.08] pt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/45 text-center">
             Encrypted recovery vaults
           </p>
         </div>
