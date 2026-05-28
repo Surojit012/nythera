@@ -407,22 +407,40 @@ function SecuritySection() {
 }
 
 function FaqSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
     <CinematicSection id="faq" navTone="teal" toneClass="bg-pale-teal" title="FAQ">
       <div className="grid gap-4 md:grid-cols-2">
-        {faqs.map(([question, answer]) => (
-          <details key={question} className="group landing-reveal border border-ink/10 bg-white/38 p-5 open:border-warm-clay/45">
-            <summary className="font-display flex cursor-pointer list-none items-center justify-between gap-4 text-xl text-ink [&::-webkit-details-marker]:hidden">
-              <span>{question}</span>
-              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-warm-clay/45 text-warm-clay transition-transform duration-200 group-open:rotate-180">
-                <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
-                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </summary>
-            <p className="mt-4 text-sm leading-7 text-ink/58">{answer}</p>
-          </details>
-        ))}
+        {faqs.map(([question, answer], index) => {
+          const isOpen = openIndex === index;
+          return (
+            <div
+              key={question}
+              className={`landing-reveal border bg-white/38 p-5 transition-colors duration-200 ${isOpen ? 'border-warm-clay/45' : 'border-ink/10'}`}
+            >
+              <button
+                type="button"
+                onClick={() => setOpenIndex(isOpen ? null : index)}
+                className="font-display flex w-full cursor-pointer items-center justify-between gap-4 text-left text-xl text-ink"
+              >
+                <span>{question}</span>
+                <span className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-warm-clay/45 text-warm-clay transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
+                  <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
+                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </button>
+              <div
+                className={`grid transition-all duration-200 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+              >
+                <div className="overflow-hidden">
+                  <p className="mt-4 text-sm leading-7 text-ink/58">{answer}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </CinematicSection>
   );
