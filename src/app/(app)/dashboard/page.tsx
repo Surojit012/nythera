@@ -102,7 +102,7 @@ export default function DashboardPage() {
       <section className="rounded-2xl bg-white/[0.035] p-5 shadow-[0_18px_55px_rgba(0,0,0,0.18)] md:p-6">
         <div className="flex flex-col gap-5">
           <div className="max-w-2xl">
-            <h2 className="ny-heading mt-4 text-2xl md:text-3xl">
+            <h2 className="ny-heading text-2xl md:text-3xl">
               Your recovery vaults
             </h2>
             <p className="mt-2 max-w-xl text-sm leading-6 text-zinc-500">

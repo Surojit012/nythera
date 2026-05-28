@@ -81,9 +81,6 @@ export default function Sidebar({ address, isConnected }: SidebarProps) {
                 }
               `}
             >
-              {active && (
-                <span className="absolute right-3 h-1.5 w-1.5 rounded-full bg-warm-clay" />
-              )}
 
               <item.icon
                 size={15}
@@ -136,8 +133,8 @@ export default function Sidebar({ address, isConnected }: SidebarProps) {
         <div className="rounded-xl border border-ink/[0.08] bg-white/45 px-3 py-3">
           <span
             className={`mb-3 block h-1.5 w-1.5 shrink-0 rounded-full ${isConnected
-                ? 'bg-sage animate-pulse-dot'
-                : 'bg-ink/30'
+              ? 'bg-sage animate-pulse-dot'
+              : 'bg-ink/30'
               }`}
           />
           <div className="min-w-0">
