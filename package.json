@@ -1,0 +1,38 @@
+{
+  "name": "nythera",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "shardlock:verify": "node scripts/verify-shardlock.cjs"
+  },
+  "dependencies": {
+    "@piplabs/cdr-sdk": "^0.2.1",
+    "@privy-io/react-auth": "^3.27.1",
+    "@supabase/supabase-js": "^2.106.1",
+    "@tanstack/react-query": "^5.100.11",
+    "@types/nodemailer": "^8.0.0",
+    "@web3modal/wagmi": "^5.1.11",
+    "framer-motion": "^12.40.0",
+    "next": "16.2.6",
+    "nodemailer": "^8.0.7",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "shamir-secret-sharing": "^0.0.4",
+    "viem": "^2.50.4",
+    "wagmi": "^3.6.15"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
