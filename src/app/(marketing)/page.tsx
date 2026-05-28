@@ -17,7 +17,7 @@ const stagger: Variants = {
 const navLinks = ['How It Works', 'Security', 'FAQ'];
 
 const steps = [
-  ['Step 1:', 'Save the important secret', 'Add a seed phrase, private key, password, note,+ or file. Nythera encrypts it in your browser.'],
+  ['Step 1:', 'Save the important secret', 'Add a seed phrase, private key, password, note or file. Nythera encrypts it in your browser.'],
   ['Step 2:', 'Name trusted people', 'Choose the family members, friends or teammates who should be able to help in an emergency.'],
   ['Step 3:', 'Lock in recovery access', 'Your wallet confirms who is allowed to open the vault later.'],
   ['Step 4:', 'Recover when needed', 'An approved person connects their wallet and opens the encrypted vault when it matters.'],
@@ -141,7 +141,7 @@ function Navbar({ tone }: { tone: NavTone }) {
       <nav className="mx-auto flex max-w-7xl items-center justify-between">
         <Link href="/" className="group flex items-center">
           <span className="font-cinzel text-[1.35rem] font-extrabold tracking-[-0.03em]">
-            Nyth<span className={dark ? 'text-muted-gold' : 'text-warm-clay'}>era</span>
+            Nythera
           </span>
         </Link>
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex">
@@ -239,7 +239,7 @@ function HeroVaultVisual() {
   return (
     <div className="relative mx-auto w-full max-w-[560px] aspect-square">
       {/* Container frame */}
-      <div className="absolute inset-0 border border-ink/[0.07] bg-offwhite/50 shadow-[20px_20px_0_rgba(201,169,110,0.08)] backdrop-blur-sm">
+      <div className="absolute inset-0 border border-ink/[0.07] bg-offwhite/50 shadow-[20px_0_0_rgba(201,169,110,0.08),0_20px_0_rgba(201,169,110,0.08)] backdrop-blur-sm">
         {/* Inner label */}
         <div className="absolute left-4 top-4 inline-flex border border-ink/10 bg-white/50 px-2.5 py-1 font-mono text-[0.56rem] uppercase tracking-[0.14em] text-ink/40 z-20">
           Recovery Architecture
@@ -384,7 +384,7 @@ function HowItWorksSection() {
       navTone="rose"
       toneClass="bg-dusty-rose"
       eyebrow="How it works"
-      title="A safer backup plan in four steps"
+      title="Backup Plan In Four Steps"
       titleClassName="font-body"
     >
       <div className="relative grid gap-8 lg:grid-cols-4 lg:gap-0 before:absolute before:left-[10%] before:right-[10%] before:top-10 before:hidden before:h-px before:bg-ink/15 lg:before:block">
@@ -407,7 +407,7 @@ function HowItWorksSection() {
 
 function SecuritySection() {
   return (
-    <CinematicSection id="security" navTone="slate" toneClass="bg-slate-blue" dark eyebrow="Security" title="Private by default, readable when your people need it">
+    <CinematicSection id="security" navTone="slate" toneClass="bg-slate-blue" dark eyebrow="Security" title="Private By Default, Readable When Your People Need It">
       <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
         <div>
           <p className="landing-reveal text-base font-light leading-8 text-offwhite/68">
@@ -474,10 +474,10 @@ function Footer() {
       <div className="mx-auto grid max-w-[1300px] gap-12 px-6 py-20 md:px-10 lg:grid-cols-[1.8fr_1fr_1fr]">
         <div>
           <h2 className="font-cinzel text-3xl font-extrabold tracking-[-0.04em]">
-            Nyth<span className="text-muted-gold">era</span>
+            Nythera
           </h2>
           <p className="mt-4 max-w-[280px] text-sm font-light leading-7 text-offwhite/45">
-            The first decentralized emergency wallet recovery protocol. Split. Distribute. Recover. Your phrase - never whole, never lost.
+            The decentralized emergency wallet recovery protocol.
           </p>
         </div>
         {Object.entries(footerColumns).map(([title, links], index) => (

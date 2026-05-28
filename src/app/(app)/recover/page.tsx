@@ -294,19 +294,6 @@ export default function RecoverPage() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      <section className="ny-panel p-6 md:p-8">
-        <p className="ny-label text-amber-200">Recovery</p>
-        <h1 className="font-display text-3xl md:text-4xl text-white mt-2">Recover a saved vault</h1>
-        <p className="text-sm text-zinc-400 mt-3 max-w-2xl">
-          Choose a vault, confirm this wallet is allowed to open it, then decrypt the secret in your browser.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <span className="ny-pill">Trusted contact access</span>
-          <span className="ny-pill">Encrypted backup</span>
-          <span className="ny-pill">Local decryption</span>
-        </div>
-      </section>
-
       <section className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
         <div className="ny-panel p-6 space-y-5">
           <div>
