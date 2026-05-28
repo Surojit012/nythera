@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nythera — Decentralized Wallet Recovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ======= RESET & BASE ======= */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F5F0E8;
+    color: #1a1a1a;
+    overflow-x: hidden;
+  }
+
+  /* ======= CSS VARIABLES ======= */
+  :root {
+    --offwhite: #F5F0E8;
+    --sage: #C8D5B9;
+    --dusty-rose: #D4B8A8;
+    --slate-blue: #8FA3B1;
+    --warm-clay: #C4956A;
+    --charcoal: #2C2C2C;
+    --ink: #1A1A1A;
+    --muted-gold: #C9A96E;
+    --pale-teal: #A8C5C0;
+    --lavender-grey: #B8B2CC;
+    --font-display: 'Syne', sans-serif;
+    --font-serif: 'Instrument Serif', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  /* ======= NAVBAR ======= */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1.2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.5s ease, color 0.5s ease, backdrop-filter 0.5s ease;
+    background: rgba(245, 240, 232, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  nav.nav-sage { background: rgba(200, 213, 185, 0.85); }
+  nav.nav-rose { background: rgba(212, 184, 168, 0.85); }
+  nav.nav-slate { background: rgba(143, 163, 177, 0.85); }
+  nav.nav-clay { background: rgba(196, 149, 106, 0.82); }
+  nav.nav-teal { background: rgba(168, 197, 192, 0.85); }
+  nav.nav-dark { background: rgba(44, 44, 44, 0.92); color: #F5F0E8; }
+  nav.nav-dark .nav-links a { color: #F5F0E8; }
+  nav.nav-dark .nav-logo { color: #F5F0E8; }
+  nav.nav-dark .nav-cta { background: #C9A96E; color: #1A1A1A; }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.5s ease;
+  }
+  .nav-logo span { color: var(--warm-clay); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    transition: color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.75;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  .nav-cta {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.6rem 1.4rem;
+    background: var(--ink);
+    color: var(--offwhite);
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease;
+  }
+  .nav-cta:hover { transform: translateY(-2px); }
+
+  /* ======= SECTIONS SHARED ======= */
+  section {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ======= HERO SECTION ======= */
+  #hero {
+    background: var(--offwhite);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 4rem 6rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm-clay);
+    border: 1px solid rgba(196, 149, 106, 0.35);
+    padding: 0.4rem 1rem;
+    margin-bottom: 2.5rem;
+    animation: fadeInDown 0.8s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--warm-clay);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 7vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    max-width: 900px;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.9s ease 0.1s both;
+  }
+
+  .hero-headline em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--warm-clay);
+  }
+
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: #5a5a5a;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.9s ease 0.2s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    animation: fadeInUp 0.9s ease 0.3s both;
+  }
+
+  .btn-primary {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1rem 2.2rem;
+    background: var(--ink);
+    color: var(--offwhite);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(26,26,26,0.18); }
+
+  .btn-ghost {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 1rem 1.8rem;
+    border: 1.5px solid rgba(26,26,26,0.25);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .btn-ghost:hover { border-color: var(--ink); background: rgba(26,26,26,0.04); }
+
+  .hero-visual {
+    margin-top: 5rem;
+    width: 100%;
+    max-width: 780px;
+    position: relative;
+    animation: fadeInUp 1s ease 0.4s both;
+  }
+
+  /* Seed phrase shard visual */
+  .shard-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .shard {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.7rem 1.2rem;
+    border: 1px solid rgba(26,26,26,0.12);
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(8px);
+    color: var(--ink);
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .shard:hover { transform: translateY(-4px); }
+  .shard.locked {
+    background: rgba(196, 149, 106, 0.08);
+    border-color: rgba(196, 149, 106, 0.3);
+    color: var(--warm-clay);
+  }
+  .shard.guardian {
+    background: rgba(168, 197, 192, 0.15);
+    border-color: rgba(168, 197, 192, 0.4);
+    color: #6a9e98;
+  }
+  .shard-label {
+    display: block;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+    margin-bottom: 0.2rem;
+  }
+
+  .shard-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(26,26,26,0.3);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    margin: 1.5rem 0;
+  }
+  .shard-divider::before, .shard-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(26,26,26,0.1);
+  }
+
+  /* ======= PROBLEM SECTION ======= */
+  #problem {
+    background: var(--sage);
+    padding: 8rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .problem-inner {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(26,26,26,0.45);
+    margin-bottom: 1.2rem;
+  }
+
+  .section-headline {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-headline em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .section-body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #3a3a3a;
+    font-weight: 300;
+  }
+
+  .problem-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .problem-card {
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(26,26,26,0.08);
+    padding: 1.5rem;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .problem-card:hover { transform: translateX(6px); }
+
+  .problem-card-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .problem-card h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+
+  .problem-card p {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .problem-stat {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+    margin-top: 2rem;
+    display: block;
+  }
+  .problem-stat-label {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.3rem;
+  }
+
+  /* ======= HOW IT WORKS SECTION ======= */
+  #how {
+    background: var(--dusty-rose);
+    padding: 8rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .how-header {
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 5rem;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 1100px;
+    width: 100%;
+    position: relative;
+  }
+
+  .steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 2.5rem;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: rgba(26,26,26,0.15);
+  }
+
+  .step {
+    padding: 0 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .step-num {
+    width: 5rem;
+    height: 5rem;
+    border: 1.5px solid rgba(26,26,26,0.2);
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ink);
+    margin: 0 auto 1.5rem;
+    position: relative;
+    z-index: 1;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .step:hover .step-num {
+    background: rgba(255,255,255,0.85);
+    transform: scale(1.08);
+  }
+
+  .step h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+  }
+
+  .step p {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: #4a3a35;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ======= CDR TECH SECTION ======= */
+  #tech {
+    background: var(--slate-blue);
+    padding: 8rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tech-inner {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .tech-code-block {
+    background: rgba(26, 26, 26, 0.85);
+    padding: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: #e0e0e0;
+    position: relative;
+  }
+
+  .tech-code-block::before {
+    content: '● ● ●';
+    display: block;
+    color: rgba(255,255,255,0.2);
+    font-size: 0.7rem;
+    letter-spacing: 0.3rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .code-comment { color: #7a9e8c; }
+  .code-key { color: #c9a96e; }
+  .code-val { color: #a8c5c0; }
+  .code-fn { color: #b8b2cc; }
+
+  .tech-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .tech-feat {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .tech-feat:last-child { border-bottom: none; }
+
+  .tech-feat-icon {
+    width: 2.8rem;
+    height: 2.8rem;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .tech-feat h4 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #F5F0E8;
+    margin-bottom: 0.3rem;
+  }
+
+  .tech-feat p {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ======= USE CASES SECTION ======= */
+  #usecases {
+    background: var(--pale-teal);
+    padding: 8rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .usecases-header {
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 4rem;
+  }
+
+  .usecase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .usecase-card {
+    background: rgba(255,255,255,0.4);
+    border: 1px solid rgba(26,26,26,0.08);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .usecase-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--warm-clay);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .usecase-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(26,26,26,0.1); }
+  .usecase-card:hover::after { transform: scaleX(1); }
+
+  .usecase-emoji { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+
+  .usecase-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  .usecase-card p {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: #3a3a3a;
+    font-weight: 300;
+  }
+
+  /* PLACEHOLDER: use stock image here — add <img> inside .usecase-card if needed */
+  .usecase-img-placeholder {
+    width: 100%;
+    height: 120px;
+    background: rgba(26,26,26,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: rgba(26,26,26,0.3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    border: 1px dashed rgba(26,26,26,0.12);
+  }
+
+  /* ======= GUARDIANS SECTION ======= */
+  #guardians {
+    background: var(--warm-clay);
+    padding: 8rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .guardians-header {
+    text-align: center;
+    max-width: 650px;
+    margin-bottom: 5rem;
+  }
+
+  .guardians-header .section-headline { color: #F5F0E8; }
+  .guardians-header .section-label { color: rgba(245,240,232,0.55); }
+  .guardians-header .section-body { color: rgba(245,240,232,0.75); }
+
+  .guardian-flow {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 1100px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .guardian-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .guardian-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(245,240,232,0.15);
+    border: 2px solid rgba(245,240,232,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .guardian-node:hover .guardian-avatar { transform: scale(1.1); }
+
+  .guardian-avatar.you {
+    background: rgba(245,240,232,0.25);
+    border-color: rgba(245,240,232,0.6);
+    width: 96px;
+    height: 96px;
+    font-size: 2.4rem;
+  }
+
+  .guardian-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.7);
+    text-align: center;
+  }
+
+  .guardian-connector {
+    width: 60px;
+    height: 1px;
+    background: rgba(245,240,232,0.25);
+    position: relative;
+  }
+  .guardian-connector::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -3px;
+    width: 6px;
+    height: 6px;
+    border-top: 1px solid rgba(245,240,232,0.4);
+    border-right: 1px solid rgba(245,240,232,0.4);
+    transform: rotate(45deg);
+  }
+
+  .shard-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(245,240,232,0.12);
+    border: 1px solid rgba(245,240,232,0.2);
+    color: rgba(245,240,232,0.8);
+    letter-spacing: 0.08em;
+  }
+
+  /* ======= TESTIMONIAL / TRUST ======= */
+  #trust {
+    background: var(--charcoal);
+    padding: 8rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .trust-header {
+    text-align: center;
+    max-width: 550px;
+    margin-bottom: 5rem;
+  }
+
+  .trust-header .section-headline { color: #F5F0E8; }
+  .trust-header .section-label { color: rgba(245,240,232,0.35); }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .testimonial {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 2.5rem;
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+  .testimonial:hover { border-color: rgba(201,169,110,0.35); }
+
+  .testimonial::before {
+    content: '"';
+    font-family: var(--font-serif);
+    font-size: 5rem;
+    color: rgba(201,169,110,0.2);
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    line-height: 1;
+  }
+
+  .testimonial-text {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.75);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    padding-top: 2rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(201,169,110,0.15);
+    border: 1px solid rgba(201,169,110,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .author-name {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #F5F0E8;
+  }
+  .author-role {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.4);
+    font-weight: 300;
+  }
+
+  /* ======= STATS BAND ======= */
+  .stats-band {
+    background: var(--muted-gold);
+    padding: 3.5rem 4rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 6rem;
+    max-width: 1100px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    display: block;
+  }
+
+  .stat-desc {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: rgba(26,26,26,0.55);
+    font-weight: 400;
+    margin-top: 0.2rem;
+  }
+
+  /* ======= CTA SECTION ======= */
+  #cta {
+    background: var(--offwhite);
+    padding: 9rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cta-headline {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: var(--ink);
+    max-width: 800px;
+    margin-bottom: 2rem;
+  }
+
+  .cta-headline em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--warm-clay);
+  }
+
+  .cta-sub {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: #5a5a5a;
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .cta-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-input {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 1rem 1.4rem;
+    border: 1.5px solid rgba(26,26,26,0.2);
+    background: rgba(255,255,255,0.7);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .cta-input::placeholder { color: rgba(26,26,26,0.35); }
+  .cta-input:focus { border-color: var(--warm-clay); }
+
+  .cta-submit {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1rem 1.8rem;
+    background: var(--ink);
+    color: var(--offwhite);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .cta-submit:hover { background: var(--warm-clay); }
+
+  .cta-note {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: rgba(26,26,26,0.35);
+    letter-spacing: 0.08em;
+  }
+
+  /* ======= FOOTER ======= */
+  footer {
+    background: var(--ink);
+    color: var(--offwhite);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .footer-marquee-wrap {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 1.2rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .footer-marquee {
+    display: inline-flex;
+    gap: 0;
+    animation: marquee 22s linear infinite;
+  }
+
+  .footer-marquee-text {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.18);
+    padding: 0 3rem;
+  }
+
+  .footer-marquee-text span {
+    color: var(--muted-gold);
+    margin: 0 1.5rem;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
+    gap: 4rem;
+    padding: 5rem 4rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .footer-brand h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+  }
+  .footer-brand h2 span { color: var(--muted-gold); }
+
+  .footer-brand p {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.45);
+    font-weight: 300;
+    max-width: 280px;
+    margin-bottom: 1.8rem;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .social-chip {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid rgba(245,240,232,0.12);
+    color: rgba(245,240,232,0.5);
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .social-chip:hover { border-color: var(--muted-gold); color: var(--muted-gold); }
+
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    margin-bottom: 1.3rem;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .footer-col a {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: rgba(245,240,232,0.55);
+    text-decoration: none;
+    font-weight: 300;
+    transition: color 0.2s ease;
+  }
+  .footer-col a:hover { color: var(--offwhite); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 4rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .footer-bottom-left {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: rgba(245,240,232,0.2);
+    letter-spacing: 0.08em;
+  }
+
+  .footer-bottom-right {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-bottom-right a {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: rgba(245,240,232,0.2);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+  .footer-bottom-right a:hover { color: var(--offwhite); }
+
+  /* Nythera unique footer visual element */
+  .footer-shard-visual {
+    padding: 3rem 4rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  .footer-shard-piece {
+    height: 2px;
+    flex: 1;
+    background: rgba(201, 169, 110, 0.15);
+    transition: background 0.3s ease, height 0.3s ease;
+    cursor: pointer;
+  }
+  .footer-shard-piece:hover {
+    background: var(--muted-gold);
+    height: 4px;
+  }
+
+  .footer-trust-badges {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 4rem;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.25);
+  }
+
+  .trust-badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(168, 197, 192, 0.4);
+  }
+
+  /* ======= ANIMATIONS ======= */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ======= SCROLLBAR ======= */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--warm-clay); }
+
+  /* ======= VIDEO PLACEHOLDER (for hero) ======= */
+  .video-placeholder {
+    width: 100%;
+    max-width: 680px;
+    height: 360px;
+    background: rgba(26,26,26,0.05);
+    border: 1px dashed rgba(26,26,26,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  .video-placeholder .play-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(26,26,26,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: background 0.3s ease;
+  }
+  .video-placeholder:hover .play-icon { background: rgba(196,149,106,0.1); }
+  .video-placeholder-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(26,26,26,0.3);
+  }
+
+  /* ======= RESPONSIVE ======= */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.8rem; }
+    .nav-links { display: none; }
+    section { min-height: auto; }
+    #hero { padding: 7rem 1.8rem 5rem; }
+    .problem-inner, .tech-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid::before { display: none; }
+    .usecase-grid { grid-template-columns: 1fr; }
+    .testimonial-grid { grid-template-columns: 1fr; }
+    .footer-main { grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 3rem 1.8rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; padding: 1.5rem 1.8rem; }
+    .stats-row { gap: 2.5rem; flex-wrap: wrap; }
+    #problem, #how, #tech, #usecases, #guardians, #trust, #cta { padding: 6rem 1.8rem; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ======= NAVBAR ======= -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">Nyth<span>era</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#tech">Technology</a></li>
+    <li><a href="#usecases">Use Cases</a></li>
+    <li><a href="#guardians">Guardians</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Join Waitlist</a>
+</nav>
+
+<!-- ======= HERO SECTION ======= -->
+<section id="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-badge">Decentralised Recovery Protocol · Web3</div>
+
+  <h1 class="hero-headline">
+    Your wallet.<br>
+    <em>Never lost.</em><br>
+    Never whole.
+  </h1>
+  <p class="hero-sub">
+    Nythera splits your seed phrase into encrypted shards distributed across trusted guardians — so no single point can ever be stolen, lost, or forgotten.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#cta" class="btn-primary">Start Recovery Setup</a>
+    <a href="#how" class="btn-ghost">See How It Works →</a>
+  </div>
+
+  <div class="hero-visual">
+    <!-- PLACEHOLDER: Replace .shard-container with a hero demo video or animated illustration -->
+    <div class="shard-container">
+      <div class="shard">
+        <span class="shard-label">Shard A · You</span>
+        word1 · word4 · word8
+      </div>
+      <div class="shard guardian">
+        <span class="shard-label">Shard B · Guardian 1</span>
+        word2 · word5 · word9
+      </div>
+      <div class="shard guardian">
+        <span class="shard-label">Shard C · Guardian 2</span>
+        word3 · word6 · word10
+      </div>
+      <div class="shard locked">
+        <span class="shard-label">Shard D · Timelock</span>
+        word7 · word11 · word12
+      </div>
+    </div>
+    <div class="shard-divider">
+      CDR-encrypted · 2-of-4 threshold · on-chain proof
+    </div>
+    <!-- PLACEHOLDER: Replace below with a product screenshot or video demo -->
+    <div class="video-placeholder">
+      <div class="play-icon">▶</div>
+      <span class="video-placeholder-label">placeholder · 2 min product walkthrough video</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======= PROBLEM SECTION ======= -->
+<section id="problem">
+  <div class="problem-inner">
+    <div>
+      <p class="section-label reveal">The Stakes</p>
+      <h2 class="section-headline reveal reveal-delay-1">
+        Billions locked.<br>
+        <em>Forever.</em>
+      </h2>
+      <p class="section-body reveal reveal-delay-2">
+        A single paper slip stands between your family and everything you've built on-chain. Most crypto holders have no backup plan. When wallets become inaccessible — through death, accident, or simply forgetting — those funds vanish from the world permanently.
+      </p>
+      <span class="problem-stat reveal reveal-delay-3">$140B+</span>
+      <p class="problem-stat-label reveal reveal-delay-3">estimated in permanently lost or inaccessible crypto</p>
+    </div>
+    <div class="problem-cards reveal reveal-delay-2">
+      <div class="problem-card">
+        <div class="problem-card-icon">🔥</div>
+        <h4>Single Point of Failure</h4>
+        <p>One piece of paper, one fire, one flood — and your entire portfolio is gone. Traditional seed phrase backup is catastrophically fragile.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon">⚰️</div>
+        <h4>Death & Incapacity</h4>
+        <p>Your family has no way to access your wallet after you're gone. There's no bank to call, no password reset — funds are locked forever.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon">🕵️</div>
+        <h4>Theft Risk</h4>
+        <p>Storing a full seed phrase anywhere — physically or digitally — creates a honeypot. One breach means total loss.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-icon">🧠</div>
+        <h4>Memory Failure</h4>
+        <p>Forgot where you stored it? People lose access to wallets worth thousands simply because life got in the way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= HOW IT WORKS SECTION ======= -->
+<section id="how">
+  <div class="how-header">
+    <p class="section-label reveal">The Protocol</p>
+    <h2 class="section-headline reveal reveal-delay-1">How Nythera <em>works</em></h2>
+    <p class="section-body reveal reveal-delay-2">Four steps to make your seed phrase undeniably secure and recoverable — without ever storing it whole in one place.</p>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <h4>Enter Seed Phrase</h4>
+      <p>Input your 12 or 24-word phrase locally in your browser. It never leaves your device unencrypted.</p>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <h4>CDR Shard Split</h4>
+      <p>Nythera uses CDR encryption to split your phrase into threshold shards — any subset can reconstruct, none alone is useful.</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <h4>Distribute to Guardians</h4>
+      <p>Each shard is sent to a trusted guardian — family, friend, or institutional key — via encrypted on-chain attestation.</p>
+    </div>
+    <div class="step reveal reveal-delay-3">
+      <div class="step-num">04</div>
+      <h4>Recover Anytime</h4>
+      <p>When needed, guardians submit their shards. Nythera reconstructs and hands back full wallet access — seamlessly.</p>
+    </div>
+  </div>
+
+  <!-- PLACEHOLDER: Add an animated flow diagram or infographic here -->
+  <div style="margin-top:4rem; width:100%; max-width:900px; height:180px; background:rgba(26,26,26,0.06); display:flex; align-items:center; justify-content:center; border:1px dashed rgba(26,26,26,0.12);">
+    <span style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,26,26,0.3);">placeholder · animated protocol flow diagram</span>
+  </div>
+</section>
+
+<!-- ======= CDR TECHNOLOGY SECTION ======= -->
+<section id="tech">
+  <div class="tech-inner">
+    <div>
+      <p class="section-label reveal" style="color:rgba(245,240,232,0.4)">The Engine</p>
+      <h2 class="section-headline reveal reveal-delay-1" style="color:#F5F0E8;">Built on <em>CDR</em></h2>
+      <p class="section-body reveal reveal-delay-2" style="color:rgba(245,240,232,0.65)">
+        Nythera is powered by CDR (Content-Defined Recovery) — a cryptographic standard that makes split secret storage verifiable on-chain. Your shards are not just encrypted; they carry proof of authenticity and threshold logic baked in at the protocol level.
+      </p>
+      <div class="tech-features reveal reveal-delay-3">
+        <div class="tech-feat">
+          <div class="tech-feat-icon">🔐</div>
+          <div>
+            <h4>Threshold Secret Sharing</h4>
+            <p>2-of-3, 3-of-5, or custom quorums. Recovery only possible with your defined minimum of guardian shards.</p>
+          </div>
+        </div>
+        <div class="tech-feat">
+          <div class="tech-feat-icon">⛓️</div>
+          <div>
+            <h4>On-Chain Attestation</h4>
+            <p>Shard delivery and guardian acceptance are recorded as verifiable on-chain proofs — no central server required.</p>
+          </div>
+        </div>
+        <div class="tech-feat">
+          <div class="tech-feat-icon">⏰</div>
+          <div>
+            <h4>Inactivity Triggers</h4>
+            <p>Set time-based unlock conditions. If you don't check in for 12 months, guardians are automatically notified to begin recovery.</p>
+          </div>
+        </div>
+        <div class="tech-feat">
+          <div class="tech-feat-icon">🌐</div>
+          <div>
+            <h4>Chain Agnostic</h4>
+            <p>Works across EVM chains, Solana, and beyond. Your recovery vault is not tied to any single network.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="tech-code-block">
+        <span class="code-comment">// Nythera CDR shard creation</span><br>
+        <span class="code-fn">const</span> vault = <span class="code-fn">await</span> nythera.<span class="code-key">createVault</span>({<br>
+        &nbsp;&nbsp;<span class="code-key">seedPhrase</span>: userInput,<br>
+        &nbsp;&nbsp;<span class="code-key">threshold</span>: <span class="code-val">2</span>,<br>
+        &nbsp;&nbsp;<span class="code-key">guardians</span>: [<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-val">"0xAlice..."</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-val">"0xBob..."</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-val">"0xCarol..."</span><br>
+        &nbsp;&nbsp;],<br>
+        &nbsp;&nbsp;<span class="code-key">inactivityDays</span>: <span class="code-val">365</span><br>
+        });<br><br>
+        <span class="code-comment">// Shards distributed. Phrase never stored whole.</span><br>
+        <span class="code-fn">console</span>.<span class="code-key">log</span>(vault.<span class="code-val">onChainProof</span>);<br>
+        <span class="code-comment">// → "ipfs://Qm4n7h3r4..."</span><br><br>
+        <span class="code-comment">// Recovery — any 2 guardians submit:</span><br>
+        <span class="code-fn">const</span> recovered = <span class="code-fn">await</span> nythera.<span class="code-key">recover</span>({<br>
+        &nbsp;&nbsp;<span class="code-key">shards</span>: [aliceShard, bobShard],<br>
+        &nbsp;&nbsp;<span class="code-key">proof</span>: vault.onChainProof<br>
+        });<br>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= USE CASES SECTION ======= -->
+<section id="usecases">
+  <div class="usecases-header">
+    <p class="section-label reveal">Who It's For</p>
+    <h2 class="section-headline reveal reveal-delay-1">Every wallet.<br><em>Every situation.</em></h2>
+    <p class="section-body reveal reveal-delay-2">Whether you're a degen, an institution, or a family — Nythera secures what matters.</p>
+  </div>
+
+  <div class="usecase-grid">
+    <div class="usecase-card reveal">
+      <!-- PLACEHOLDER: Replace with a relevant stock image (e.g. person with laptop, crypto UI) -->
+      <div class="usecase-img-placeholder">placeholder · stock image · defi user</div>
+      <span class="usecase-emoji">💀</span>
+      <h3>Estate Planning for Degens</h3>
+      <p>Set up guardian shards with your lawyer and family member. Your portfolio survives you, without them ever seeing your full seed phrase.</p>
+    </div>
+    <div class="usecase-card reveal reveal-delay-1">
+      <!-- PLACEHOLDER: Replace with a relevant stock image (e.g. family, trust, legal) -->
+      <div class="usecase-img-placeholder">placeholder · stock image · family / estate</div>
+      <span class="usecase-emoji">👨‍👩‍👧</span>
+      <h3>Family Inheritance</h3>
+      <p>Designate family members as guardians with delayed inactivity triggers. Your wealth transfers seamlessly — no seed phrase handed over today.</p>
+    </div>
+    <div class="usecase-card reveal reveal-delay-2">
+      <!-- PLACEHOLDER: Replace with a relevant stock image (e.g. team, institutional, office) -->
+      <div class="usecase-img-placeholder">placeholder · stock image · institutional / team</div>
+      <span class="usecase-emoji">🏛️</span>
+      <h3>DAO Treasury Recovery</h3>
+      <p>Multisig recovery for protocol treasuries. Set M-of-N guardian thresholds across council members. No single admin can lock everyone out.</p>
+    </div>
+    <div class="usecase-card reveal reveal-delay-1">
+      <!-- PLACEHOLDER: Replace with relevant stock image -->
+      <div class="usecase-img-placeholder">placeholder · stock image · travel / mobile</div>
+      <span class="usecase-emoji">✈️</span>
+      <h3>Travel & Disaster Backup</h3>
+      <p>Lost your hardware wallet abroad? Two guardians can help you recover within minutes — from anywhere in the world, on any device.</p>
+    </div>
+    <div class="usecase-card reveal reveal-delay-2">
+      <!-- PLACEHOLDER: Replace with relevant stock image -->
+      <div class="usecase-img-placeholder">placeholder · stock image · startup / builder</div>
+      <span class="usecase-emoji">🏗️</span>
+      <h3>Startup Founder Vaults</h3>
+      <p>Protect team wallets holding vested tokens. Recovery requires co-founder approval — preventing both theft and single-point loss.</p>
+    </div>
+    <div class="usecase-card reveal reveal-delay-3">
+      <!-- PLACEHOLDER: Replace with relevant stock image -->
+      <div class="usecase-img-placeholder">placeholder · stock image · elderly / accessibility</div>
+      <span class="usecase-emoji">🧓</span>
+      <h3>Non-Technical Users</h3>
+      <p>Set up recovery for a parent or grandparent. They never touch seed phrases — guardians handle everything through a simple approve flow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======= GUARDIANS SECTION ======= -->
+<section id="guardians">
+  <div class="guardians-header">
+    <p class="section-label reveal">The Guardian Model</p>
+    <h2 class="section-headline reveal reveal-delay-1">Trust by design.<br><em>Not by default.</em></h2>
+    <p class="section-body reveal reveal-delay-2">Your guardians never see your full seed phrase — only an encrypted shard that's useless alone. Recovery requires threshold consensus, not trust in any single person.</p>
+  </div>
+
+  <div class="guardian-flow reveal reveal-delay-2">
+    <div class="guardian-node">
+      <div class="guardian-avatar you">🧑</div>
+      <div class="guardian-label">You</div>
+      <div class="shard-badge">Shard A</div>
+    </div>
+    <div class="guardian-connector"></div>
+    <div class="guardian-node">
+      <div class="guardian-avatar">👩</div>
+      <div class="guardian-label">Guardian 1<br>Family</div>
+      <div class="shard-badge">Shard B</div>
+    </div>
+    <div class="guardian-connector"></div>
+    <div class="guardian-node">
+      <div class="guardian-avatar">🧑‍💻</div>
+      <div class="guardian-label">Guardian 2<br>Friend / Dev</div>
+      <div class="shard-badge">Shard C</div>
+    </div>
+    <div class="guardian-connector"></div>
+    <div class="guardian-node">
+      <div class="guardian-avatar">🏛️</div>
+      <div class="guardian-label">Guardian 3<br>Lawyer / Notary</div>
+      <div class="shard-badge">Shard D</div>
+    </div>
+    <div class="guardian-connector"></div>
+    <div class="guardian-node">
+      <div class="guardian-avatar">⏰</div>
+      <div class="guardian-label">Timelock<br>Trigger</div>
+      <div class="shard-badge">Auto</div>
+    </div>
+  </div>
+
+  <p style="margin-top:3.5rem; font-family:var(--font-mono); font-size:0.7rem; color:rgba(245,240,232,0.4); letter-spacing:0.12em; text-align:center;" class="reveal reveal-delay-3">
+    2-OF-4 THRESHOLD REQUIRED · ANY COMBINATION WORKS · ZERO TRUST IN INDIVIDUALS
+  </p>
+</section>
+
+<!-- ======= STATS BAND ======= -->
+<div class="stats-band">
+  <div class="stats-row">
+    <div class="stat-item reveal">
+      <span class="stat-num">0</span>
+      <span class="stat-desc">Times your full phrase is stored anywhere</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <span class="stat-num">∞</span>
+      <span class="stat-desc">Guardian combinations supported</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <span class="stat-num">2-of-N</span>
+      <span class="stat-desc">Minimum threshold for recovery</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <span class="stat-num">100%</span>
+      <span class="stat-desc">Non-custodial. Your keys, always.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======= TRUST / TESTIMONIALS ======= -->
+<section id="trust">
+  <div class="trust-header">
+    <p class="section-label reveal">Early Believers</p>
+    <h2 class="section-headline reveal reveal-delay-1">
+      The community <em>speaks.</em>
+    </h2>
+  </div>
+
+  <div class="testimonial-grid">
+    <div class="testimonial reveal">
+      <p class="testimonial-text">I lost 3 ETH because I spilled coffee on my seed phrase notebook. Nythera is exactly what the space needed — decentralized recovery that actually makes sense.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">🦊</div>
+        <div>
+          <div class="author-name">@defi_ramesh.eth</div>
+          <div class="author-role">DeFi Yield Farmer · Mumbai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <p class="testimonial-text">I've been setting up estate planning for my crypto holdings for years with no good solution. This is the first protocol that handles it at the cryptographic layer, not just trust.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">⚖️</div>
+        <div>
+          <div class="author-name">Sarah K.</div>
+          <div class="author-role">Web3 Lawyer · Singapore</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <p class="testimonial-text">Set this up for our DAO treasury in 20 minutes. Six guardians, 4-of-6 threshold. Feels like the kind of security that should have been standard from day one.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">🏛️</div>
+        <div>
+          <div class="author-name">@0xcoordinator</div>
+          <div class="author-role">DAO Treasurer · Protocol Labs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLACEHOLDER: Add press logos / as seen in badges here -->
+  <div style="margin-top:4rem; display:flex; gap:2rem; justify-content:center; flex-wrap:wrap;" class="reveal">
+    <span style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(245,240,232,0.15);">placeholder · press logo 1</span>
+    <span style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(245,240,232,0.15);">placeholder · press logo 2</span>
+    <span style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(245,240,232,0.15);">placeholder · press logo 3</span>
+    <span style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(245,240,232,0.15);">placeholder · press logo 4</span>
+  </div>
+</section>
+
+<!-- ======= CTA SECTION ======= -->
+<section id="cta">
+  <p class="section-label reveal">Early Access</p>
+  <h2 class="cta-headline reveal reveal-delay-1">
+    Secure your legacy.<br>
+    <em>Before it's too late.</em>
+  </h2>
+  <p class="cta-sub reveal reveal-delay-2">Join the waitlist for Nythera. First 1,000 users get lifetime free shard hosting and priority onboarding.</p>
+  <div class="cta-form reveal reveal-delay-3">
+    <input type="email" class="cta-input" placeholder="your@email.com">
+    <button class="cta-submit">Join Waitlist</button>
+  </div>
+  <span class="cta-note reveal reveal-delay-3">No spam. No seed phrase required. Just your email.</span>
+</section>
+
+<!-- ======= FOOTER ======= -->
+<footer>
+  <!-- Scrolling marquee -->
+  <div class="footer-marquee-wrap">
+    <div class="footer-marquee">
+      <span class="footer-marquee-text">Decentralised Recovery <span>✦</span> CDR Encrypted <span>✦</span> No Single Point of Failure <span>✦</span> Guardian Protocol <span>✦</span> On-Chain Proof <span>✦</span> Threshold Secret Sharing <span>✦</span> Your Keys. Always. <span>✦</span> Decentralised Recovery <span>✦</span> CDR Encrypted <span>✦</span> No Single Point of Failure <span>✦</span> Guardian Protocol <span>✦</span> On-Chain Proof <span>✦</span> Threshold Secret Sharing <span>✦</span> Your Keys. Always. <span>✦</span></span>
+      <span class="footer-marquee-text" aria-hidden="true">Decentralised Recovery <span>✦</span> CDR Encrypted <span>✦</span> No Single Point of Failure <span>✦</span> Guardian Protocol <span>✦</span> On-Chain Proof <span>✦</span> Threshold Secret Sharing <span>✦</span> Your Keys. Always. <span>✦</span> Decentralised Recovery <span>✦</span> CDR Encrypted <span>✦</span> No Single Point of Failure <span>✦</span> Guardian Protocol <span>✦</span> On-Chain Proof <span>✦</span> Threshold Secret Sharing <span>✦</span> Your Keys. Always. <span>✦</span></span>
+    </div>
+  </div>
+
+  <!-- Shard visual bar — interactive hover -->
+  <div class="footer-shard-visual" id="shardBar">
+    <!-- Generated by JS -->
+  </div>
+
+  <!-- Main footer grid -->
+  <div class="footer-main">
+    <div class="footer-brand">
+      <h2>Nyth<span>era</span></h2>
+      <p>The first decentralized emergency wallet recovery protocol. Split. Distribute. Recover. Your phrase — never whole, never lost.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-chip">Twitter</a>
+        <a href="#" class="social-chip">Discord</a>
+        <a href="#" class="social-chip">GitHub</a>
+        <a href="#" class="social-chip">Docs</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Protocol</h4>
+      <ul>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">CDR Technology</a></li>
+        <li><a href="#">Guardian Model</a></li>
+        <li><a href="#">Security Audit</a></li>
+        <li><a href="#">Whitepaper</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#">Web App</a></li>
+        <li><a href="#">Mobile (soon)</a></li>
+        <li><a href="#">SDK / API</a></li>
+        <li><a href="#">Integrations</a></li>
+        <li><a href="#">Pricing</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Nythera</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press Kit</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Trust badges row -->
+  <div class="footer-trust-badges">
+    <div class="trust-badge"><span class="trust-badge-dot"></span>Non-Custodial</div>
+    <div class="trust-badge"><span class="trust-badge-dot"></span>Open Source</div>
+    <div class="trust-badge"><span class="trust-badge-dot"></span>Audited Protocol</div>
+    <div class="trust-badge"><span class="trust-badge-dot"></span>EVM Compatible</div>
+    <div class="trust-badge"><span class="trust-badge-dot"></span>Solana Compatible</div>
+    <div class="trust-badge"><span class="trust-badge-dot"></span>CDR Powered</div>
+    <div class="trust-badge"><span class="trust-badge-dot"></span>GDPR Compliant</div>
+  </div>
+
+  <!-- Footer bottom -->
+  <div class="footer-bottom">
+    <span class="footer-bottom-left">© 2025 Nythera Protocol · All rights reserved · Built with CDR</span>
+    <div class="footer-bottom-right">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Security</a>
+      <a href="#">Status</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ======= JAVASCRIPT ======= -->
+<script>
+  // ======= NAV COLOR CHANGE ON SCROLL =======
+  const nav = document.getElementById('main-nav');
+  const sections = [
+    { id: 'hero',      cls: '' },
+    { id: 'problem',   cls: 'nav-sage' },
+    { id: 'how',       cls: 'nav-rose' },
+    { id: 'tech',      cls: 'nav-slate' },
+    { id: 'usecases',  cls: 'nav-teal' },
+    { id: 'guardians', cls: 'nav-clay' },
+    { id: 'trust',     cls: 'nav-dark' },
+    { id: 'cta',       cls: '' },
+  ];
+
+  function updateNav() {
+    const scrollY = window.scrollY;
+    let active = sections[0];
+    for (const s of sections) {
+      const el = document.getElementById(s.id);
+      if (el && el.getBoundingClientRect().top <= 80) active = s;
+    }
+    nav.className = 'nav-' + active.id !== 'nav-' ? active.cls : '';
+    // Reset all classes
+    nav.className = active.cls;
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // ======= SCROLL REVEAL =======
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // ======= INTERACTIVE SHARD BAR IN FOOTER =======
+  const shardBar = document.getElementById('shardBar');
+  for (let i = 0; i < 120; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'footer-shard-piece';
+    // Subtle random heights for visual interest
+    const h = Math.random() > 0.85 ? 4 : 2;
+    piece.style.height = h + 'px';
+    shardBar.appendChild(piece);
+  }
+
+  // ======= HERO SHARDS FLOAT ANIMATION =======
+  const shards = document.querySelectorAll('.shard');
+  shards.forEach((shard, i) => {
+    shard.style.animation = `float${i} ${3 + i * 0.4}s ease-in-out infinite alternate`;
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float${i} {
+        from { transform: translateY(0px); }
+        to { transform: translateY(-${6 + i * 2}px); }
+      }
+    `;
+    document.head.appendChild(style);
+  });
+
+  // ======= WAITLIST FORM =======
+  const input = document.querySelector('.cta-input');
+  const submit = document.querySelector('.cta-submit');
+  submit.addEventListener('click', () => {
+    if (input.value.includes('@')) {
+      submit.textContent = 'You\'re in ✦';
+      submit.style.background = '#A8C5C0';
+      input.value = '';
+      input.placeholder = 'Waitlist confirmed!';
+      input.disabled = true;
+      submit.disabled = true;
+    } else {
+      input.style.borderColor = '#C4956A';
+      input.placeholder = 'Valid email please';
+    }
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submit.click();
+  });
+</script>
+
+</body>
+</html>
