@@ -238,118 +238,113 @@ function HeroVaultVisual() {
 
   return (
     <div className="relative mx-auto w-full max-w-[560px] aspect-square">
-      {/* Container frame */}
-      <div className="absolute inset-0 border border-ink/[0.12] bg-offwhite/80 backdrop-blur-sm shadow-[0_12px_40px_rgba(26,26,26,0.07)]">
 
-        {/* ── Ambient Particles ── */}
-        {particles.map((p, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-muted-gold/60 z-10"
-            style={{
-              width: p.size,
-              height: p.size,
-              left: p.left,
-              bottom: '20%',
-              animation: `particleDrift ${p.duration} ease-in-out ${p.delay} infinite`,
-            }}
-          />
-        ))}
+      {/* ── Ambient Particles ── */}
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full bg-muted-gold/60 z-10"
+          style={{
+            width: p.size,
+            height: p.size,
+            left: p.left,
+            bottom: '20%',
+            animation: `particleDrift ${p.duration} ease-in-out ${p.delay} infinite`,
+          }}
+        />
+      ))}
 
-        {/* ── Vault Core ── */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-          {/* Outer glow ring */}
-          <div className="absolute -inset-8 rounded-full border border-muted-gold/10 hero-rune-glow" />
+      {/* ── Vault Core ── */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+        {/* Outer glow ring */}
+        <div className="absolute -inset-8 rounded-full border border-muted-gold/10 hero-rune-glow" />
 
-          {/* Core */}
-          <div className="hero-vault-core relative grid h-[88px] w-[88px] place-items-center border-2 border-muted-gold/50 bg-offwhite shadow-[0_0_40px_rgba(201,169,110,0.18)]">
-            <div className="text-center">
-              <span className="block font-display text-[0.7rem] font-bold uppercase tracking-[0.1em] text-ink/70">Vault</span>
-            </div>
-            {/* Corner accents */}
-            <span className="absolute -left-1 -top-1 h-3 w-3 border-l-2 border-t-2 border-muted-gold/40" />
-            <span className="absolute -right-1 -top-1 h-3 w-3 border-r-2 border-t-2 border-muted-gold/40" />
-            <span className="absolute -bottom-1 -left-1 h-3 w-3 border-b-2 border-l-2 border-muted-gold/40" />
-            <span className="absolute -bottom-1 -right-1 h-3 w-3 border-b-2 border-r-2 border-muted-gold/40" />
+        {/* Core */}
+        <div className="hero-vault-core relative grid h-[88px] w-[88px] place-items-center border-2 border-muted-gold/50 bg-offwhite shadow-[0_0_40px_rgba(201,169,110,0.18)]">
+          <div className="text-center">
+            <span className="block font-display text-[0.7rem] font-bold uppercase tracking-[0.1em] text-ink/70">Vault</span>
           </div>
+          {/* Corner accents */}
+          <span className="absolute -left-1 -top-1 h-3 w-3 border-l-2 border-t-2 border-muted-gold/40" />
+          <span className="absolute -right-1 -top-1 h-3 w-3 border-r-2 border-t-2 border-muted-gold/40" />
+          <span className="absolute -bottom-1 -left-1 h-3 w-3 border-b-2 border-l-2 border-muted-gold/40" />
+          <span className="absolute -bottom-1 -right-1 h-3 w-3 border-b-2 border-r-2 border-muted-gold/40" />
         </div>
+      </div>
 
-        {/* â”€â”€ Orbit Ring 1 (innermost) â”€â”€ */}
-        <div
-          className="hero-orbit absolute left-1/2 top-1/2 rounded-full border border-dashed border-ink/[0.08]"
-          style={{ width: '52%', height: '52%', '--orbit-duration': '30s' } as React.CSSProperties}
-        >
-          <span className="absolute -top-1 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-pale-teal/60 shadow-[0_0_8px_rgba(168,197,192,0.4)]" />
-        </div>
+      {/* ── Orbit Ring 1 (innermost) ── */}
+      <div
+        className="hero-orbit absolute left-1/2 top-1/2 rounded-full border border-dashed border-ink/[0.08]"
+        style={{ width: '52%', height: '52%', '--orbit-duration': '30s' } as React.CSSProperties}
+      >
+        <span className="absolute -top-1 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-pale-teal/60 shadow-[0_0_8px_rgba(168,197,192,0.4)]" />
+      </div>
 
-        {/* â”€â”€ Orbit Ring 2 (middle) â”€â”€ */}
-        <div
-          className="hero-orbit-reverse absolute left-1/2 top-1/2 rounded-full border border-ink/[0.06]"
-          style={{ width: '72%', height: '72%', '--orbit-duration': '22s' } as React.CSSProperties}
-        >
-          <span className="absolute -right-1 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-muted-gold/50 shadow-[0_0_10px_rgba(201,169,110,0.4)]" />
-          <span className="absolute -left-1 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-warm-clay/40" />
-        </div>
+      {/* ── Orbit Ring 2 (middle) ── */}
+      <div
+        className="hero-orbit-reverse absolute left-1/2 top-1/2 rounded-full border border-ink/[0.06]"
+        style={{ width: '72%', height: '72%', '--orbit-duration': '22s' } as React.CSSProperties}
+      >
+        <span className="absolute -right-1 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-muted-gold/50 shadow-[0_0_10px_rgba(201,169,110,0.4)]" />
+        <span className="absolute -left-1 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-warm-clay/40" />
+      </div>
 
-        {/* â”€â”€ Orbit Ring 3 (outermost) â”€â”€ */}
-        <div
-          className="hero-orbit absolute left-1/2 top-1/2 rounded-full border border-dashed border-ink/[0.05]"
-          style={{ width: '90%', height: '90%', '--orbit-duration': '35s' } as React.CSSProperties}
-        >
-          <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-lavender-grey/50 shadow-[0_0_8px_rgba(184,178,204,0.3)]" />
-        </div>
+      {/* ── Orbit Ring 3 (outermost) ── */}
+      <div
+        className="hero-orbit absolute left-1/2 top-1/2 rounded-full border border-dashed border-ink/[0.05]"
+        style={{ width: '90%', height: '90%', '--orbit-duration': '35s' } as React.CSSProperties}
+      >
+        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-lavender-grey/50 shadow-[0_0_8px_rgba(184,178,204,0.3)]" />
+      </div>
 
-        {/* â”€â”€ Guardian Nodes â”€â”€ */}
+      {/* ── Guardian Nodes ── */}
+      {guardians.map((g) => {
+        const rad = (g.angle * Math.PI) / 180;
+        const radius = 42;
+        const x = 50 + radius * Math.cos(rad);
+        const y = 50 + radius * Math.sin(rad);
+        return (
+          <div
+            key={g.label}
+            className="absolute z-10 flex flex-col items-center gap-1.5 transition-transform duration-500 hover:scale-110"
+            style={{
+              left: `${x}%`,
+              top: `${y}%`,
+              transform: 'translate(-50%, -50%)',
+            }}
+          >
+            <div className="flex min-w-[80px] flex-col items-center border border-ink/[0.08] bg-offwhite/80 px-3 py-2 text-center backdrop-blur-sm shadow-[0_8px_20px_rgba(26,26,26,0.04)]">
+              <span className={`h-1.5 w-1.5 rounded-full ${g.color}`} />
+              <span className="mt-1.5 font-mono text-[0.54rem] uppercase tracking-[0.12em] text-ink/45">{g.label}</span>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* ── Data flow lines (SVG) ── */}
+      <svg className="absolute inset-0 w-full h-full z-[5] pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
         {guardians.map((g) => {
           const rad = (g.angle * Math.PI) / 180;
           const radius = 42;
           const x = 50 + radius * Math.cos(rad);
           const y = 50 + radius * Math.sin(rad);
           return (
-            <div
+            <line
               key={g.label}
-              className="absolute z-10 flex flex-col items-center gap-1.5 transition-transform duration-500 hover:scale-110"
-              style={{
-                left: `${x}%`,
-                top: `${y}%`,
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <div className="flex min-w-[80px] flex-col items-center border border-ink/[0.08] bg-white/60 px-3 py-2 text-center backdrop-blur-sm shadow-[0_8px_20px_rgba(26,26,26,0.04)]">
-                <span className={`h-1.5 w-1.5 rounded-full ${g.color}`} />
-                <span className="mt-1.5 font-mono text-[0.54rem] uppercase tracking-[0.12em] text-ink/45">{g.label}</span>
-              </div>
-            </div>
+              x1="50" y1="50"
+              x2={x} y2={y}
+              stroke="rgba(201,169,110,0.12)"
+              strokeWidth="0.3"
+              strokeDasharray="2 2"
+              style={{ animation: 'dataFlowDash 1.5s linear infinite' }}
+            />
           );
         })}
+      </svg>
 
-        {/* â”€â”€ Data flow lines (SVG) â”€â”€ */}
-        <svg className="absolute inset-0 w-full h-full z-[5] pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-          {guardians.map((g) => {
-            const rad = (g.angle * Math.PI) / 180;
-            const radius = 42;
-            const x = 50 + radius * Math.cos(rad);
-            const y = 50 + radius * Math.sin(rad);
-            return (
-              <line
-                key={g.label}
-                x1="50" y1="50"
-                x2={x} y2={y}
-                stroke="rgba(201,169,110,0.12)"
-                strokeWidth="0.3"
-                strokeDasharray="2 2"
-                style={{ animation: 'dataFlowDash 1.5s linear infinite' }}
-              />
-            );
-          })}
-        </svg>
-
-        {/* Cross-hairs */}
-        <div className="absolute inset-x-8 top-1/2 h-px bg-gradient-to-r from-transparent via-ink/[0.06] to-transparent" />
-        <div className="absolute inset-y-8 left-1/2 w-px bg-gradient-to-b from-transparent via-ink/[0.06] to-transparent" />
-
-      </div>
-
+      {/* Cross-hairs */}
+      <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-ink/[0.05] to-transparent" />
+      <div className="absolute inset-y-0 left-1/2 w-px bg-gradient-to-b from-transparent via-ink/[0.05] to-transparent" />
 
     </div>
   );
