@@ -238,11 +238,8 @@ function HeroVaultVisual() {
 
   return (
     <div className="relative mx-auto w-full max-w-[560px] aspect-square">
-      {/* Container frame — frosted glass with warm gradient for depth */}
-      <div className="absolute inset-0 rounded-sm border border-ink/[0.10] backdrop-blur-[2px] shadow-[0_8px_32px_rgba(26,26,26,0.06),0_1px_3px_rgba(26,26,26,0.04),20px_0_0_rgba(201,169,110,0.06),0_20px_0_rgba(201,169,110,0.06)]" style={{ background: 'linear-gradient(145deg, rgba(250,247,240,0.92) 0%, rgba(245,240,232,0.96) 100%)' }}>
-
-        {/* Subtle inner glow to lift card off the grid */}
-        <div className="absolute inset-0 rounded-sm" style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(26,26,26,0.02)' }} />
+      {/* Container frame */}
+      <div className="absolute inset-0 border border-ink/[0.12] bg-offwhite/80 backdrop-blur-sm shadow-[0_12px_40px_rgba(26,26,26,0.07)]">
 
         {/* ── Ambient Particles ── */}
         {particles.map((p, i) => (
@@ -265,7 +262,7 @@ function HeroVaultVisual() {
           <div className="absolute -inset-8 rounded-full border border-muted-gold/10 hero-rune-glow" />
 
           {/* Core */}
-          <div className="hero-vault-core relative grid h-[88px] w-[88px] place-items-center border-2 border-muted-gold/50 shadow-[0_0_40px_rgba(201,169,110,0.18),0_4px_16px_rgba(26,26,26,0.05)]" style={{ background: 'linear-gradient(145deg, rgba(252,249,243,0.98) 0%, rgba(245,240,232,1) 100%)' }}>
+          <div className="hero-vault-core relative grid h-[88px] w-[88px] place-items-center border-2 border-muted-gold/50 bg-offwhite shadow-[0_0_40px_rgba(201,169,110,0.18)]">
             <div className="text-center">
               <span className="block font-display text-[0.7rem] font-bold uppercase tracking-[0.1em] text-ink/70">Vault</span>
             </div>
