@@ -38,44 +38,91 @@ function ConnectedAppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { authenticated } = usePrivy();
+  const { authenticated, login } = usePrivy();
   const { activeAddress: address } = useNytheraWallet();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   if (!authenticated) {
     return (
-      <div className="ny-app-shell relative flex min-h-screen items-center justify-center overflow-hidden px-4 text-ink">
-        <div className="pointer-events-none fixed inset-0">
-          <div className="nythera-noise absolute inset-0 opacity-[0.035]" />
+      <div className="relative flex min-h-screen flex-col justify-between bg-offwhite px-6 py-8 text-ink">
+        {/* Subtle noise background */}
+        <div className="pointer-events-none fixed inset-0 z-0">
+          <div className="nythera-noise absolute inset-0 opacity-[0.03]" />
         </div>
 
-        <div className="ny-panel relative z-10 mx-auto w-full max-w-[420px] p-6 md:p-7">
-          <div className="mb-6 flex flex-col items-center text-center">
-            <div className="mb-3 grid h-9 w-9 place-items-center rounded-lg bg-warm-clay/12 text-warm-clay">
-              <LockIcon size={18} />
+        {/* Top Header: Logo */}
+        <header className="relative z-10 mx-auto w-full max-w-7xl">
+          <Link href="/" className="font-cinzel text-xl font-extrabold tracking-[-0.03em] text-ink hover:opacity-80 transition-opacity">
+            nythera
+          </Link>
+        </header>
+
+        {/* Centered Sign In Card */}
+        <main className="relative z-10 flex-1 flex flex-col items-center justify-center my-10">
+          <div className="w-full max-w-[500px] rounded-[24px] border border-ink/[0.06] bg-white p-8 sm:p-10 md:p-12 shadow-[0_20px_50px_rgba(26,26,26,0.035)]">
+            <h1 className="font-display text-[2rem] font-bold text-ink leading-tight mb-8">
+              Sign in
+            </h1>
+
+            {/* Input 1: Connect Wallet (styled like Slite input field) */}
+            <div className="space-y-2">
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-ink/45">
+                Connect your identity
+              </label>
+              <button
+                onClick={login}
+                className="group w-full flex items-center justify-between rounded-xl border border-ink/[0.12] bg-white px-4 py-3.5 text-left text-sm text-ink/40 transition-all hover:border-ink hover:text-ink/80 hover:shadow-sm cursor-pointer"
+              >
+                <span>name@company.com / connect wallet</span>
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-ink/5 text-ink transition-colors group-hover:bg-ink group-hover:text-offwhite">
+                  <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none">
+                    <path d="M4.5 11.5L11.5 4.5M6 4.5H11.5V10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </button>
+              <p className="text-[11px] leading-relaxed text-ink/40 mt-1.5">
+                Enter your email or connect a wallet. Nythera secures your access with keyless and non-custodial cryptography.
+              </p>
             </div>
-            <div>
-              <p className="ny-label">Sign in required</p>
-              <p className="mt-1 text-xs text-ink/50">Create or open your recovery account</p>
+
+            {/* Elegant Divider */}
+            <div className="relative my-8 text-center">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-ink/[0.08]" />
+              </div>
+              <span className="relative bg-white px-4 font-mono text-[10px] uppercase tracking-widest text-ink/35">
+                or
+              </span>
+            </div>
+
+            {/* Input 2: Recovery Domain (styled like Slite subdomain input field) */}
+            <div className="space-y-2">
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-ink/45">
+                Use your recovery domain
+              </label>
+              <Link
+                href="/recover"
+                className="w-full flex items-center justify-between rounded-xl border border-ink/[0.12] bg-white px-4 py-3.5 text-left text-sm text-ink/40 transition-all hover:border-ink hover:text-ink/80 hover:shadow-sm"
+              >
+                <span>vault-subdomain</span>
+                <span className="font-mono text-xs text-ink/45 bg-ink/5 px-2 py-0.5 rounded">.nythera</span>
+              </Link>
             </div>
           </div>
 
-          <h2 className="ny-heading text-xl text-center">
-            Sign in to Nythera
-          </h2>
-
-          <p className="mt-3 text-sm leading-6 text-ink/60 text-center">
-            Use email, Google, or an existing wallet. Nythera will create an in-app wallet for email signups where supported.
+          {/* Under-card Text */}
+          <p className="mt-8 text-center text-xs text-ink/50">
+            Need to secure a new seed phrase?{' '}
+            <Link href="/#how-it-works" className="underline underline-offset-2 font-medium text-ink/70 hover:text-ink transition-colors">
+              Learn how it works
+            </Link>
           </p>
+        </main>
 
-          <div className="mt-6 flex justify-center">
-            <WalletButton />
-          </div>
-
-          <p className="mt-6 border-t border-ink/[0.08] pt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/45 text-center">
-            Encrypted recovery vaults
-          </p>
-        </div>
+        {/* Footer */}
+        <footer className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-center text-[10px] uppercase tracking-wider text-ink/30 font-mono">
+          <span>© {new Date().getFullYear()} Nythera — Encrypted Recovery Vaults</span>
+        </footer>
       </div>
     );
   }
