@@ -100,6 +100,16 @@ export default function RecoverPage() {
   const [stepStates, setStepStates] = useState<StepStates>(emptySteps);
   const [helperOpen, setHelperOpen] = useState(false);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const queryId = params.get('vaultId');
+      if (queryId) {
+        setUuidInput(queryId);
+      }
+    }
+  }, []);
+
   const { vaults, hydrating, hydrateError } = useWalletVaults(address, {
     cdrOnly: true,
     recoverableOnly: true,
