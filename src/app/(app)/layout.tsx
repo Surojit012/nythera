@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { usePrivy } from '@privy-io/react-auth';
 import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
@@ -39,6 +40,7 @@ function ConnectedAppLayout({
 }) {
   const { authenticated } = usePrivy();
   const { activeAddress: address } = useNytheraWallet();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   if (!authenticated) {
     return (
@@ -103,11 +105,18 @@ function ConnectedAppLayout({
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="nythera-noise absolute inset-0 opacity-[0.025]" />
       </div>
-      <Sidebar address={address} isConnected={authenticated} />
+      <Sidebar
+        address={address}
+        isConnected={authenticated}
+        mobileOpen={mobileOpen}
+        setMobileOpen={setMobileOpen}
+      />
       <main className="relative z-10 min-h-screen flex-1 overflow-x-hidden lg:ml-[232px]">
         <AppTopBar
           title={topBarTitle}
           subtitle={topBarSubtitle}
+          mobileOpen={mobileOpen}
+          onMenuToggle={() => setMobileOpen(!mobileOpen)}
           rightSlot={
             <div className="hidden items-center gap-2 sm:flex">
               <Link

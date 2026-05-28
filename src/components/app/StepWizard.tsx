@@ -122,7 +122,7 @@ export default function StepWizard({
                 {/* Title */}
                 <p
                   className={`
-                    font-display text-xs sm:text-sm font-semibold mt-3 leading-tight
+                    hidden sm:block font-display text-xs sm:text-sm font-semibold mt-3 leading-tight
                     transition-colors duration-300
                     ${
                       isCompleted
@@ -156,6 +156,16 @@ export default function StepWizard({
             );
           })}
         </div>
+      </div>
+
+      {/* Active step title/desc on mobile only */}
+      <div className="mt-2 mb-6 text-center sm:hidden bg-white/35 rounded-xl border border-ink/[0.06] p-3">
+        <p className="text-xs font-semibold text-warm-clay uppercase tracking-wider">
+          Step {currentStep + 1} of {steps.length}: {steps[currentStep].title}
+        </p>
+        <p className="mt-1 text-[11px] leading-relaxed text-ink/65">
+          {steps[currentStep].description}
+        </p>
       </div>
 
       {/* Step Content */}

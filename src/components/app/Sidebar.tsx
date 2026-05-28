@@ -10,6 +10,8 @@ import { useStorageCredits } from '@/lib/hooks/use-storage-credits';
 interface SidebarProps {
   address?: string;
   isConnected: boolean;
+  mobileOpen?: boolean;
+  setMobileOpen?: (open: boolean) => void;
 }
 
 interface NavItem {
@@ -29,10 +31,19 @@ function truncateAddress(address: string): string {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
-export default function Sidebar({ address, isConnected }: SidebarProps) {
+export default function Sidebar({
+  address,
+  isConnected,
+  mobileOpen: propMobileOpen,
+  setMobileOpen: propSetMobileOpen,
+}: SidebarProps) {
   const pathname = usePathname();
   const { logout } = usePrivy();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [localMobileOpen, setLocalMobileOpen] = useState(false);
+
+  const mobileOpen = propMobileOpen !== undefined ? propMobileOpen : localMobileOpen;
+  const setMobileOpen = propSetMobileOpen !== undefined ? propSetMobileOpen : setLocalMobileOpen;
+
   const credits = useStorageCredits(isConnected ? address : undefined);
 
   // Lock body scroll when mobile menu is open
@@ -54,12 +65,37 @@ export default function Sidebar({ address, isConnected }: SidebarProps) {
 
   const sidebarContent = (
     <div className="flex h-full flex-col">
-      <div className="px-4 pb-5 pt-5">
-        <Link href="/" className="group inline-flex">
+      <div className="flex items-center justify-between px-4 pb-5 pt-5">
+        <Link
+          href="/"
+          onClick={() => setMobileOpen(false)}
+          className="group inline-flex"
+        >
           <span className="font-display text-sm font-bold tracking-[0.08em] text-ink">
             Nythera
           </span>
         </Link>
+        {/* Close Button visible only on mobile/tablet inside drawer */}
+        <button
+          type="button"
+          onClick={() => setMobileOpen(false)}
+          className="rounded-lg border border-ink/[0.10] bg-white/45 p-1.5 text-ink hover:bg-white/75 transition lg:hidden"
+          aria-label="Close navigation"
+        >
+          <svg
+            width={16}
+            height={16}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
       </div>
 
       <nav className="space-y-1 px-2">
@@ -69,6 +105,7 @@ export default function Sidebar({ address, isConnected }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setMobileOpen(false)}
               className={`
                 group relative flex items-center gap-3 rounded-lg px-3 py-2.5
                 text-sm font-medium transition-all duration-200 ease-out
@@ -167,35 +204,38 @@ export default function Sidebar({ address, isConnected }: SidebarProps) {
         {sidebarContent}
       </aside>
 
-      <button
-        onClick={() => setMobileOpen(!mobileOpen)}
-        className="fixed left-[0.625rem] top-[0.625rem] z-50 rounded-lg border border-ink/[0.10] bg-offwhite/88 p-2 text-ink shadow-lg backdrop-blur-xl sm:left-4 sm:top-[1.35rem] sm:p-2.5 lg:hidden"
-        aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
-      >
-        <svg
-          width={20}
-          height={20}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
+      {/* Render old independent floating button only when no external state is provided */}
+      {propMobileOpen === undefined && (
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="fixed left-[0.625rem] top-[0.625rem] z-50 rounded-lg border border-ink/[0.10] bg-offwhite/88 p-2 text-ink shadow-lg backdrop-blur-xl sm:left-4 sm:top-[1.35rem] sm:p-2.5 lg:hidden"
+          aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
         >
-          {mobileOpen ? (
-            <>
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </>
-          ) : (
-            <>
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </>
-          )}
-        </svg>
-      </button>
+          <svg
+            width={20}
+            height={20}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            {mobileOpen ? (
+              <>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </>
+            ) : (
+              <>
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </>
+            )}
+          </svg>
+        </button>
+      )}
 
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-40">

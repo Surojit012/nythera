@@ -935,7 +935,7 @@ function ReviewTile({ label, value }: { label: string; value: string }) {
   return (
     <div className="ny-tile p-4">
       <p className="ny-label">{label}</p>
-      <p className="mt-2 text-sm text-zinc-300">{value}</p>
+      <p className="mt-2 text-sm text-ink/75 break-all">{value}</p>
     </div>
   );
 }
