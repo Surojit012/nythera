@@ -411,7 +411,7 @@ function FaqSection() {
 
   return (
     <CinematicSection id="faq" navTone="teal" toneClass="bg-pale-teal" title="FAQ">
-      <div className="grid gap-4 md:grid-cols-2 items-start">
+      <div className="mx-auto max-w-3xl grid gap-3">
         {faqs.map(([question, answer], index) => {
           const isOpen = openIndex === index;
           return (
