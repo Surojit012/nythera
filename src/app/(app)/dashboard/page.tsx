@@ -100,18 +100,7 @@ export default function DashboardPage() {
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <section className="rounded-2xl bg-white/[0.035] p-5 shadow-[0_18px_55px_rgba(0,0,0,0.18)] md:p-6">
-        <div className="flex flex-col gap-5">
-          <div className="max-w-2xl">
-            <h2 className="ny-heading text-2xl md:text-3xl">
-              Your recovery vaults
-            </h2>
-            <p className="mt-2 max-w-xl text-sm leading-6 text-zinc-500">
-              See the secrets you have protected, who can help recover them, and which backups need attention.
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-2 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <DashboardMetric
             label="Readiness"
             value={`${readinessScore}%`}
