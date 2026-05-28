@@ -84,53 +84,6 @@ function ConnectedAppLayout({
                 Enter your email or connect a wallet. Nythera secures your access with keyless and non-custodial cryptography.
               </p>
             </div>
-
-            {/* Elegant Divider */}
-            <div className="relative my-8 text-center">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-ink/[0.08]" />
-              </div>
-              <span className="relative bg-white px-4 font-mono text-[10px] uppercase tracking-widest text-ink/35">
-                or
-              </span>
-            </div>
-
-            {/* Input 2: Recovery Domain (styled like Slite subdomain input field) */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const form = e.currentTarget;
-                const input = form.elements.namedItem('vaultSubdomain') as HTMLInputElement;
-                const inputVal = input?.value?.trim();
-                if (inputVal) {
-                  const matches = inputVal.match(/\d+/);
-                  const vaultId = matches ? matches[0] : inputVal;
-                  window.location.href = `/recover?vaultId=${vaultId}`;
-                } else {
-                  window.location.href = '/recover';
-                }
-              }}
-              className="space-y-2"
-            >
-              <label htmlFor="vaultSubdomain" className="block text-[11px] font-semibold uppercase tracking-wider text-ink/45">
-                Use your recovery domain
-              </label>
-              <div className="relative flex items-center rounded-xl border border-ink/[0.12] bg-white transition-all focus-within:border-ink">
-                <input
-                  id="vaultSubdomain"
-                  name="vaultSubdomain"
-                  type="text"
-                  placeholder="vault-123"
-                  className="w-full bg-transparent px-4 py-3.5 pr-20 text-sm text-ink outline-none placeholder:text-ink/30"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-2 flex items-center gap-1.5 font-mono text-[10px] text-ink/45 bg-ink/5 px-2.5 py-1.5 rounded hover:bg-ink/10 transition-colors cursor-pointer"
-                >
-                  .nythera
-                </button>
-              </div>
-            </form>
           </div>
 
           {/* Under-card Text */}
