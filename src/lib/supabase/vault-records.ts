@@ -41,6 +41,13 @@ type VaultRecipientRow = {
   resolved_wallet: string;
 };
 
+type VaultRecoveryRow = {
+  id: string;
+  vault_record_id: string;
+  recovered_by_wallet: string;
+  recovered_at: string;
+};
+
 type VaultRecordRow = {
   id: string;
   local_vault_id: string | null;
@@ -69,6 +76,7 @@ type VaultRecordRow = {
   access_aux_data: string | null;
   created_at: string;
   vault_recipients?: VaultRecipientRow[];
+  vault_recoveries?: VaultRecoveryRow[];
 };
 
 type VaultRecoverability = {
@@ -155,6 +163,12 @@ export function vaultRecordToVault(row: VaultRecordRow, recoverability?: VaultRe
         renewalMode: row.renewal_mode ?? 'notify',
       }
       : undefined,
+    recoveryEvents: (row.vault_recoveries ?? []).map((event) => ({
+      recoveredAt: Number.isFinite(Date.parse(event.recovered_at)) ? Date.parse(event.recovered_at) : Date.now(),
+      recoveredBy: event.recovered_by_wallet,
+      cdrUuid: row.cdr_uuid,
+      contentType: row.content_type,
+    })),
     recoverability,
   };
 }
@@ -329,7 +343,7 @@ export async function listVaultsForWallet(
   walletAddress: string,
 ): Promise<VaultData[]> {
   const wallet = walletAddress.toLowerCase();
-  const selectVaultWithRecipients = '*, vault_recipients(*)';
+  const selectVaultWithRecipients = '*, vault_recipients(*), vault_recoveries(*)';
   const vaultsById = new Map<string, VaultRecordRow>();
 
   const { data: ownedVaults, error: ownedError } = await supabase

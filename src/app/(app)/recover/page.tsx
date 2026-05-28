@@ -268,6 +268,17 @@ export default function RecoverPage() {
           contentType: vault.contentType ?? 'text',
         });
       }
+
+      // Also persist to Supabase database
+      void fetch('/api/vault-recoveries', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          localVaultId: vault?.id,
+          cdrUuid: uuid,
+          recoveredBy: address,
+        }),
+      }).catch((err) => console.error('Failed to persist recovery to Supabase:', err));
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Recovery failed.';
       setError(message);
