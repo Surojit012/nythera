@@ -49,6 +49,10 @@ export default function DashboardPage() {
   const readinessScore = vaults.length
     ? Math.round((recoverableVaults.length / vaults.length) * 100)
     : 0;
+  const totalRecoveredCount = vaults.reduce(
+    (sum, vault) => sum + (vault.recoveryEvents?.length ?? 0),
+    0
+  );
   const recentVaults = [...vaults].sort((a, b) => b.createdAt - a.createdAt).slice(0, 3);
 
   async function handleDeleteVault(vault: VaultData) {
@@ -113,9 +117,9 @@ export default function DashboardPage() {
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <DashboardMetric
-            label="Readiness"
-            value={`${readinessScore}%`}
-            detail={`${recoverableVaults.length} ready to recover`}
+            label="Recovered vault"
+            value={String(totalRecoveredCount)}
+            detail={`${totalRecoveredCount === 1 ? 'successful recovery' : 'successful recoveries'}`}
             tone="emerald"
           />
           <DashboardMetric

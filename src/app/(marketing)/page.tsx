@@ -239,12 +239,12 @@ function HeroVaultVisual() {
   return (
     <div className="relative mx-auto w-full max-w-[560px] aspect-square">
       {/* Container frame */}
-      <div className="absolute inset-0 border border-ink/[0.07] bg-offwhite shadow-[20px_0_0_rgba(201,169,110,0.08),0_20px_0_rgba(201,169,110,0.08)]">
+      <div className="absolute inset-0 border border-ink/[0.07] bg-white shadow-[20px_0_0_rgba(201,169,110,0.08),0_20px_0_rgba(201,169,110,0.08)]">
 
         {/* Grid background */}
         <div className="absolute inset-0" />
 
-        {/* â”€â”€ Ambient Particles â”€â”€ */}
+        {/* ── Ambient Particles ── */}
         {particles.map((p, i) => (
           <div
             key={i}
@@ -259,13 +259,13 @@ function HeroVaultVisual() {
           />
         ))}
 
-        {/* â”€â”€ Vault Core â”€â”€ */}
+        {/* ── Vault Core ── */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
           {/* Outer glow ring */}
           <div className="absolute -inset-8 rounded-full border border-muted-gold/10 hero-rune-glow" />
 
           {/* Core */}
-          <div className="hero-vault-core relative grid h-[88px] w-[88px] place-items-center border-2 border-muted-gold/50 bg-offwhite shadow-[0_0_40px_rgba(201,169,110,0.2)]">
+          <div className="hero-vault-core relative grid h-[88px] w-[88px] place-items-center border-2 border-muted-gold/50 bg-white shadow-[0_0_40px_rgba(201,169,110,0.2)]">
             <div className="text-center">
               <span className="block font-display text-[0.7rem] font-bold uppercase tracking-[0.1em] text-ink/70">Vault</span>
             </div>
