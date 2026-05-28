@@ -104,7 +104,7 @@ function ConnectedAppLayout({
         <div className="nythera-noise absolute inset-0 opacity-[0.025]" />
       </div>
       <Sidebar address={address} isConnected={authenticated} />
-      <main className="relative z-10 min-h-screen flex-1 lg:ml-[232px]">
+      <main className="relative z-10 min-h-screen flex-1 overflow-x-hidden lg:ml-[232px]">
         <AppTopBar
           title={topBarTitle}
           subtitle={topBarSubtitle}
@@ -120,7 +120,7 @@ function ConnectedAppLayout({
             </div>
           }
         />
-        <div className="px-4 py-6 md:px-8">
+        <div className="px-2 py-5 sm:px-4 sm:py-6 md:px-8">
           {children}
         </div>
       </main>

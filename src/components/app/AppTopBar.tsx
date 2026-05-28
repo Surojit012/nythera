@@ -16,9 +16,9 @@ function truncateAddress(address: string): string {
 
 export default function AppTopBar({ title, subtitle, address, rightSlot }: AppTopBarProps) {
   return (
-    <header className="sticky top-4 z-30 mx-4 mt-4 rounded-2xl border border-ink/[0.08] bg-offwhite/88 shadow-[0_18px_50px_rgba(26,26,26,0.08)] backdrop-blur-xl md:mx-8">
-      <div className="flex items-center justify-between px-4 py-3.5 md:px-6">
-        <div className="min-w-0 pl-12 lg:pl-0">
+    <header className="sticky top-2 z-30 mx-2 mt-2 rounded-2xl border border-ink/[0.08] bg-offwhite/88 shadow-[0_18px_50px_rgba(26,26,26,0.08)] backdrop-blur-xl sm:top-4 sm:mx-4 sm:mt-4 md:mx-8">
+      <div className="flex items-center justify-between px-3 py-3 sm:px-4 sm:py-3.5 md:px-6">
+        <div className="min-w-0 pl-12 sm:pl-14 lg:pl-0">
           <h1 className="ny-heading truncate text-lg">
             {title}
           </h1>

@@ -306,7 +306,7 @@ export default function RecoverPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       <section className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-        <div className="ny-panel p-6 space-y-5">
+        <div className="ny-panel p-4 sm:p-6 space-y-5">
           <div>
             <p className="ny-label text-warm-clay font-medium">Recovery request</p>
             <h2 className="font-display text-xl text-ink mt-2">Choose a vault to recover</h2>
@@ -614,7 +614,7 @@ function AccessStatusPanel({
   error: string;
 }) {
   return (
-    <div className="ny-panel p-6">
+    <div className="ny-panel p-4 sm:p-6">
       <p className="ny-label text-warm-clay font-medium">Verification</p>
       <h3 className="font-display text-xl text-ink mt-2">Access status</h3>
       <div className="mt-4 space-y-4">
@@ -694,7 +694,7 @@ function RecoveryTimeline({
   onRetry: () => void;
 }) {
   return (
-    <div className="ny-panel p-6">
+    <div className="ny-panel p-4 sm:p-6">
       <p className="ny-label">Recovery timeline</p>
       <div className="mt-5">
         {recoverySteps.map((step, index) => {
@@ -753,7 +753,7 @@ function AdvancedRecoveryDetails({
   lastVerifiedAt?: number;
 }) {
   return (
-    <details className="ny-panel p-6">
+    <details className="ny-panel p-4 sm:p-6">
       <summary className="cursor-pointer text-xs font-medium uppercase tracking-[0.16em] text-ink/60">
         Advanced
       </summary>
@@ -780,7 +780,7 @@ function RecoveryHelpModal({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className="ny-modal relative z-10 w-full max-w-md rounded-2xl p-6">
+      <div className="ny-modal relative z-10 w-full max-w-md rounded-2xl p-4 sm:p-6">
         <p className="ny-label text-warm-clay font-medium">Recovery help</p>
         <h3 className="mt-2 font-display text-2xl text-ink">Common recovery issues</h3>
         <div className="mt-4 space-y-3 text-sm leading-6 text-ink/70">

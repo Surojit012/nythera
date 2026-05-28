@@ -169,7 +169,7 @@ export default function Sidebar({ address, isConnected }: SidebarProps) {
 
       <button
         onClick={() => setMobileOpen(!mobileOpen)}
-        className="fixed left-5 top-5 z-50 rounded-lg border border-ink/[0.10] bg-offwhite/88 p-2.5 text-ink shadow-lg backdrop-blur-xl lg:hidden"
+        className="fixed left-[0.625rem] top-[0.625rem] z-50 rounded-lg border border-ink/[0.10] bg-offwhite/88 p-2 text-ink shadow-lg backdrop-blur-xl sm:left-4 sm:top-[1.35rem] sm:p-2.5 lg:hidden"
         aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
       >
         <svg

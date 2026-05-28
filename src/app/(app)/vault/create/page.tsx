@@ -446,7 +446,7 @@ export default function CreateVaultPage() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-8">
-      <form onSubmit={handleCreate} className="ny-panel space-y-8 p-6 md:p-8">
+      <form onSubmit={handleCreate} className="ny-panel space-y-8 p-3 sm:p-5 md:p-8">
         <StepWizard steps={steps} currentStep={currentStep} onStepChange={setCurrentStep} showNavigation={false}>
           {currentStep === 0 && (
             <div className="space-y-7">
@@ -526,7 +526,7 @@ export default function CreateVaultPage() {
 
               <div>
                 <p className="ny-label text-warm-clay">What are you saving?</p>
-                <div className="mt-4 grid gap-3 lg:grid-cols-5">
+                <div className="mt-4 grid gap-3 grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
                   {secretCards.map((card) => (
                     <SecretTypeCard
                       key={card.type}
@@ -630,7 +630,7 @@ export default function CreateVaultPage() {
                       />
                     </div>
                     <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div className="flex min-w-44 flex-1 items-center gap-2">
+                      <div className="flex min-w-0 flex-1 items-center gap-2">
                         <div className="h-2 flex-1 overflow-hidden rounded-full bg-ink/[0.08]">
                           <div className={`h-full ${strength.tone}`} style={{ width: `${Math.min(strength.score, 5) * 20}%` }} />
                         </div>

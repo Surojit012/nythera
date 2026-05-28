@@ -296,11 +296,11 @@ export default function VaultDetailsPage() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      <section className="ny-panel p-6 md:p-8">
+      <section className="ny-panel p-4 sm:p-6 md:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="ny-label text-warm-clay font-medium">Vault details</p>
-            <h1 className="font-display text-3xl md:text-4xl text-ink mt-2">
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl text-ink mt-2">
               {vaultName}
             </h1>
             <p className="text-sm text-ink/60 mt-2">
@@ -336,7 +336,7 @@ export default function VaultDetailsPage() {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <div className="ny-tile p-4">
             <p className="ny-label">Name</p>
             <p className="text-sm text-ink/80 mt-2">{vaultName}</p>
@@ -358,7 +358,7 @@ export default function VaultDetailsPage() {
           {vault.cdr ? (
             <div className="ny-tile p-4">
               <p className="ny-label">Vault ID</p>
-              <p className="text-sm text-ink/80 mt-2">{vault.cdr.uuid}</p>
+              <p className="text-sm text-ink/80 mt-2 break-all">{vault.cdr.uuid}</p>
               <details className="mt-2">
                 <summary className="cursor-pointer text-xs text-ink/50">Advanced details</summary>
                 <p className="mt-1 text-xs text-ink/40">
@@ -383,8 +383,8 @@ export default function VaultDetailsPage() {
         </div>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-3">
-        <div className="ny-panel p-6">
+      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="ny-panel p-4 sm:p-6">
           <p className="ny-label">Activity timeline</p>
           <div className="mt-4 space-y-4 text-sm text-ink/65">
             <div>
@@ -409,7 +409,7 @@ export default function VaultDetailsPage() {
           </div>
         </div>
 
-        <div className="ny-panel p-6">
+        <div className="ny-panel p-4 sm:p-6">
           <p className="ny-label">Diagnostics</p>
           <div className="mt-4 space-y-3 text-sm text-ink/65">
             <div className="flex items-center justify-between">
@@ -429,7 +429,7 @@ export default function VaultDetailsPage() {
           </div>
         </div>
 
-        <div className="ny-panel p-6">
+        <div className="ny-panel p-4 sm:p-6">
           <p className="ny-label">Recovery history</p>
           <p className="font-display text-2xl text-ink mt-3">{recoveryEvents.length}</p>
           <p className="text-xs text-ink/50 mt-1">
@@ -462,7 +462,7 @@ export default function VaultDetailsPage() {
       </section>
 
       {vault.cdr && (
-        <section className="ny-panel p-6 md:p-8 space-y-4">
+        <section className="ny-panel p-4 sm:p-6 md:p-8 space-y-4">
           <div>
             <p className="ny-label">Guardian access</p>
             <h2 className="font-display text-xl text-ink mt-2">Edit guardians</h2>
@@ -534,7 +534,7 @@ export default function VaultDetailsPage() {
               if (!deleting) setConfirmingDelete(false);
             }}
           />
-          <div className="ny-modal relative z-10 w-full max-w-md p-6">
+          <div className="ny-modal relative z-10 w-full max-w-md p-4 sm:p-6">
             <p className="ny-label">Confirm deletion</p>
             <h3 className="mt-2 font-display text-3xl leading-none text-ink">Delete this vault?</h3>
             <p className="mt-3 text-sm leading-6 text-ink/65">

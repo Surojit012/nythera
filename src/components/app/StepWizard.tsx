@@ -83,7 +83,7 @@ export default function StepWizard({
                 {/* Circle */}
                 <div
                   className={`
-                    relative w-10 h-10 rounded-full flex items-center justify-center
+                    relative w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center
                     transition-all duration-500 ease-out
                     ${
                       isCompleted
@@ -113,7 +113,7 @@ export default function StepWizard({
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   ) : (
-                    <span className="font-mono text-sm font-bold">
+                    <span className="font-mono text-xs sm:text-sm font-bold">
                       {index + 1}
                     </span>
                   )}

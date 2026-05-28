@@ -103,7 +103,7 @@ export default function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-7xl space-y-6">
-      <section className="rounded-2xl border border-ink/[0.08] bg-white/40 p-5 shadow-[0_18px_55px_rgba(26,26,26,0.04)] md:p-6">
+      <section className="rounded-2xl border border-ink/[0.08] bg-white/40 p-3 shadow-[0_18px_55px_rgba(26,26,26,0.04)] sm:p-5 md:p-6">
         <div className="flex flex-col gap-5">
           <div className="max-w-2xl">
             <h2 className="ny-heading text-2xl md:text-3xl">
@@ -143,8 +143,8 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.55fr)_360px]">
-        <div className="rounded-2xl border border-ink/[0.08] bg-white/30 p-4 md:p-5">
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.55fr)_minmax(280px,320px)]">
+        <div className="rounded-2xl border border-ink/[0.08] bg-white/30 p-3 sm:p-4 md:p-5">
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <div>
               <h3 className="ny-heading text-lg">Vault workspace</h3>
@@ -254,7 +254,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="space-y-4">
-          <div className="rounded-2xl border border-warm-clay/15 bg-warm-clay/[0.04] p-5">
+          <div className="rounded-2xl border border-warm-clay/15 bg-warm-clay/[0.04] p-3 sm:p-5">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h3 className="ny-heading text-base">File storage credits</h3>
@@ -285,7 +285,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-ink/[0.08] bg-white/30 p-5">
+          <div className="rounded-2xl border border-ink/[0.08] bg-white/30 p-3 sm:p-5">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h3 className="ny-heading text-base">Vault health</h3>
@@ -301,7 +301,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-ink/[0.08] bg-white/30 p-5">
+          <div className="rounded-2xl border border-ink/[0.08] bg-white/30 p-3 sm:p-5">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h3 className="ny-heading text-base">Recent activity</h3>
@@ -331,7 +331,7 @@ export default function DashboardPage() {
             )}
           </div>
 
-          <div className="rounded-2xl border border-ink/[0.08] bg-gradient-to-b from-warm-clay/[0.06] to-white/30 p-5">
+          <div className="rounded-2xl border border-ink/[0.08] bg-gradient-to-b from-warm-clay/[0.06] to-white/30 p-3 sm:p-5">
             <div className="flex items-center gap-3">
               <div className="grid h-9 w-9 place-items-center rounded-lg bg-warm-clay/12 text-warm-clay">
                 <KeyIcon size={17} />
