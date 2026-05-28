@@ -242,7 +242,7 @@ function HeroVaultVisual() {
       <div className="absolute inset-0 border border-ink/[0.07] bg-offwhite/50 shadow-[20px_0_0_rgba(201,169,110,0.08),0_20px_0_rgba(201,169,110,0.08)] backdrop-blur-sm">
 
         {/* Grid background */}
-        <div className="landing-schematic-grid absolute inset-0" />
+        <div className="absolute inset-0" />
 
         {/* â”€â”€ Ambient Particles â”€â”€ */}
         {particles.map((p, i) => (
@@ -268,7 +268,6 @@ function HeroVaultVisual() {
           <div className="hero-vault-core relative grid h-[88px] w-[88px] place-items-center border-2 border-muted-gold/50 bg-offwhite shadow-[0_0_40px_rgba(201,169,110,0.2)]">
             <div className="text-center">
               <span className="block font-display text-[0.7rem] font-bold uppercase tracking-[0.1em] text-ink/70">Vault</span>
-              <span className="mt-1 block h-2 w-2 rounded-full bg-muted-gold mx-auto" />
             </div>
             {/* Corner accents */}
             <span className="absolute -left-1 -top-1 h-3 w-3 border-l-2 border-t-2 border-muted-gold/40" />
