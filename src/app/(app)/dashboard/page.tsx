@@ -102,14 +102,6 @@ export default function DashboardPage() {
       <section className="rounded-2xl bg-white/[0.035] p-5 shadow-[0_18px_55px_rgba(0,0,0,0.18)] md:p-6">
         <div className="flex flex-col gap-5">
           <div className="max-w-2xl">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="ny-pill">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
-                Recovery infrastructure
-              </span>
-              <span className="ny-pill">Encrypted backups</span>
-              <span className="ny-pill">{vaults.length} vaults</span>
-            </div>
             <h2 className="ny-heading mt-4 text-2xl md:text-3xl">
               Your recovery vaults
             </h2>
@@ -193,7 +185,7 @@ export default function DashboardPage() {
                       className={`rounded-full border px-3 py-1 text-xs transition ${selectedTag === tag
                         ? 'border-amber-200/50 bg-amber-300/15 text-amber-100'
                         : 'border-white/10 bg-white/[0.03] text-zinc-500 hover:border-amber-200/35 hover:text-amber-100'
-                      }`}
+                        }`}
                     >
                       {tag}
                     </button>
