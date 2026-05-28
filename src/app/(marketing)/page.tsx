@@ -240,10 +240,6 @@ function HeroVaultVisual() {
     <div className="relative mx-auto w-full max-w-[560px] aspect-square">
       {/* Container frame */}
       <div className="absolute inset-0 border border-ink/[0.07] bg-offwhite/50 shadow-[20px_0_0_rgba(201,169,110,0.08),0_20px_0_rgba(201,169,110,0.08)] backdrop-blur-sm">
-        {/* Inner label */}
-        <div className="absolute left-4 top-4 inline-flex border border-ink/10 bg-white/50 px-2.5 py-1 font-mono text-[0.56rem] uppercase tracking-[0.14em] text-ink/40 z-20">
-          Recovery Architecture
-        </div>
 
         {/* Grid background */}
         <div className="landing-schematic-grid absolute inset-0" />
@@ -356,23 +352,9 @@ function HeroVaultVisual() {
         <div className="absolute inset-x-8 top-1/2 h-px bg-gradient-to-r from-transparent via-ink/[0.06] to-transparent" />
         <div className="absolute inset-y-8 left-1/2 w-px bg-gradient-to-b from-transparent via-ink/[0.06] to-transparent" />
 
-        {/* Bottom label */}
-        <div className="absolute bottom-4 right-4 z-20">
-          <span className="border border-warm-clay/15 bg-white/35 px-2.5 py-1 font-mono text-[0.54rem] uppercase tracking-[0.14em] text-warm-clay/60 backdrop-blur-sm">
-            2-of-3 threshold - CDR encrypted
-          </span>
-        </div>
       </div>
 
-      {/* Floating shard fragments */}
-      <div className="absolute -right-4 top-[15%] border border-ink/[0.06] bg-white/40 px-3 py-2 font-mono text-[0.56rem] text-ink/35 backdrop-blur-sm shadow-[0_6px_16px_rgba(26,26,26,0.03)] landing-shard-float-0">
-        <span className="block text-[0.48rem] uppercase tracking-[0.1em] text-warm-clay/50 mb-0.5">Shard A</span>
-        ......
-      </div>
-      <div className="absolute -left-3 bottom-[20%] border border-pale-teal/20 bg-pale-teal/[0.06] px-3 py-2 font-mono text-[0.56rem] text-pale-teal/50 backdrop-blur-sm landing-shard-float-2">
-        <span className="block text-[0.48rem] uppercase tracking-[0.1em] text-pale-teal/40 mb-0.5">Shard B</span>
-        ......
-      </div>
+
     </div>
   );
 }
