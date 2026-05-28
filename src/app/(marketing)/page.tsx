@@ -417,12 +417,12 @@ function FaqSection() {
           return (
             <div
               key={question}
-              className={`landing-reveal border bg-white/38 p-5 transition-colors duration-200 ${isOpen ? 'border-warm-clay/45' : 'border-ink/10'}`}
+              className={`border bg-white/38 p-4 sm:p-5 transition-colors duration-200 ${isOpen ? 'border-warm-clay/45' : 'border-ink/10'}`}
             >
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="font-display flex w-full cursor-pointer items-center justify-between gap-4 text-left text-xl text-ink"
+                className="font-display flex w-full cursor-pointer items-center justify-between gap-3 text-left text-base sm:text-xl text-ink"
               >
                 <span>{question}</span>
                 <span className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-warm-clay/45 text-warm-clay transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
@@ -432,10 +432,10 @@ function FaqSection() {
                 </span>
               </button>
               <div
-                className={`grid transition-all duration-200 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'}`}
               >
                 <div className="overflow-hidden">
-                  <p className="mt-4 text-sm leading-7 text-ink/58">{answer}</p>
+                  <p className="text-sm leading-7 text-ink/58">{answer}</p>
                 </div>
               </div>
             </div>
@@ -520,7 +520,7 @@ function CinematicSection({
   children: React.ReactNode;
 }) {
   return (
-    <section data-nav-tone={navTone} id={id} className={`relative z-10 min-h-screen border-b px-4 py-24 md:px-16 md:py-32 ${toneClass} ${dark ? 'border-white/10' : 'border-ink/10'}`}>
+    <section data-nav-tone={navTone} id={id} className={`relative z-10 min-h-[60vh] sm:min-h-screen border-b px-4 py-16 sm:py-24 md:px-16 md:py-32 ${toneClass} ${dark ? 'border-white/10' : 'border-ink/10'}`}>
       <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-120px' }} className="relative mx-auto max-w-7xl">
         <motion.div variants={fadeUp} className="landing-reveal mb-14 max-w-4xl">
           {eyebrow ? (

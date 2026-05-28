@@ -538,13 +538,13 @@ export default function CreateVaultPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-ink/[0.08] bg-white/40 p-4">
+              <div className="rounded-2xl border border-ink/[0.08] bg-white/40 p-3 sm:p-4 min-w-0 overflow-hidden">
                 {secretType === 'seed' && (
                   <div className="space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <h3 className="font-display text-xl text-ink">Enter seed phrase</h3>
-                        <p className="mt-1 text-sm text-ink/65">Type each word in order. Nythera will join them before encryption.</p>
+                      <div className="min-w-0">
+                        <h3 className="font-display text-lg sm:text-xl text-ink">Enter seed phrase</h3>
+                        <p className="mt-1 text-xs sm:text-sm text-ink/65">Type each word in order. Nythera will join them before encryption.</p>
                       </div>
                       <div className="inline-flex rounded-lg border border-ink/10 bg-ink/[0.05] p-1">
                         {[12, 24].map((count) => (
@@ -562,10 +562,10 @@ export default function CreateVaultPage() {
                         ))}
                       </div>
                     </div>
-                    <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-2 min-[480px]:grid-cols-2 lg:grid-cols-3">
                       {Array.from({ length: seedWordCount }).map((_, index) => (
-                        <label key={index} className="flex items-center gap-2 rounded-lg border border-ink/10 bg-white/50 px-3 py-2">
-                          <span className="w-6 text-right font-mono text-xs text-warm-clay font-medium">{index + 1}</span>
+                        <label key={index} className="flex items-center gap-2 rounded-lg border border-ink/10 bg-white/50 px-2.5 py-2 min-w-0">
+                          <span className="w-5 shrink-0 text-right font-mono text-xs text-warm-clay font-medium">{index + 1}</span>
                           <input
                             value={seedWords[index]}
                             onChange={(event) => setSeedWord(index, event.target.value)}
