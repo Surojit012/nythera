@@ -151,7 +151,7 @@ function Navbar({ tone }: { tone: NavTone }) {
             </a>
           ))}
         </div>
-        <Link href="/dashboard" className={`ml-4 inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-display text-[0.72rem] font-semibold uppercase tracking-[0.06em] transition-all duration-300 hover:-translate-y-0.5 ${dark ? 'border border-muted-gold/70 bg-muted-gold/95 text-ink shadow-[0_8px_18px_rgba(201,169,110,0.28)] hover:bg-muted-gold' : 'border border-ink/15 bg-ink text-offwhite shadow-[0_10px_20px_rgba(26,26,26,0.16)] hover:border-warm-clay/60 hover:bg-warm-clay hover:text-ink'}`}>
+        <Link href="/dashboard" className={`ml-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 font-display text-[0.72rem] font-semibold uppercase tracking-[0.06em] transition-all duration-300 hover:-translate-y-0.5 ${dark ? 'border border-muted-gold/70 bg-muted-gold/95 text-ink shadow-[0_8px_18px_rgba(201,169,110,0.28)] hover:bg-muted-gold' : 'border border-ink/15 bg-ink text-offwhite shadow-[0_10px_20px_rgba(26,26,26,0.16)] hover:border-warm-clay/60 hover:bg-warm-clay hover:text-ink'}`}>
           <span>Launch App</span>
           <span className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-full bg-white/10">
             <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" aria-hidden="true">
@@ -178,25 +178,22 @@ function HeroSection() {
 
 
           {/* Main Headline */}
-          <motion.h1 variants={fadeUp} className="max-w-[14ch] text-[40px] sm:text-[56px] md:text-[64px] lg:text-[76px] font-black leading-[0.96] tracking-[-0.04em] text-ink">
-            <span className="block">Safe for You</span>
-            <span className="block text-warm-clay">Accessible to Guardians</span>
+          <motion.h1 variants={fadeUp} className="max-w-[14ch] font-display text-[34px] sm:text-[46px] md:text-[54px] lg:text-[60px] font-bold leading-[0.98] tracking-[-0.03em] text-ink">
+            <span className="block">
+              The decentralized vault for <span className="text-[#c4956a]">your secrets</span>
+            </span>
+
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p variants={fadeUp} className="mt-6 max-w-[56ch] font-body text-base font-light leading-7 text-ink/55 sm:text-lg md:text-xl">
-            Your seed phrase is encrypted, split into shares and stored securely on-chain
+            Encrypt seed phrases, private keys, passwords and sensitive files on-chain with secure recovery infrastructure built for self-custody.
           </motion.p>
 
           {/* CTAs */}
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-3">
-            <Link href="/vault/create" className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-ink px-4 py-1.5 font-display text-[0.74rem] font-semibold tracking-[0.04em] text-offwhite transition-all duration-300 hover:-translate-y-0.5 hover:border-warm-clay/60 hover:bg-warm-clay hover:text-ink">
+            <Link href="/vault/create" className="inline-flex items-center gap-1.5 border border-ink/15 bg-ink px-4 py-1.5 font-display text-[0.74rem] font-semibold tracking-[0.04em] text-offwhite transition-all duration-300 hover:-translate-y-0.5 hover:border-warm-clay/60 hover:bg-warm-clay hover:text-ink">
               <span>Create a Vault</span>
-              <span className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-full bg-white/10">
-                <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" aria-hidden="true">
-                  <path d="M4.5 11.5L11.5 4.5M6 4.5H11.5V10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
             </Link>
           </motion.div>
 
@@ -382,7 +379,14 @@ function HeroVaultVisual() {
 
 function HowItWorksSection() {
   return (
-    <CinematicSection id="how-it-works" navTone="rose" toneClass="bg-dusty-rose" eyebrow="How it works" title="A safer backup plan in four steps">
+    <CinematicSection
+      id="how-it-works"
+      navTone="rose"
+      toneClass="bg-dusty-rose"
+      eyebrow="How it works"
+      title="A safer backup plan in four steps"
+      titleClassName="font-body"
+    >
       <div className="relative grid gap-8 lg:grid-cols-4 lg:gap-0 before:absolute before:left-[10%] before:right-[10%] before:top-10 before:hidden before:h-px before:bg-ink/15 lg:before:block">
         {steps.map(([step, title, body], index) => (
           <motion.div
@@ -410,7 +414,7 @@ function SecuritySection() {
             Nythera keeps the secret encrypted and separates it from the list of people allowed to recover it. That means your backup can exist without handing anyone the secret today.
           </p>
           <div className="landing-reveal landing-reveal-delay-1 mt-8">
-            <Link href="/dashboard" className="group relative inline-flex min-h-11 items-center justify-center overflow-hidden rounded-full bg-offwhite px-6 py-3 text-sm font-semibold text-ink transition hover:bg-muted-gold">
+            <Link href="/dashboard" className="group relative inline-flex min-h-11 items-center justify-center overflow-hidden bg-offwhite px-6 py-3 text-sm font-semibold text-ink transition hover:bg-muted-gold">
               <span className="absolute inset-0 translate-x-[-120%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition duration-700 group-hover:translate-x-[120%]" />
               <span className="relative">Review Your Vaults</span>
             </Link>
@@ -512,6 +516,7 @@ function CinematicSection({
   dark = false,
   eyebrow,
   title,
+  titleClassName,
   children,
 }: {
   id: string;
@@ -520,6 +525,7 @@ function CinematicSection({
   dark?: boolean;
   eyebrow?: string;
   title: string;
+  titleClassName?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -529,7 +535,7 @@ function CinematicSection({
           {eyebrow ? (
             <p className={`mb-5 font-mono text-[0.7rem] uppercase tracking-[0.2em] ${dark ? 'text-offwhite/45' : 'text-ink/45'}`}>{eyebrow}</p>
           ) : null}
-          <h2 className={`font-display text-[clamp(2.3rem,4vw,3.6rem)] font-extrabold leading-[1.05] tracking-[-0.03em] ${dark ? 'text-offwhite' : 'text-ink'}`}>{title}</h2>
+          <h2 className={`${titleClassName ?? 'font-body'} text-[clamp(1.9rem,3.2vw,2.9rem)] font-extrabold leading-[1.08] tracking-[-0.02em] ${dark ? 'text-offwhite' : 'text-ink'}`}>{title}</h2>
         </motion.div>
         <motion.div variants={fadeUp}>{children}</motion.div>
       </motion.div>

@@ -448,14 +448,6 @@ export default function CreateVaultPage() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-8">
-      <div className="ny-panel p-6 md:p-8">
-        <p className="ny-label text-amber-200">Create vault</p>
-        <h1 className="mt-2 font-display text-3xl text-white md:text-4xl">Save something your people may need later</h1>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
-          Choose what to protect, name it clearly, and decide who can recover it. Nythera encrypts it in your browser before saving it.
-        </p>
-      </div>
-
       <form onSubmit={handleCreate} className="ny-panel space-y-8 p-6 md:p-8">
         <StepWizard steps={steps} currentStep={currentStep} onStepChange={setCurrentStep} showNavigation={false}>
           {currentStep === 0 && (
@@ -919,14 +911,12 @@ function SecretTypeCard({
   title,
   description,
   recommended,
-  icon: Icon,
   selected,
   onSelect,
 }: {
   title: string;
   description: string;
   recommended?: boolean;
-  icon: typeof ShieldIcon;
   selected: boolean;
   onSelect: () => void;
 }) {
@@ -939,10 +929,7 @@ function SecretTypeCard({
         : 'border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.05]'
       }`}
     >
-      <div className="flex items-start justify-between gap-3">
-        <span className={`grid h-10 w-10 place-items-center rounded-xl ${selected ? 'bg-amber-300/15 text-amber-100' : 'bg-violet-400/10 text-violet-200'}`}>
-          <Icon size={18} />
-        </span>
+      <div className="flex items-start justify-end gap-3">
         {recommended && (
           <span className="rounded-full border border-amber-200/30 bg-amber-300/10 px-2 py-0.5 text-[10px] font-medium text-amber-100">
             Recommended
