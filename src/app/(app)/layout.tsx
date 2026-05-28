@@ -1,6 +1,7 @@
 'use client';
 
 import { usePrivy } from '@privy-io/react-auth';
+import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Sidebar from '@/components/app/Sidebar';
@@ -77,6 +78,26 @@ function ConnectedAppLayout({
     );
   }
 
+  const pathname = usePathname();
+
+  // Determine top bar title and subtitle dynamically based on pathname
+  let topBarTitle = 'Dashboard';
+  let topBarSubtitle = 'Encrypted backups and trusted recovery';
+
+  if (pathname.startsWith('/vault/create')) {
+    topBarTitle = 'Create Vault';
+    topBarSubtitle = 'Establish a secure timelock recovery vault';
+  } else if (pathname.startsWith('/recover')) {
+    topBarTitle = 'Recovery';
+    topBarSubtitle = 'Reconstruct and recover your secure vault';
+  } else if (pathname.startsWith('/wallet')) {
+    topBarTitle = 'Wallet';
+    topBarSubtitle = 'Manage your Story testnet keys and credits';
+  } else if (pathname.match(/^\/vault\/[^\/]+$/)) {
+    topBarTitle = 'Vault Details';
+    topBarSubtitle = 'Inspect and manage your secure vault';
+  }
+
   return (
     <div className="ny-app-shell relative flex min-h-screen overflow-hidden text-ink">
       <div className="pointer-events-none fixed inset-0 z-0">
@@ -85,8 +106,8 @@ function ConnectedAppLayout({
       <Sidebar address={address} isConnected={authenticated} />
       <main className="relative z-10 min-h-screen flex-1 lg:ml-[232px]">
         <AppTopBar
-          title="Dashboard"
-          subtitle="Encrypted backups and trusted recovery"
+          title={topBarTitle}
+          subtitle={topBarSubtitle}
           rightSlot={
             <div className="hidden items-center gap-2 sm:flex">
               <Link
