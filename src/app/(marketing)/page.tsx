@@ -368,8 +368,7 @@ function HowItWorksSection() {
             className={`group landing-reveal landing-reveal-delay-${Math.min(index, 3)} relative px-6 text-center`}
           >
             <span className="relative z-10 mx-auto grid h-20 w-20 place-items-center border border-ink/20 bg-white/50 font-mono text-xs text-ink backdrop-blur-sm transition duration-300 group-hover:scale-105">{String(index + 1).padStart(2, '0')}</span>
-            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.2em] text-ink/45">{step}</p>
-            <h3 className="mt-3 text-base font-bold text-ink">{title}</h3>
+            <h3 className="mt-8 text-base font-bold text-ink">{title}</h3>
             <p className="mt-3 text-sm font-light leading-7 text-[#4a3a35]">{body}</p>
           </motion.div>
         ))}
