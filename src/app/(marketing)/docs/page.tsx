@@ -164,7 +164,7 @@ export default function DocsPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-offwhite text-ink font-body">
+    <div className="relative min-h-screen bg-offwhite text-ink font-body overflow-x-hidden">
       {/* Visual noise backdrop */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="nythera-noise absolute inset-0 opacity-[0.035]" />
@@ -197,7 +197,7 @@ export default function DocsPage() {
       </header>
 
       {/* Main Documentation Frame */}
-      <div className="mx-auto flex max-w-[1400px] gap-8 px-6 py-10 md:px-16 relative">
+      <div className="mx-auto flex w-full max-w-[1400px] gap-8 px-6 py-10 md:px-16 relative">
         
         {/* LEFT COLUMN: Sticky Navigation Sidebar (Desktop) */}
         <aside className="w-[280px] shrink-0 sticky top-[95px] h-[calc(100vh-140px)] overflow-y-auto hidden lg:block pr-4 border-r border-ink/[0.04] scrollbar-thin">
@@ -233,7 +233,7 @@ export default function DocsPage() {
         </aside>
 
         {/* RIGHT COLUMN: Interactive Document Stream */}
-        <main className="flex-1 max-w-[860px] relative z-10 space-y-24">
+        <main className="w-full min-w-0 flex-1 max-w-[860px] relative z-10 space-y-24">
           
           {/* Cover & Title */}
           <div className="border-b border-ink/[0.08] pb-8">
