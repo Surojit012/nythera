@@ -140,11 +140,11 @@ function Navbar({ tone }: { tone: NavTone }) {
   return (
     <header className={`fixed left-0 right-0 top-0 z-50 px-5 py-4 transition-colors duration-500 md:px-16 ${navToneClass[tone]} backdrop-blur-2xl`}>
       <nav className="mx-auto flex max-w-7xl items-center justify-between">
-        <Link href="/" className="group flex items-center gap-2.5">
+        <Link href="/" className="group flex items-center gap-2">
           <img
             src={dark ? '/logo-light.svg' : '/logo-dark.svg'}
             alt="Nythera Logo"
-            className="w-7 h-7 object-contain"
+            className="w-10 h-10 object-contain mr-1"
           />
           <span className="font-cinzel text-[1.35rem] font-extrabold tracking-[-0.03em]">
             Nythera
@@ -472,11 +472,11 @@ function Footer() {
       </div>
       <div className="mx-auto grid max-w-[1300px] gap-12 px-6 py-20 md:px-10 lg:grid-cols-[1.8fr_1fr_1fr]">
         <div>
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <img
               src="/logo-gold.svg"
               alt="Nythera Gold Logo"
-              className="w-7 h-7 object-contain"
+              className="w-10 h-10 object-contain mr-1"
             />
             <h2 className="font-cinzel text-3xl font-extrabold tracking-[-0.04em]">
               Nythera

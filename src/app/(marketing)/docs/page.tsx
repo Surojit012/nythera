@@ -174,11 +174,11 @@ export default function DocsPage() {
       {/* Modern sticky navigation header */}
       <header className="sticky top-0 z-[100] border-b border-ink/[0.06] bg-offwhite/90 px-6 py-4 backdrop-blur-md md:px-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-2.5 font-cinzel text-[1.4rem] font-extrabold tracking-[-0.04em] text-ink hover:opacity-85 no-underline transition-opacity">
+          <Link href="/" className="flex items-center gap-2 font-cinzel text-[1.4rem] font-extrabold tracking-[-0.04em] text-ink hover:opacity-85 no-underline transition-opacity">
             <img
               src="/logo-dark.svg"
               alt="Nythera Logo"
-              className="w-7 h-7 object-contain"
+              className="w-10 h-10 object-contain mr-1"
             />
             <span>
               Nyth<span className="text-warm-clay">era</span>

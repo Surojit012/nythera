@@ -71,14 +71,14 @@ export default function Navbar() {
       >
         <Link
           href="/"
-          className={`flex items-center gap-2.5 font-display font-extrabold text-[1.4rem] tracking-tight no-underline transition-colors duration-500 ${
+          className={`flex items-center gap-2 font-display font-extrabold text-[1.4rem] tracking-tight no-underline transition-colors duration-500 ${
             isDark ? 'text-offwhite' : 'text-ink'
           }`}
         >
           <img
             src={isDark ? '/logo-light.svg' : '/logo-dark.svg'}
             alt="Nythera Logo"
-            className="w-7 h-7 object-contain"
+            className="w-10 h-10 object-contain mr-1"
           />
           <span>
             Nyth<span className="text-warm-clay">era</span>

@@ -60,11 +60,11 @@ export default function Footer() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr_1fr] gap-10 lg:gap-16 px-6 md:px-16 py-24 max-w-[1200px] mx-auto">
         {/* Brand */}
         <div>
-          <div className="flex items-center gap-2.5 mb-4">
+          <div className="flex items-center gap-2 mb-4">
             <img
               src="/logo-gold.svg"
               alt="Nythera Gold Logo"
-              className="w-7 h-7 object-contain"
+              className="w-10 h-10 object-contain mr-1"
             />
             <h2 className="font-display text-3xl font-extrabold tracking-[-0.04em]">
               Nyth<span className="text-muted-gold">era</span>

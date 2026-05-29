@@ -69,12 +69,12 @@ export default function Sidebar({
         <Link
           href="/"
           onClick={() => setMobileOpen(false)}
-          className="group inline-flex items-center gap-2"
+          className="group inline-flex items-center gap-1.5"
         >
           <img
             src="/logo-dark.svg"
             alt="Nythera Logo"
-            className="w-5 h-5 object-contain"
+            className="w-8 h-8 object-contain mr-1"
           />
           <span className="font-display text-sm font-bold tracking-[0.08em] text-ink">
             Nythera
