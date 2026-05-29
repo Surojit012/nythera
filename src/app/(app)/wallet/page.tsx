@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { useFundWallet } from '@privy-io/react-auth';
 import { storyAeneid } from '@/lib/wagmi';
@@ -10,12 +10,20 @@ import { WalletIcon, KeyIcon, ShieldIcon, ChainIcon } from '@/components/ui/Icon
 import SuccessMotion from '@/components/ui/SuccessMotion';
 
 const STORY_FAUCET_URL = process.env.NEXT_PUBLIC_STORY_AENEID_FAUCET_URL ?? 'https://faucet.story.foundation';
-const GOOGLE_FAUCET_URL =
-  process.env.NEXT_PUBLIC_STORY_AENEID_GOOGLE_FAUCET_URL ??
-  'https://cloud.google.com/application/web3/faucet/story/aeneid';
+
+const FAUCET_COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 hours
+const FAUCET_STORAGE_KEY = 'nythera_faucet_last_claim';
 
 function truncateAddress(address: string): string {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
+}
+
+function formatCooldown(ms: number): string {
+  if (ms <= 0) return '';
+  const hours = Math.floor(ms / (60 * 60 * 1000));
+  const minutes = Math.floor((ms % (60 * 60 * 1000)) / (60 * 1000));
+  if (hours > 0) return `${hours}h ${minutes}m`;
+  return `${minutes}m`;
 }
 
 export default function WalletPage() {
@@ -42,6 +50,31 @@ export default function WalletPage() {
   const [fundingStatus, setFundingStatus] = useState('');
   const [fundingError, setFundingError] = useState('');
 
+  // Faucet drip state
+  const [faucetLoading, setFaucetLoading] = useState(false);
+  const [faucetSuccess, setFaucetSuccess] = useState<{ txHash: string; amount: string } | null>(null);
+  const [faucetError, setFaucetError] = useState('');
+  const [cooldownRemaining, setCooldownRemaining] = useState(0);
+
+  // Check cooldown from localStorage on mount and tick every minute
+  const checkCooldown = useCallback(() => {
+    if (!activeAddress) return;
+    const stored = localStorage.getItem(`${FAUCET_STORAGE_KEY}_${activeAddress.toLowerCase()}`);
+    if (stored) {
+      const lastClaim = parseInt(stored, 10);
+      const remaining = (lastClaim + FAUCET_COOLDOWN_MS) - Date.now();
+      setCooldownRemaining(remaining > 0 ? remaining : 0);
+    } else {
+      setCooldownRemaining(0);
+    }
+  }, [activeAddress]);
+
+  useEffect(() => {
+    checkCooldown();
+    const interval = setInterval(checkCooldown, 60_000); // update every minute
+    return () => clearInterval(interval);
+  }, [checkCooldown]);
+
   async function copyAddress() {
     if (!activeAddress) return;
     await navigator.clipboard.writeText(activeAddress);
@@ -65,6 +98,53 @@ export default function WalletPage() {
     window.open(url, '_blank', 'noopener,noreferrer');
     setFaucetOpened(true);
     window.setTimeout(() => setFaucetOpened(false), 2200);
+  }
+
+  async function handleFaucetDrip() {
+    if (!activeAddress || faucetLoading || cooldownRemaining > 0) return;
+
+    setFaucetLoading(true);
+    setFaucetError('');
+    setFaucetSuccess(null);
+
+    try {
+      const res = await fetch('/api/faucet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ wallet: activeAddress }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        if (res.status === 429 && data.nextEligible) {
+          // Server says we're in cooldown
+          const remaining = data.nextEligible - Date.now();
+          setCooldownRemaining(remaining > 0 ? remaining : 0);
+          localStorage.setItem(
+            `${FAUCET_STORAGE_KEY}_${activeAddress.toLowerCase()}`,
+            String(data.nextEligible - FAUCET_COOLDOWN_MS),
+          );
+        }
+        setFaucetError(data.error || 'Faucet request failed.');
+        return;
+      }
+
+      // Success
+      setFaucetSuccess({ txHash: data.txHash, amount: data.amount });
+      localStorage.setItem(
+        `${FAUCET_STORAGE_KEY}_${activeAddress.toLowerCase()}`,
+        String(Date.now()),
+      );
+      setCooldownRemaining(FAUCET_COOLDOWN_MS);
+
+      // Refresh balance after a short delay for the tx to propagate
+      setTimeout(() => refreshBalance(), 3000);
+    } catch (err) {
+      setFaucetError(err instanceof Error ? err.message : 'Network error. Please try again.');
+    } finally {
+      setFaucetLoading(false);
+    }
   }
 
   async function fundWithPrivy() {
@@ -204,16 +284,46 @@ export default function WalletPage() {
                 <p className="ny-label text-warm-clay font-medium">Top up</p>
                 <h2 className="ny-heading mt-2 text-lg">Add testnet gas</h2>
                 <p className="mt-3 text-sm leading-6 text-ink/60">
-                  The faucet gives testnet IP for vault creation and recovery transactions.
+                  Get free testnet IP for vault creation and recovery transactions.
                 </p>
                 <div className="mt-5 space-y-2">
-                  <button type="button" onClick={() => openFaucet(STORY_FAUCET_URL)} className="ny-button w-full">
+                  {/* Native faucet button */}
+                  <button
+                    type="button"
+                    onClick={handleFaucetDrip}
+                    disabled={faucetLoading || cooldownRemaining > 0}
+                    className="ny-button w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {faucetLoading
+                      ? 'Sending 0.5 IP...'
+                      : cooldownRemaining > 0
+                        ? `Next claim in ${formatCooldown(cooldownRemaining)}`
+                        : 'Get 0.5 IP'}
+                  </button>
+                  <button type="button" onClick={() => openFaucet(STORY_FAUCET_URL)} className="ny-button-secondary w-full">
                     Open Story faucet
                   </button>
-                  <button type="button" onClick={() => openFaucet(GOOGLE_FAUCET_URL)} className="ny-button-secondary w-full">
-                    Open Google faucet
-                  </button>
                 </div>
+
+                {/* Faucet success */}
+                {faucetSuccess && (
+                  <div className="ny-success-surface mt-4 rounded-xl border p-4">
+                    <SuccessMotion
+                      label={`${faucetSuccess.amount} IP sent!`}
+                      detail="Your balance will update shortly."
+                    />
+                    <p className="mt-2 break-all font-mono text-[10px] text-ink/40">
+                      tx: {faucetSuccess.txHash}
+                    </p>
+                  </div>
+                )}
+
+                {/* Faucet error */}
+                {faucetError && (
+                  <div className="mt-4 rounded-xl border border-red-300/30 bg-red-50/50 p-3 text-sm text-red-800">
+                    {faucetError}
+                  </div>
+                )}
               </div>
             </div>
           </section>

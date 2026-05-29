@@ -150,22 +150,10 @@ export default function VaultCard({
         </div>
       )}
 
-      <div className="mb-4 grid gap-3 sm:grid-cols-2">
+      <div className="mb-4">
         <div className="rounded-xl border border-ink/[0.08] bg-white/45 px-4 py-3">
           <p className="font-mono text-[11px] text-ink/45 uppercase tracking-[0.22em]">Recovery readiness</p>
           <p className="font-display text-base text-ink mt-1">{readinessLabel}</p>
-        </div>
-        <div className="rounded-xl border border-ink/[0.08] bg-white/45 px-4 py-3">
-          <p className="font-mono text-[11px] text-ink/45 uppercase tracking-[0.22em]">Trusted contacts</p>
-          {contentType === 'walrus-file' ? (
-            <p className="font-display text-base text-ink mt-1">{guardianLabel}</p>
-          ) : threshold === 0 && totalShares === 0 ? (
-            <p className="font-display text-base text-ink mt-1">No guardians set yet</p>
-          ) : (
-            <p className="font-display text-base text-ink mt-1">
-              {threshold}-of-{totalShares}
-            </p>
-          )}
         </div>
       </div>
 
