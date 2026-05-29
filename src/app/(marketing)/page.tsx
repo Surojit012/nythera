@@ -77,19 +77,40 @@ export default function Home() {
   const [navTone, setNavTone] = useState<NavTone>('offwhite');
 
   useEffect(() => {
-    const updateTone = () => {
-      const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-tone]'));
-      const sampleY = window.innerHeight * 0.28;
-      const active = sections.findLast((section) => section.getBoundingClientRect().top <= sampleY);
-      setNavTone((active?.dataset.navTone as NavTone | undefined) ?? 'offwhite');
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-tone]'));
+    if (sections.length === 0) return;
+
+    // Use IntersectionObserver to track when sections cross the 28% scroll threshold.
+    // This runs completely off the main thread, eliminating layout thrashing and scroll lag.
+    const observerOptions = {
+      root: null, // viewport
+      rootMargin: '-28% 0px -72% 0px',
+      threshold: 0,
     };
 
-    updateTone();
-    window.addEventListener('scroll', updateTone, { passive: true });
-    window.addEventListener('resize', updateTone);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const tone = entry.target.getAttribute('data-nav-tone') as NavTone;
+          if (tone) {
+            setNavTone(tone);
+          }
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((section) => observer.observe(section));
+
+    // Initial check for current scroll position to set correct starting tone
+    const sampleY = window.innerHeight * 0.28;
+    const active = sections.findLast((section) => section.getBoundingClientRect().top <= sampleY);
+    if (active) {
+      const tone = active.getAttribute('data-nav-tone') as NavTone;
+      if (tone) setNavTone(tone);
+    }
+
     return () => {
-      window.removeEventListener('scroll', updateTone);
-      window.removeEventListener('resize', updateTone);
+      observer.disconnect();
     };
   }, []);
 
