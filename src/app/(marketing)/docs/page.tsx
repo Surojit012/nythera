@@ -598,15 +598,43 @@ export default function DocsPage() {
                 <div>File Payload → Client AES Encrypt (Separate Key) → Upload encrypted chunk to Walrus API → Store Blob Reference in CDR payload</div>
               </div>
             </div>
+          </section>
 
-            <div id="security-architecture" ref={el => { sectionRefs.current['security-architecture'] = el; }} className="scroll-mt-24 pt-6 space-y-3">
-              <h3 className="font-display text-lg font-bold">Security Architecture</h3>
-              <p className="text-xs text-ink/70 font-light leading-relaxed">
-                We employ a Defense-in-Depth model:
-                <strong> Layer 1:</strong> Local AES-256-GCM encryption in-browser, 
-                <strong> Layer 2:</strong> Story Validator consensus threshold encryption, and 
-                <strong> Layer 3:</strong> WhitelistCondition smart contract validation checking individual caller authorization.
-              </p>
+          {/* Section 17: Security Architecture */}
+          <section id="security-architecture" ref={el => { sectionRefs.current['security-architecture'] = el; }} className="scroll-mt-24 space-y-6">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">17</span>
+              <h2 className="font-display text-3xl font-bold tracking-tight">Security Architecture</h2>
+            </div>
+            
+            <p className="text-xs text-ink/70 font-light leading-relaxed">
+              We employ a Defense-in-Depth model to secure recovery vault payloads across three distinct cryptography and access control layers:
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl space-y-2">
+                <div className="font-mono text-[0.65rem] uppercase tracking-wider text-warm-clay font-bold">Layer 1: Client-Side</div>
+                <h4 className="font-display text-sm font-bold text-ink">Local AES-256-GCM</h4>
+                <p className="text-[11px] leading-relaxed text-ink/60">
+                  Vault secrets are encrypted locally in-browser before any payload transfer. Raw mnemonic phrases and keys never leave your system.
+                </p>
+              </div>
+
+              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl space-y-2">
+                <div className="font-mono text-[0.65rem] uppercase tracking-wider text-warm-clay font-bold">Layer 2: Protocol-Level</div>
+                <h4 className="font-display text-sm font-bold text-ink">Story Validator Consensus</h4>
+                <p className="text-[11px] leading-relaxed text-ink/60">
+                  Consensus validators check network state rules. Encrypted secret threshold shards are distributed dynamically and safely.
+                </p>
+              </div>
+
+              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl space-y-2">
+                <div className="font-mono text-[0.65rem] uppercase tracking-wider text-warm-clay font-bold">Layer 3: Contract-Level</div>
+                <h4 className="font-display text-sm font-bold text-ink">Whitelist Conditions</h4>
+                <p className="text-[11px] leading-relaxed text-ink/60">
+                  Immutable smart contracts evaluate whitelist guardian authorization, enforcing time delays and cryptographic verification gates.
+                </p>
+              </div>
             </div>
           </section>
 
