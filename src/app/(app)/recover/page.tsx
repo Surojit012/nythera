@@ -341,10 +341,9 @@ export default function RecoverPage() {
                 className="select-chevron w-full ny-input px-3 py-2"
               >
                 {vaults.map((v) => {
-                  const role = address && v.ownerAddress.toLowerCase() === address.toLowerCase() ? 'Owner' : 'Trusted contact';
                   return (
                     <option key={v.id} value={v.id}>
-                      {v.name?.trim() || 'Untitled vault'} - {truncateAddress(v.ownerAddress)} - {role}
+                      {v.name?.trim() || 'Untitled vault'}
                     </option>
                   );
                 })}
