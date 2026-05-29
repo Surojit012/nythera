@@ -472,39 +472,16 @@ function LoreSection() {
           <div className="absolute w-[180px] h-[180px] md:w-[260px] md:h-[260px] rounded-full blur-3xl opacity-30 pointer-events-none transition-all duration-700 ease-in-out"
                style={{ background: `radial-gradient(circle, ${activeChapter.colors.light} 0%, transparent 70%)` }} />
 
-          {/* CSS/SVG Faceted Crystal */}
+          {/* Official Crystal Shard PNG Logo integration */}
           <div className="animate-crystal-float relative z-10 transition-transform duration-500 hover:scale-105">
-            <svg
-              viewBox="0 0 200 300"
-              className="w-48 h-72 md:w-56 md:h-84 drop-shadow-[0_0_40px_rgba(var(--glow-rgb),0.4)] transition-all duration-700 ease-in-out"
+            <img
+              src="/images/shard.png"
+              alt="Nythera Crystal Shard"
+              className="w-44 h-auto md:w-52 transition-all duration-700 ease-in-out"
               style={{
-                '--glow-rgb': activeChapterIndex === 0 ? '239, 68, 68' : activeChapterIndex === 1 ? '245, 158, 11' : '16, 185, 129'
-              } as React.CSSProperties}
-            >
-              <defs>
-                <linearGradient id="facet-main" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor={activeChapter.colors.light} />
-                  <stop offset="100%" stopColor={activeChapter.colors.dark} />
-                </linearGradient>
-                <linearGradient id="facet-left" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor={activeChapter.colors.light} stopOpacity="0.8" />
-                  <stop offset="100%" stopColor={activeChapter.colors.dark} stopOpacity="0.3" />
-                </linearGradient>
-                <linearGradient id="facet-right" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor={activeChapter.colors.light} stopOpacity="0.9" />
-                  <stop offset="100%" stopColor={activeChapter.colors.dark} stopOpacity="0.4" />
-                </linearGradient>
-              </defs>
-
-              {/* Central facet */}
-              <path d="M100,20 L135,100 L100,280 L65,100 Z" fill="url(#facet-main)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-              {/* Left facet */}
-              <path d="M100,20 L65,100 L25,130 L100,280 Z" fill="url(#facet-left)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-              {/* Right facet */}
-              <path d="M100,20 L135,100 L175,130 L100,280 Z" fill="url(#facet-right)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-              {/* Top accent facets */}
-              <path d="M100,20 L135,100 L100,90 L65,100 Z" fill="rgba(255,255,255,0.1)" />
-            </svg>
+                filter: `drop-shadow(0 0 35px ${activeChapter.colors.light})`
+              }}
+            />
           </div>
         </div>
 
