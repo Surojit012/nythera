@@ -183,14 +183,14 @@ export default function DocsPage() {
               Nyth<span className="text-warm-clay">era</span>
             </span>
           </Link>
-          <span className="h-5 w-[1px] bg-ink/10" />
-          <span className="font-mono text-[0.65rem] tracking-[0.15em] uppercase text-ink/45">Documentation v1.0</span>
+          <span className="h-5 w-[1px] bg-ink/10 hidden sm:inline-block" />
+          <span className="font-mono text-[0.65rem] tracking-[0.15em] uppercase text-ink/45 hidden md:inline-block">Documentation v1.0</span>
         </div>
         <div className="flex items-center gap-4">
           <Link href="/dashboard" className="hidden sm:inline-block font-display text-[0.82rem] font-bold px-4 py-2 bg-ink text-offwhite border border-ink tracking-[0.05em] uppercase hover:bg-transparent hover:text-ink transition-all">
             Launch App
           </Link>
-          <Link href="/" className="font-mono text-[0.7rem] uppercase tracking-[0.1em] text-ink/60 hover:text-ink transition-colors">
+          <Link href="/" className="font-mono text-[0.7rem] uppercase tracking-[0.1em] text-ink/60 hover:text-ink transition-colors whitespace-nowrap">
             Back to Home
           </Link>
         </div>
@@ -240,7 +240,7 @@ export default function DocsPage() {
             <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-warm-clay font-bold bg-warm-clay/10 px-3 py-1 rounded-full">
               Full Strategy Blueprint
             </span>
-            <h1 className="font-display text-[3.2rem] sm:text-[4rem] font-extrabold text-ink leading-[1.05] tracking-[-0.03em] mt-4 mb-3">
+            <h1 className="font-display text-[2.2rem] xs:text-[2.6rem] sm:text-[3.2rem] md:text-[4rem] font-extrabold text-ink leading-[1.05] tracking-[-0.03em] mt-4 mb-3">
               Nythera Documentation
             </h1>
             <p className="font-body text-sm font-light text-ink/55 leading-relaxed max-w-[620px]">
@@ -388,7 +388,7 @@ export default function DocsPage() {
               This PRD establishes the core requirements for the MVP launch on the Story Aeneid network. The product must enable zero-knowledge vault creation, guardian updates on-chain, file encryption, and credit spending.
             </p>
             <div className="bg-white border border-ink/[0.06] rounded-xl p-5 space-y-3 text-xs font-light">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <strong>Target Chain:</strong> Story Aeneid Testnet (Chain ID 1315)
                 </div>
@@ -563,7 +563,7 @@ export default function DocsPage() {
             
             <div className="rounded-2xl border border-ink/[0.06] bg-white p-6 shadow-sm space-y-4 text-xs font-light">
               <h4 className="font-display text-xs font-bold uppercase tracking-wider text-ink/40">NextJS 16 Web Framework Dependencies</h4>
-              <div className="grid grid-cols-2 gap-4 font-mono text-[0.7rem] bg-ink/[0.02] p-4 rounded-xl border border-ink/[0.04]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-[0.7rem] bg-ink/[0.02] p-4 rounded-xl border border-ink/[0.04]">
                 <div>
                   <strong className="text-warm-clay">NextJS:</strong> v16.2.6 (App Router)
                 </div>
@@ -788,7 +788,7 @@ export default function DocsPage() {
                   <span className="font-bold">/api/vault-records</span>
                 </div>
                 <p className="text-[0.72rem] text-ink/60 font-body font-light">Submits a new metadata record representing a generated vault to Supabase.</p>
-                <div className="bg-ink text-offwhite p-3 rounded text-[0.68rem] leading-relaxed">
+                <div className="bg-ink text-offwhite p-3 rounded text-[0.68rem] leading-relaxed overflow-x-auto whitespace-pre-wrap break-all">
                   <span className="text-muted-gold font-bold">// Request Payload JSON</span><br/>
                   {'{ "wallet": "0x...", "vault": { "id": "uuid", "vault_name": "backup", ... } }'}
                 </div>
@@ -897,27 +897,27 @@ export default function DocsPage() {
               <div className="p-5 bg-white border border-ink/[0.06] rounded-xl space-y-4">
                 <h4 className="font-display text-[0.68rem] font-bold uppercase tracking-wider text-ink/50">CSS Component Classes</h4>
                 <div className="space-y-2 text-xs font-mono">
-                  <div className="flex justify-between py-1 border-b border-ink/5">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4 py-1 border-b border-ink/5">
                     <code className="font-bold text-ink">.ny-panel</code>
                     <span className="text-ink/60 font-light text-[10px] font-sans">Glassmorphic panel (shadow & gold top line)</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-ink/5">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4 py-1 border-b border-ink/5">
                     <code className="font-bold text-ink">.ny-tile</code>
                     <span className="text-ink/60 font-light text-[10px] font-sans">Lighter nested glass cell (for metric groups)</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-ink/5">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4 py-1 border-b border-ink/5">
                     <code className="font-bold text-ink">.ny-modal</code>
                     <span className="text-ink/60 font-light text-[10px] font-sans">Opaque popup context card (heavy backing shadow)</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-ink/5">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4 py-1 border-b border-ink/5">
                     <code className="font-bold text-ink">.ny-label</code>
                     <span className="text-ink/60 font-light text-[10px] font-sans">Monospace uppercase micro labels (letter-spacing 0.16em)</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-ink/5">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4 py-1 border-b border-ink/5">
                     <code className="font-bold text-ink">.ny-divider</code>
                     <span className="text-ink/60 font-light text-[10px] font-sans">Fade-out horizontal separator lines</span>
                   </div>
-                  <div className="flex justify-between py-1">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4 py-1">
                     <code className="font-bold text-ink">.ny-success-mark</code>
                     <span className="text-ink/60 font-light text-[10px] font-sans">Success animations with expandable ring checks</span>
                   </div>
