@@ -35,6 +35,11 @@ export const metadata: Metadata = {
     'crypto security',
     'family crypto recovery',
   ],
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
   openGraph: {
     title: 'Nythera',
     description:

@@ -174,8 +174,15 @@ export default function DocsPage() {
       {/* Modern sticky navigation header */}
       <header className="sticky top-0 z-[100] border-b border-ink/[0.06] bg-offwhite/90 px-6 py-4 backdrop-blur-md md:px-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link href="/" className="font-cinzel text-[1.4rem] font-extrabold tracking-[-0.04em] text-ink hover:opacity-85 no-underline transition-opacity">
-            Nyth<span className="text-warm-clay">era</span>
+          <Link href="/" className="flex items-center gap-2.5 font-cinzel text-[1.4rem] font-extrabold tracking-[-0.04em] text-ink hover:opacity-85 no-underline transition-opacity">
+            <img
+              src="/logo-dark.svg"
+              alt="Nythera Logo"
+              className="w-7 h-7 object-contain"
+            />
+            <span>
+              Nyth<span className="text-warm-clay">era</span>
+            </span>
           </Link>
           <span className="h-5 w-[1px] bg-ink/10" />
           <span className="font-mono text-[0.65rem] tracking-[0.15em] uppercase text-ink/45">Documentation v1.0</span>

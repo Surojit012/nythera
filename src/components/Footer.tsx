@@ -60,9 +60,16 @@ export default function Footer() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr_1fr] gap-10 lg:gap-16 px-6 md:px-16 py-24 max-w-[1200px] mx-auto">
         {/* Brand */}
         <div>
-          <h2 className="font-display text-3xl font-extrabold tracking-[-0.04em] mb-4">
-            Nyth<span className="text-muted-gold">era</span>
-          </h2>
+          <div className="flex items-center gap-2.5 mb-4">
+            <img
+              src="/logo-gold.svg"
+              alt="Nythera Gold Logo"
+              className="w-7 h-7 object-contain"
+            />
+            <h2 className="font-display text-3xl font-extrabold tracking-[-0.04em]">
+              Nyth<span className="text-muted-gold">era</span>
+            </h2>
+          </div>
           <p className="font-body text-[0.88rem] leading-relaxed text-offwhite/45 font-light max-w-[280px] mb-7">
             The first decentralized emergency wallet recovery protocol. Split.
             Distribute. Recover. Your phrase — never whole, never lost.

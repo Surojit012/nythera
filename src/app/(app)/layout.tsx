@@ -52,8 +52,13 @@ function ConnectedAppLayout({
 
         {/* Top Header: Logo */}
         <header className="relative z-10 mx-auto w-full max-w-7xl">
-          <Link href="/" className="font-cinzel text-xl font-extrabold tracking-[-0.03em] text-ink hover:opacity-80 transition-opacity">
-            nythera
+          <Link href="/" className="inline-flex items-center gap-2 font-cinzel text-xl font-extrabold tracking-[-0.03em] text-ink hover:opacity-80 transition-opacity">
+            <img
+              src="/logo-dark.svg"
+              alt="Nythera Logo"
+              className="w-6 h-6 object-contain"
+            />
+            <span>nythera</span>
           </Link>
         </header>
 
