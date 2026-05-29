@@ -45,7 +45,6 @@ const footerColumns = {
   protocol: [
     { label: 'How It Works', href: '/#how-it-works' },
     { label: 'Security', href: '/#security' },
-    { label: 'Trusted Contacts', href: '/#security' },
   ],
   product: [
     { label: 'Web App', href: '/dashboard' },
