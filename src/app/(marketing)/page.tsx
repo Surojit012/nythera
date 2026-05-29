@@ -118,6 +118,7 @@ export default function Home() {
       <div className="relative z-10">
         <HeroSection />
         <HowItWorksSection />
+        <LoreSection />
       </div>
       <SecuritySection />
       <FaqSection />
@@ -380,6 +381,191 @@ function HowItWorksSection() {
             <p className="mt-3 text-sm font-light leading-7 text-[#4a3a35]">{body}</p>
           </motion.div>
         ))}
+      </div>
+    </CinematicSection>
+  );
+}
+
+const loreChapters = [
+  {
+    id: 'abyss',
+    label: 'The Abyss',
+    title: 'Chapter I: The Abyss of Lost Anchors',
+    glyph: 'Ⅰ',
+    tag: 'THE THREAT',
+    narrative: 'In the vast decentralized cosmos, digital wealth is anchored by singular words of power. But the abyss is merciless—a forgotten path, a physical fire, or a sudden departure, and the anchor is severed, trapping the light in a $140B void forever.',
+    colors: {
+      light: '#EF4444', // Red
+      dark: '#7F1D1D',
+      stroke: 'rgba(239, 68, 68, 0.4)',
+      glow: 'rgba(239, 68, 68, 0.35)',
+    }
+  },
+  {
+    id: 'prism',
+    label: 'The Prism',
+    title: 'Chapter II: The Prism of Nythera',
+    glyph: 'Ⅱ',
+    tag: 'THE SOLUTION',
+    narrative: 'To safeguard the realm, we forged Nythera—a cryptographic prism. It takes your anchor and shatters it into threshold shards, casting them across the decentralized consensus. Separated, they are inert, carrying no danger.',
+    colors: {
+      light: '#F59E0B', // Amber
+      dark: '#78350F',
+      stroke: 'rgba(245, 158, 11, 0.4)',
+      glow: 'rgba(245, 158, 11, 0.35)',
+    }
+  },
+  {
+    id: 'rite',
+    label: 'The Rite',
+    title: 'Chapter III: The Rite of Reconstruction',
+    glyph: 'Ⅲ',
+    tag: 'THE RECOVERY',
+    narrative: "In the hour of need, the keepers of your circle assemble. By aligning their unique crystal shards with Story's consensus matrix, the fragments resonate. The original anchor is synthesized once more, entirely in your local light.",
+    colors: {
+      light: '#10B981', // Emerald
+      dark: '#064E3B',
+      stroke: 'rgba(16, 185, 129, 0.4)',
+      glow: 'rgba(16, 185, 129, 0.35)',
+    }
+  }
+];
+
+function LoreSection() {
+  const [activeChapterIndex, setActiveChapterIndex] = useState(0);
+  const activeChapter = loreChapters[activeChapterIndex];
+
+  return (
+    <CinematicSection
+      id="lore"
+      navTone="dark"
+      toneClass="bg-[#0B0F17]"
+      dark
+      eyebrow="The Chronicle"
+      title="The Nether-Shard: Legend of Nythera"
+    >
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-16px) rotate(1.5deg); }
+        }
+        @keyframes rotate-slow {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .animate-crystal-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-rotate-slow {
+          animation: rotate-slow 28s linear infinite;
+        }
+      ` }} />
+
+      <div className="grid gap-12 lg:grid-cols-[1.2fr_1.8fr] lg:gap-20 items-center">
+        {/* Left Column: Interactive Glowing Crystal */}
+        <div className="relative flex justify-center items-center py-8">
+          {/* Background Rotating Ring of Light */}
+          <div className="absolute w-[240px] h-[240px] md:w-[320px] md:h-[320px] rounded-full border border-dashed animate-rotate-slow pointer-events-none opacity-20 transition-all duration-700"
+               style={{ borderColor: activeChapter.colors.light }} />
+
+          {/* Radial Light Glow behind Crystal */}
+          <div className="absolute w-[180px] h-[180px] md:w-[260px] md:h-[260px] rounded-full blur-3xl opacity-30 pointer-events-none transition-all duration-700 ease-in-out"
+               style={{ background: `radial-gradient(circle, ${activeChapter.colors.light} 0%, transparent 70%)` }} />
+
+          {/* CSS/SVG Faceted Crystal */}
+          <div className="animate-crystal-float relative z-10 transition-transform duration-500 hover:scale-105">
+            <svg
+              viewBox="0 0 200 300"
+              className="w-48 h-72 md:w-56 md:h-84 drop-shadow-[0_0_40px_rgba(var(--glow-rgb),0.4)] transition-all duration-700 ease-in-out"
+              style={{
+                '--glow-rgb': activeChapterIndex === 0 ? '239, 68, 68' : activeChapterIndex === 1 ? '245, 158, 11' : '16, 185, 129'
+              } as React.CSSProperties}
+            >
+              <defs>
+                <linearGradient id="facet-main" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor={activeChapter.colors.light} />
+                  <stop offset="100%" stopColor={activeChapter.colors.dark} />
+                </linearGradient>
+                <linearGradient id="facet-left" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor={activeChapter.colors.light} stopOpacity="0.8" />
+                  <stop offset="100%" stopColor={activeChapter.colors.dark} stopOpacity="0.3" />
+                </linearGradient>
+                <linearGradient id="facet-right" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor={activeChapter.colors.light} stopOpacity="0.9" />
+                  <stop offset="100%" stopColor={activeChapter.colors.dark} stopOpacity="0.4" />
+                </linearGradient>
+              </defs>
+
+              {/* Central facet */}
+              <path d="M100,20 L135,100 L100,280 L65,100 Z" fill="url(#facet-main)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+              {/* Left facet */}
+              <path d="M100,20 L65,100 L25,130 L100,280 Z" fill="url(#facet-left)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+              {/* Right facet */}
+              <path d="M100,20 L135,100 L175,130 L100,280 Z" fill="url(#facet-right)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+              {/* Top accent facets */}
+              <path d="M100,20 L135,100 L100,90 L65,100 Z" fill="rgba(255,255,255,0.1)" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Right Column: Console/Chronicle Panel */}
+        <div className="space-y-8">
+          {/* Section subtitle / chapter info */}
+          <div>
+            <span className="font-mono text-xs uppercase tracking-[0.25em] font-bold block mb-2 transition-all duration-500"
+                  style={{ color: activeChapter.colors.light }}>
+              {activeChapter.tag}
+            </span>
+            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-offwhite leading-tight min-h-[40px] transition-all duration-300">
+              {activeChapter.title}
+            </h3>
+          </div>
+
+          {/* Narrative Content */}
+          <div className="min-h-[120px] bg-white/[0.03] border border-white/10 rounded-2xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-sm">
+            {/* Glowing active outline border corner */}
+            <span className="absolute left-0 top-0 w-3 h-[1px] transition-all duration-500" style={{ backgroundColor: activeChapter.colors.light }} />
+            <span className="absolute left-0 top-0 w-[1px] h-3 transition-all duration-500" style={{ backgroundColor: activeChapter.colors.light }} />
+            
+            <p className="font-body text-[0.95rem] leading-8 text-offwhite/80 font-light transition-all duration-500">
+              {activeChapter.narrative}
+            </p>
+          </div>
+
+          {/* Navigation Chapter Controls */}
+          <div className="flex flex-wrap gap-4 items-center">
+            {loreChapters.map((chapter, index) => {
+              const isActive = activeChapterIndex === index;
+              return (
+                <button
+                  key={chapter.id}
+                  onClick={() => setActiveChapterIndex(index)}
+                  className={`flex items-center gap-3 px-5 py-3 border font-display text-xs font-semibold tracking-wider uppercase cursor-pointer transition-all duration-300 rounded-lg ${
+                    isActive
+                      ? 'text-ink border-transparent shadow-[0_8px_20px_rgba(255,255,255,0.1)]'
+                      : 'text-offwhite/60 border-white/10 bg-transparent hover:text-offwhite hover:border-white/20'
+                  }`}
+                  style={{
+                    backgroundColor: isActive ? activeChapter.colors.light : 'transparent'
+                  }}
+                >
+                  <span className="font-mono text-sm">{chapter.glyph}</span>
+                  <span>{chapter.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Lore CTA */}
+          <div className="pt-2">
+            <Link href="/vault/create" className="inline-flex items-center gap-2 px-6 py-3 border text-xs font-display font-semibold uppercase tracking-[0.1em] transition-all duration-300 group hover:-translate-y-0.5 bg-transparent border-white/20 text-offwhite hover:border-white/40 hover:bg-white/5">
+              <span>Synthesize Your Vault</span>
+              <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none">
+                <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          </div>
+        </div>
       </div>
     </CinematicSection>
   );
