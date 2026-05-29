@@ -126,7 +126,7 @@ const documentCategories = [
 export default function DocsPage() {
   const [activeSection, setActiveSection] = useState('executive-summary');
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const [recoveryTab, setRecoveryTab] = useState<'cdr' | 'shamir' | 'shardlock'>('cdr');
+  const [recoveryTab, setRecoveryTab] = useState<'cdr' | 'shamir'>('cdr');
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   // Dynamic active section scrolling detection (scroll spy)
@@ -729,7 +729,7 @@ export default function DocsPage() {
             </p>
 
             <div className="flex gap-2 border-b border-ink/10 pb-px">
-              {(['cdr', 'shamir', 'shardlock'] as const).map((tab) => (
+              {(['cdr', 'shamir'] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setRecoveryTab(tab)}
@@ -739,7 +739,7 @@ export default function DocsPage() {
                       : 'bg-transparent text-ink/50 hover:bg-ink/5'
                   }`}
                 >
-                  {tab === 'cdr' ? 'CDR Primary' : tab === 'shamir' ? 'Local Shamir' : 'ShardLock ECDH'}
+                  {tab === 'cdr' ? 'CDR Primary' : 'Local Shamir'}
                 </button>
               ))}
             </div>
@@ -764,17 +764,6 @@ export default function DocsPage() {
                   </p>
                   <span className="font-mono text-[0.62rem] text-warm-clay uppercase tracking-wider block bg-warm-clay/5 p-2 rounded">
                     Security: Moderate (manual shard custody) · Gas Fees: No · Offline Support: Yes
-                  </span>
-                </div>
-              )}
-              {recoveryTab === 'shardlock' && (
-                <div className="space-y-2">
-                  <h4 className="font-display text-xs font-bold text-ink">Path C: ShardLock (Independent ECDH Shard Encrypt)</h4>
-                  <p className="text-ink/65">
-                    Combines Shamir SSS with secure key agreement. Each guardian share is encrypted using ECDH P-256 against that specific guardian's public key. Guardians can only decrypt their assigned share, ensuring they cannot access other shards.
-                  </p>
-                  <span className="font-mono text-[0.62rem] text-warm-clay uppercase tracking-wider block bg-warm-clay/5 p-2 rounded">
-                    Security: Extreme · Gas Fees: No · Offline Support: Yes
                   </span>
                 </div>
               )}
