@@ -320,37 +320,9 @@ export default function DocsPage() {
               <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">04</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Market Opportunity</h2>
             </div>
-            <p className="leading-relaxed text-ink/75 font-light">
-              The number of self-custody wallets has grown past 120M globally, driven by hardware key distributions and general distrust of centralized crypto custody exchanges. The digital estate management sector represents an untapped market value estimated to grow past $4.1B in the next few years.
-            </p>
-            
-            <div className="overflow-x-auto rounded-xl border border-ink/[0.06] bg-white">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="bg-ink text-offwhite font-mono uppercase tracking-wider">
-                    <th className="p-3">Competitor</th>
-                    <th className="p-3">Model</th>
-                    <th className="p-3">Nythera Advantage</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-ink/[0.06]">
-                  <tr className="hover:bg-ink/[0.01]">
-                    <td className="p-3 font-semibold">Trezor Shamir</td>
-                    <td className="p-3 text-ink/65">Local split backup</td>
-                    <td className="p-3 text-emerald-800 font-medium">Auto guardian whitelist, secure storage</td>
-                  </tr>
-                  <tr className="hover:bg-ink/[0.01]">
-                    <td className="p-3 font-semibold">Gnosis Safe</td>
-                    <td className="p-3 text-ink/65">Multisig Wallet</td>
-                    <td className="p-3 text-emerald-800 font-medium">No initial setup cost or crypto knowledge required for family</td>
-                  </tr>
-                  <tr className="hover:bg-ink/[0.01]">
-                    <td className="p-3 font-semibold">Casa</td>
-                    <td className="p-3 text-ink/65">Centralized Key-Share</td>
-                    <td className="p-3 text-emerald-800 font-medium">True client-encrypted on-chain CDR consensus</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
+              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">Market & Competitive Intelligence</span>
+              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
             </div>
           </section>
 
@@ -360,33 +332,9 @@ export default function DocsPage() {
               <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">05</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">User Personas</h2>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 bg-white border border-ink/[0.06] rounded-2xl shadow-sm space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-slate-blue/20 flex items-center justify-center font-bold text-slate-800">A</div>
-                  <div>
-                    <h4 className="font-display text-sm font-bold">Arjun, 28 · DeFi Native</h4>
-                    <p className="font-mono text-[0.62rem] uppercase tracking-wider text-ink/40">Power User</p>
-                  </div>
-                </div>
-                <p className="text-xs text-ink/65 leading-relaxed font-light">
-                  Owns multiple hardware keys and manages heavy liquidity. Worries about a house fire destroying physical backups, or laptop storage failure. designate colleagues or a hardware wallet as guardians.
-                </p>
-              </div>
-
-              <div className="p-6 bg-white border border-ink/[0.06] rounded-2xl shadow-sm space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-dusty-rose/20 flex items-center justify-center font-bold text-rose-800">M</div>
-                  <div>
-                    <h4 className="font-display text-sm font-bold">Maria, 52 · Succession Planner</h4>
-                    <p className="font-mono text-[0.62rem] uppercase tracking-wider text-ink/40">Estate Management</p>
-                  </div>
-                </div>
-                <p className="text-xs text-ink/65 leading-relaxed font-light">
-                  Long-term investor. Wants her non-technical children and family trust lawyer to recover her cold wallets should anything happen to her, without them needing Web3 wallets setup beforehand.
-                </p>
-              </div>
+            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
+              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">User Persona & Demographic Profiles</span>
+              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
             </div>
           </section>
 
@@ -915,23 +863,9 @@ export default function DocsPage() {
               <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">25</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Strategic Roadmap</h2>
             </div>
-            
-            <div className="space-y-6 relative border-l border-ink/[0.06] ml-4 pl-6 text-xs font-light">
-              <div>
-                <span className="absolute -left-[30px] top-0 w-4.5 h-4.5 rounded-full bg-ink flex items-center justify-center text-offwhite font-mono text-[0.55rem] font-bold">1</span>
-                <h4 className="font-display text-xs font-bold uppercase tracking-wider text-ink">Q2-Q3 2026: Hardening & Audits</h4>
-                <p className="text-ink/60 mt-1">Smart contract formal audits by Trail of Bits. Integration of timelock recovery delay rules. Complete browser sandbox testing suite.</p>
-              </div>
-              <div>
-                <span className="absolute -left-[30px] top-2 w-4.5 h-4.5 rounded-full bg-ink flex items-center justify-center text-offwhite font-mono text-[0.55rem] font-bold">2</span>
-                <h4 className="font-display text-xs font-bold uppercase tracking-wider text-ink">Q4 2026: Mainnet Launch</h4>
-                <p className="text-ink/60 mt-1">Deployment on Story mainnet. Live credit payments system. Bug bounty program setups.</p>
-              </div>
-              <div>
-                <span className="absolute -left-[30px] top-4 w-4.5 h-4.5 rounded-full bg-ink flex items-center justify-center text-offwhite font-mono text-[0.55rem] font-bold">3</span>
-                <h4 className="font-display text-xs font-bold uppercase tracking-wider text-ink">2027+: DAO Governance</h4>
-                <p className="text-ink/60 mt-1">Migration of contract configurations to community governance keys. Cross-chain relays. Dead man switch oracle triggers.</p>
-              </div>
+            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
+              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">Detailed Strategic Milestones</span>
+              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
             </div>
           </section>
 
@@ -941,27 +875,9 @@ export default function DocsPage() {
               <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">26</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Key Success Metrics</h2>
             </div>
-            <p className="leading-relaxed text-ink/75 font-light">
-              Our single "North Star" metric is the <strong>successful vault recovery count</strong>—representing the number of times a guardian retrieves a critical key under real distress.
-            </p>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl shadow-sm">
-                <span className="font-display text-2xl font-black block text-ink">10,000+</span>
-                <span className="text-[0.6rem] uppercase tracking-wider text-ink/45 block mt-1">Vaults Target</span>
-              </div>
-              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl shadow-sm">
-                <span className="font-display text-2xl font-black block text-ink">25,000+</span>
-                <span className="text-[0.6rem] uppercase tracking-wider text-ink/45 block mt-1">Active Guardians</span>
-              </div>
-              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl shadow-sm">
-                <span className="font-display text-2xl font-black block text-ink">&gt;95%</span>
-                <span className="text-[0.6rem] uppercase tracking-wider text-ink/45 block mt-1">Recovery Rate</span>
-              </div>
-              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl shadow-sm">
-                <span className="font-display text-2xl font-black block text-ink">&lt;60s</span>
-                <span className="text-[0.6rem] uppercase tracking-wider text-ink/45 block mt-1">Access Latency</span>
-              </div>
+            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
+              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">KPIs & Platform Analytics</span>
+              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
             </div>
           </section>
 
@@ -971,38 +887,9 @@ export default function DocsPage() {
               <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">27</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Risk Assessment Matrix</h2>
             </div>
-            
-            <div className="overflow-x-auto rounded-xl border border-ink/[0.06] bg-white text-xs">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-ink text-offwhite font-mono uppercase tracking-wider">
-                    <th className="p-3">Risk Scenario</th>
-                    <th className="p-3">Impact</th>
-                    <th className="p-3">Probability</th>
-                    <th className="p-3">Core Mitigations</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-ink/[0.06] font-light">
-                  <tr className="hover:bg-ink/[0.01]">
-                    <td className="p-3 font-semibold">CDR RPC Network downtime</td>
-                    <td className="p-3 text-red-700 font-medium">High</td>
-                    <td className="p-3">Medium</td>
-                    <td className="p-3 text-ink/70">120s action timeouts, dynamic retries, clear fail state guides.</td>
-                  </tr>
-                  <tr className="hover:bg-ink/[0.01]">
-                    <td className="p-3 font-semibold">Guardian Collusion</td>
-                    <td className="p-3 text-red-700 font-medium">Critical</td>
-                    <td className="p-3">Low</td>
-                    <td className="p-3 text-ink/70">Automatic access history logs, owner alerts, scheduled recovery timelocks.</td>
-                  </tr>
-                  <tr className="hover:bg-ink/[0.01]">
-                    <td className="p-3 font-semibold">Loss of Guardian Access</td>
-                    <td className="p-3 text-red-700 font-medium">Critical</td>
-                    <td className="p-3">Medium</td>
-                    <td className="p-3 text-ink/70">The owner address is automatically registered to ensure bypass.</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
+              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">Formal Risk & Vulnerability Metrics</span>
+              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
             </div>
           </section>
 
