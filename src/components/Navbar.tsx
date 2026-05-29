@@ -20,6 +20,7 @@ const navLinks = [
   { href: '/#how', label: 'How It Works' },
   { href: '/#tech', label: 'Technology' },
   { href: '/#guardians', label: 'Guardians' },
+  { href: '/docs', label: 'Docs' },
 ];
 
 const sectionColors: Record<string, string> = {

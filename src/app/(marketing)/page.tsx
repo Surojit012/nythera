@@ -49,6 +49,7 @@ const footerColumns = {
   ],
   product: [
     { label: 'Web App', href: '/dashboard' },
+    { label: 'Documentation', href: '/docs' },
   ],
 };
 
@@ -150,6 +151,9 @@ function Navbar({ tone }: { tone: NavTone }) {
               {link}
             </a>
           ))}
+          <Link href="/docs" className={`font-display text-[0.9rem] font-medium transition hover:opacity-100 ${dark ? 'text-offwhite/72' : 'text-ink/70'}`}>
+            Docs
+          </Link>
         </div>
         <Link href="/dashboard" className={`ml-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 font-display text-[0.72rem] font-semibold uppercase tracking-[0.06em] transition-all duration-300 hover:-translate-y-0.5 ${dark ? 'border border-muted-gold/70 bg-muted-gold/95 text-ink shadow-[0_8px_18px_rgba(201,169,110,0.28)] hover:bg-muted-gold' : 'border border-ink/15 bg-ink text-offwhite shadow-[0_10px_20px_rgba(26,26,26,0.16)] hover:border-warm-clay/60 hover:bg-warm-clay hover:text-ink'}`}>
           <span>Launch App</span>

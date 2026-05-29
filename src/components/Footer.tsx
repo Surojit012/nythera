@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const shardPattern = Array.from({ length: 120 }, (_, index) => ((index * 17) % 23 > 18 ? 4 : 2));
 
 const footerLinks = {
@@ -5,8 +7,8 @@ const footerLinks = {
     { label: 'How It Works', href: '/#how' },
     { label: 'CDR Technology', href: '/#tech' },
     { label: 'Guardian Model', href: '/#guardians' },
+    { label: 'Documentation', href: '/docs' },
     { label: 'Security Audit (Soon)', href: '#' },
-    { label: 'Whitepaper (Soon)', href: '#' },
   ],
   product: [
     { label: 'Dashboard', href: '/dashboard' },
@@ -24,7 +26,12 @@ const footerLinks = {
   ],
 };
 
-const socials = ['Twitter', 'Discord', 'GitHub', 'Docs'];
+const socials = [
+  { label: 'Twitter', href: '#' },
+  { label: 'Discord', href: '#' },
+  { label: 'GitHub', href: '#' },
+  { label: 'Docs', href: '/docs' },
+];
 
 const trustBadges = [
   'Open Source',
@@ -62,13 +69,13 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap gap-3">
             {socials.map((s) => (
-              <a
-                key={s}
-                href="#"
+              <Link
+                key={s.label}
+                href={s.href}
                 className="font-mono text-[0.65rem] tracking-[0.1em] uppercase px-3.5 py-2 border border-offwhite/[0.12] text-offwhite/50 no-underline transition-all duration-200 hover:border-muted-gold hover:text-muted-gold"
               >
-                {s}
-              </a>
+                {s.label}
+              </Link>
             ))}
           </div>
         </div>
@@ -82,12 +89,12 @@ export default function Footer() {
             <ul className="list-none flex flex-col gap-3 p-0 m-0">
               {links.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
                     className="font-body text-[0.88rem] text-offwhite/55 no-underline font-light transition-colors duration-200 hover:text-offwhite"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
