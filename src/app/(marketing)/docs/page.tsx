@@ -480,40 +480,47 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 10 & 11: Functional & Non-Functional Requirements */}
+          {/* Section 10: Functional Requirements */}
           <section id="functional-requirements" ref={el => { sectionRefs.current['functional-requirements'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
               <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">10</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Functional Requirements</h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-light">
-              <div className="space-y-4">
-                <h4 className="font-display text-xs font-bold uppercase tracking-wider text-ink/40">Core Product Scope</h4>
-                <ul className="list-disc pl-5 space-y-2 text-ink/70">
-                  <li>Client-side browser encryption of secret payloads prior to any outbound network transaction.</li>
-                  <li>AES-256-GCM encryption with NIST-compliant cryptographic IV values.</li>
-                  <li>Securely wipe and clean buffer variables containing temporary private key fragments.</li>
-                </ul>
-              </div>
-              <div id="non-functional-requirements" ref={el => { sectionRefs.current['non-functional-requirements'] = el; }} className="space-y-4 scroll-mt-24">
-                <h4 className="font-display text-xs font-bold uppercase tracking-wider text-ink/40">Non-Functional Target Metrics</h4>
-                <ul className="list-disc pl-5 space-y-2 text-ink/70">
-                  <li><strong>Latency:</strong> Vault creation completes within 30 seconds including all on-chain signatures.</li>
-                  <li><strong>Security:</strong> Absolute Zero-Knowledge baseline. Clear console of key bytes on catch blocks.</li>
-                  <li><strong>Uptime:</strong> Web client hosts maintain 99.5% uptime. Fault logs synced with Supabase.</li>
-                </ul>
-              </div>
+            <div className="p-5 bg-white border border-ink/[0.06] rounded-xl space-y-4 text-xs font-light">
+              <h4 className="font-display text-sm font-bold text-ink">Core Product Scope</h4>
+              <ul className="list-disc pl-5 space-y-2 text-ink/70 leading-relaxed">
+                <li>Client-side browser encryption of secret payloads prior to any outbound network transaction.</li>
+                <li>AES-256-GCM encryption with NIST-compliant cryptographic IV values.</li>
+                <li>Securely wipe and clean buffer variables containing temporary private key fragments.</li>
+              </ul>
             </div>
           </section>
 
-          {/* Section 12 & 13: Info Architecture & E2E User Flows */}
+          {/* Section 11: Non-Functional Requirements */}
+          <section id="non-functional-requirements" ref={el => { sectionRefs.current['non-functional-requirements'] = el; }} className="scroll-mt-24 space-y-6">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">11</span>
+              <h2 className="font-display text-3xl font-bold tracking-tight">Non-Functional Requirements</h2>
+            </div>
+
+            <div className="p-5 bg-white border border-ink/[0.06] rounded-xl space-y-4 text-xs font-light">
+              <h4 className="font-display text-sm font-bold text-ink">Non-Functional Target Metrics</h4>
+              <ul className="list-disc pl-5 space-y-2 text-ink/70 leading-relaxed">
+                <li><strong>Latency:</strong> Vault creation completes within 30 seconds including all on-chain signatures.</li>
+                <li><strong>Security:</strong> Absolute Zero-Knowledge baseline. Clear console of key bytes on catch blocks.</li>
+                <li><strong>Uptime:</strong> Web client hosts maintain 99.5% uptime. Fault logs synced with Supabase.</li>
+              </ul>
+            </div>
+          </section>
+
+          {/* Section 12: Information Architecture */}
           <section id="information-architecture" ref={el => { sectionRefs.current['information-architecture'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
               <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">12</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Information Architecture</h2>
             </div>
-            <p className="leading-relaxed text-ink/75 font-light">
+            <p className="leading-relaxed text-ink/75 text-xs font-light">
               Nythera uses an editorial dashboard pattern designed to guide users smoothly.
             </p>
             
@@ -535,19 +542,47 @@ export default function DocsPage() {
                 <span className="text-[0.65rem] text-ink/50">Credits management and testnet key details</span>
               </div>
             </div>
+          </section>
 
-            <div id="user-flows" ref={el => { sectionRefs.current['user-flows'] = el; }} className="scroll-mt-24 pt-6 space-y-4">
-              <h3 className="font-display text-lg font-bold">End-to-End User Flow</h3>
-              <p className="text-xs text-ink/70 font-light leading-relaxed">
-                During vault creation, three signatures are requested from the user: 
-                <strong> 1. Allocate:</strong> generates an ID on-chain, 
-                <strong> 2. Register:</strong> maps the guardian access addresses, 
-                <strong> 3. Write:</strong> encrypts data and updates the CDR consensus nodes.
-              </p>
+          {/* Section 13: End-to-End User Flow */}
+          <section id="user-flows" ref={el => { sectionRefs.current['user-flows'] = el; }} className="scroll-mt-24 space-y-6">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">13</span>
+              <h2 className="font-display text-3xl font-bold tracking-tight">End-to-End User Flows</h2>
+            </div>
+            
+            <p className="text-xs text-ink/70 font-light leading-relaxed">
+              During vault creation, three signatures are requested from the user, ensuring secure keyless and non-custodial operations:
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl space-y-2 relative overflow-hidden">
+                <div className="absolute top-2 right-3 font-mono text-[1.5rem] font-bold text-ink/5 select-none">1</div>
+                <h4 className="font-display text-sm font-bold text-ink">1. Allocate</h4>
+                <p className="text-[11px] leading-relaxed text-ink/60">
+                  Generates a unique vault ID on-chain, preparing consensus consensus space for metadata.
+                </p>
+              </div>
+
+              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl space-y-2 relative overflow-hidden">
+                <div className="absolute top-2 right-3 font-mono text-[1.5rem] font-bold text-ink/5 select-none">2</div>
+                <h4 className="font-display text-sm font-bold text-ink">2. Register</h4>
+                <p className="text-[11px] leading-relaxed text-ink/60">
+                  Maps the guardian access addresses and timelocks to the contract whitelist rules.
+                </p>
+              </div>
+
+              <div className="p-4 bg-white border border-ink/[0.06] rounded-xl space-y-2 relative overflow-hidden">
+                <div className="absolute top-2 right-3 font-mono text-[1.5rem] font-bold text-ink/5 select-none">3</div>
+                <h4 className="font-display text-sm font-bold text-ink">3. Write</h4>
+                <p className="text-[11px] leading-relaxed text-ink/60">
+                  Encrypts data payload client-side and updates the CDR consensus nodes across the network.
+                </p>
+              </div>
             </div>
           </section>
 
-          {/* Section 14 & 15: Technical Architecture & System Design */}
+          {/* Section 14: Technical Architecture */}
           <section id="technical-architecture" ref={el => { sectionRefs.current['technical-architecture'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
               <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">14</span>
@@ -571,10 +606,18 @@ export default function DocsPage() {
                 </div>
               </div>
             </div>
+          </section>
 
-            <div id="system-design" ref={el => { sectionRefs.current['system-design'] = el; }} className="scroll-mt-24 pt-6 space-y-3">
-              <h3 className="font-display text-lg font-bold">System Component Design</h3>
-              <p className="text-xs text-ink/70 font-light leading-relaxed">
+          {/* Section 15: System Component Design */}
+          <section id="system-design" ref={el => { sectionRefs.current['system-design'] = el; }} className="scroll-mt-24 space-y-6">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">15</span>
+              <h2 className="font-display text-3xl font-bold tracking-tight">System Component Design</h2>
+            </div>
+
+            <div className="p-5 bg-white border border-ink/[0.06] rounded-xl space-y-3 text-xs font-light">
+              <h4 className="font-display text-sm font-bold text-ink">Local-First Storage & Synchronization</h4>
+              <p className="text-xs text-ink/70 leading-relaxed">
                 The architecture is designed local-first. Vault metadata and tag summaries are indexed and securely cached in the browser's <code>localStorage</code>, synced asynchronously to Supabase databases, while the raw secret content is threshold-encrypted and stored on-chain.
               </p>
             </div>
@@ -928,27 +971,34 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 28 & 29: Audit Requirements & Deployment */}
+          {/* Section 28: Audit Requirements */}
           <section id="audit-requirements" ref={el => { sectionRefs.current['audit-requirements'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
               <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">28</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Audit Requirements</h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-light">
-              <div className="space-y-4">
-                <h4 className="font-display text-xs font-bold uppercase tracking-wider text-ink/40">Critical Audits Scheduled</h4>
-                <ul className="list-disc pl-5 space-y-2 text-ink/70">
-                  <li><strong>Contracts Audit:</strong> Complete validation of AccessCondition logic, reentrancy paths, gas limits, and creator bypass.</li>
-                  <li><strong>Crypto Review:</strong> Strict review of AES key zeroing and generator functions in the Web Crypto scopes.</li>
-                </ul>
-              </div>
-              <div id="deployment-strategy" ref={el => { sectionRefs.current['deployment-strategy'] = el; }} className="space-y-4 scroll-mt-24">
-                <h4 className="font-display text-xs font-bold uppercase tracking-wider text-ink/40">Deployment Configuration</h4>
-                <p className="text-ink/65 leading-relaxed">
-                  Web frontend is compiled and hosted on <strong>Vercel</strong> edge routing nodes. Synced database configurations run securely on <strong>Supabase</strong> PostgreSQL instances guarded by strict Row Level Security (RLS) rules matching specific wallet structures.
-                </p>
-              </div>
+            <div className="p-5 bg-white border border-ink/[0.06] rounded-xl space-y-4 text-xs font-light">
+              <h4 className="font-display text-sm font-bold text-ink">Critical Audits Scheduled</h4>
+              <ul className="list-disc pl-5 space-y-2 text-ink/70 leading-relaxed">
+                <li><strong>Contracts Audit:</strong> Complete validation of AccessCondition logic, reentrancy paths, gas limits, and creator bypass.</li>
+                <li><strong>Crypto Review:</strong> Strict review of AES key zeroing and generator functions in the Web Crypto scopes.</li>
+              </ul>
+            </div>
+          </section>
+
+          {/* Section 29: Deployment Pipeline */}
+          <section id="deployment-strategy" ref={el => { sectionRefs.current['deployment-strategy'] = el; }} className="scroll-mt-24 space-y-6">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">29</span>
+              <h2 className="font-display text-3xl font-bold tracking-tight">Deployment Pipeline</h2>
+            </div>
+
+            <div className="p-5 bg-white border border-ink/[0.06] rounded-xl space-y-3 text-xs font-light">
+              <h4 className="font-display text-sm font-bold text-ink">Deployment Configurations</h4>
+              <p className="text-ink/65 leading-relaxed">
+                Web frontend is compiled and hosted on <strong>Vercel</strong> edge routing nodes. Synced database configurations run securely on <strong>Supabase</strong> PostgreSQL instances guarded by strict Row Level Security (RLS) rules matching specific wallet structures.
+              </p>
             </div>
           </section>
 
