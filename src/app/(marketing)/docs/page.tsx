@@ -119,7 +119,6 @@ const documentCategories = [
 export default function DocsPage() {
   const [activeSection, setActiveSection] = useState('executive-summary');
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const [recoveryTab, setRecoveryTab] = useState<'cdr' | 'shamir'>('cdr');
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   // Dynamic active section scrolling detection (scroll spy)
@@ -669,48 +668,19 @@ export default function DocsPage() {
               <h2 className="font-display text-3xl font-bold tracking-tight">Recovery Engine Design</h2>
             </div>
             <p className="leading-relaxed text-ink/75 font-light">
-              Toggle the different recovery paths below to inspect the architectural differences:
+              Inspect the architectural design of the recovery engine below:
             </p>
 
-            <div className="flex gap-2 border-b border-ink/10 pb-px">
-              {(['cdr', 'shamir'] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setRecoveryTab(tab)}
-                  className={`px-4 py-2 font-mono text-[0.72rem] uppercase tracking-wider border-none transition-all cursor-pointer rounded-t-lg ${
-                    recoveryTab === tab 
-                      ? 'bg-ink text-offwhite font-bold' 
-                      : 'bg-transparent text-ink/50 hover:bg-ink/5'
-                  }`}
-                >
-                  {tab === 'cdr' ? 'CDR Primary' : 'Local Shamir'}
-                </button>
-              ))}
-            </div>
-
-            <div className="bg-white border border-ink/[0.06] rounded-xl p-5 text-xs leading-relaxed font-light">
-              {recoveryTab === 'cdr' && (
-                <div className="space-y-2">
-                  <h4 className="font-display text-xs font-bold text-ink">Path A: On-Chain CDR Threshold Decrypt</h4>
-                  <p className="text-ink/65">
-                    Primary production flow. The guardian connects their address, triggering the <code>WhitelistCondition</code> contract. Once validated, the Story network consensus validators threshold-decrypt the metadata keys, outputting the secret to the client-side state.
-                  </p>
-                  <span className="font-mono text-[0.62rem] text-warm-clay uppercase tracking-wider block bg-warm-clay/5 p-2 rounded">
-                    Security: High · Gas Fees: Yes (writeFee/accessFee) · Offline Support: No
-                  </span>
-                </div>
-              )}
-              {recoveryTab === 'shamir' && (
-                <div className="space-y-2">
-                  <h4 className="font-display text-xs font-bold text-ink">Path B: Local Shamir Key Combination</h4>
-                  <p className="text-ink/65">
-                    The raw AES key is split using Shamir's Secret Sharing. Guardians receive raw key shards (via copy-paste). Once the owner requests recovery, they must collect at least the threshold number of shares and paste them together inside the browser.
-                  </p>
-                  <span className="font-mono text-[0.62rem] text-warm-clay uppercase tracking-wider block bg-warm-clay/5 p-2 rounded">
-                    Security: Moderate (manual shard custody) · Gas Fees: No · Offline Support: Yes
-                  </span>
-                </div>
-              )}
+            <div className="bg-white border border-ink/[0.06] rounded-xl p-5 text-xs leading-relaxed font-light mt-4">
+              <div className="space-y-2">
+                <h4 className="font-display text-xs font-bold text-ink">On-Chain CDR Threshold Decrypt</h4>
+                <p className="text-ink/65">
+                  Primary production flow. The guardian connects their address, triggering the <code>WhitelistCondition</code> contract. Once validated, the Story network consensus validators threshold-decrypt the metadata keys, outputting the secret to the client-side state.
+                </p>
+                <span className="font-mono text-[0.62rem] text-warm-clay uppercase tracking-wider block bg-warm-clay/5 p-2 rounded">
+                  Security: High · Gas Fees: Yes (writeFee/accessFee) · Offline Support: No
+                </span>
+              </div>
             </div>
           </section>
 
