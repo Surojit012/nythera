@@ -68,56 +68,50 @@ const documentCategories = [
       { id: 'executive-summary', title: '1. Executive Summary' },
       { id: 'vision-mission', title: '2. Vision & Mission' },
       { id: 'problem-statement', title: '3. Problem Statement' },
-      { id: 'market-opportunity', title: '4. Market Opportunity' },
-      { id: 'user-personas', title: '5. User Personas' }
     ]
   },
   {
     title: 'Product Blueprint',
     icon: <ProductIcon />,
     items: [
-      { id: 'user-journey-maps', title: '6. User Journey Maps' },
-      { id: 'prd', title: '7. Product Requirements (PRD)' },
-      { id: 'feature-breakdown', title: '8. Feature Breakdown' },
-      { id: 'functional-requirements', title: '9. Functional Requirements' },
-      { id: 'non-functional-requirements', title: '10. Non-Functional' }
+      { id: 'user-journey-maps', title: '4. User Journey Maps' },
+      { id: 'prd', title: '5. Product Requirements (PRD)' },
+      { id: 'feature-breakdown', title: '6. Feature Breakdown' },
+      { id: 'functional-requirements', title: '7. Functional Requirements' },
+      { id: 'non-functional-requirements', title: '8. Non-Functional' }
     ]
   },
   {
     title: 'System & Security',
     icon: <SecurityIcon />,
     items: [
-      { id: 'information-architecture', title: '11. Info Architecture' },
-      { id: 'user-flows', title: '12. End-to-End User Flows' },
-      { id: 'technical-architecture', title: '13. Technical Architecture' },
-      { id: 'system-design', title: '14. System Component Design' },
-      { id: 'data-flow-diagrams', title: '15. Data Flow Diagrams' },
-      { id: 'security-architecture', title: '16. Security Architecture' },
-      { id: 'threat-model', title: '17. Threat Modeling (STRIDE)' }
+      { id: 'information-architecture', title: '9. Info Architecture' },
+      { id: 'user-flows', title: '10. End-to-End User Flows' },
+      { id: 'technical-architecture', title: '11. Technical Architecture' },
+      { id: 'system-design', title: '12. System Component Design' },
+      { id: 'data-flow-diagrams', title: '13. Data Flow Diagrams' },
+      { id: 'security-architecture', title: '14. Security Architecture' },
+      { id: 'threat-model', title: '15. Threat Modeling (STRIDE)' }
     ]
   },
   {
     title: 'Implementation Specs',
     icon: <TechIcon />,
     items: [
-      { id: 'recovery-process-design', title: '18. Recovery Engine Design' },
-      { id: 'smart-contract-requirements', title: '19. Smart Contracts (Solidity)' },
-      { id: 'api-documentation', title: '20. API Endpoint Details' },
-      { id: 'database-storage-structure', title: '21. Database & Walrus Schema' },
-      { id: 'design-system-guidelines', title: '22. Design System & Palette' }
+      { id: 'recovery-process-design', title: '16. Recovery Engine Design' },
+      { id: 'smart-contract-requirements', title: '17. Smart Contracts (Solidity)' },
+      { id: 'api-documentation', title: '18. API Endpoint Details' },
+      { id: 'database-storage-structure', title: '19. Database & Walrus Schema' },
+      { id: 'design-system-guidelines', title: '20. Design System & Palette' }
     ]
   },
   {
     title: 'Strategic Roadmap',
     icon: <LaunchIcon />,
     items: [
-      { id: 'mvp-scope', title: '23. MVP Scope Definition' },
-      { id: 'future-roadmap', title: '24. Strategic Roadmap' },
-      { id: 'success-metrics', title: '25. Key Success Metrics (KPIs)' },
-      { id: 'risk-assessment', title: '26. Risk Assessment Matrix' },
-      { id: 'audit-requirements', title: '27. Audit Requirements' },
-      { id: 'deployment-strategy', title: '28. Deployment Pipeline' },
-      { id: 'launch-checklist', title: '29. Launch Checklists' }
+      { id: 'mvp-scope', title: '21. MVP Scope Definition' },
+      { id: 'audit-requirements', title: '22. Audit Requirements' },
+      { id: 'deployment-strategy', title: '23. Deployment Pipeline' },
     ]
   }
 ];
@@ -320,36 +314,14 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 4: Market Opportunity */}
-          <section id="market-opportunity" ref={el => { sectionRefs.current['market-opportunity'] = el; }} className="scroll-mt-24 space-y-6">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">04</span>
-              <h2 className="font-display text-3xl font-bold tracking-tight">Market Opportunity</h2>
-            </div>
-            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
-              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">Market & Competitive Intelligence</span>
-              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
-            </div>
-          </section>
-
-          {/* Section 5: User Personas */}
-          <section id="user-personas" ref={el => { sectionRefs.current['user-personas'] = el; }} className="scroll-mt-24 space-y-6">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">05</span>
-              <h2 className="font-display text-3xl font-bold tracking-tight">User Personas</h2>
-            </div>
-            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
-              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">User Persona & Demographic Profiles</span>
-              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
-            </div>
-          </section>
 
 
 
-          {/* Section 6: User Journey Maps */}
+
+          {/* Section 4: User Journey Maps */}
           <section id="user-journey-maps" ref={el => { sectionRefs.current['user-journey-maps'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">06</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">04</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">User Journey Maps</h2>
             </div>
             
@@ -378,10 +350,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 7: PRD */}
+          {/* Section 5: PRD */}
           <section id="prd" ref={el => { sectionRefs.current['prd'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">07</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">05</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Product Requirements (PRD)</h2>
             </div>
             <p className="leading-relaxed text-ink/75 font-light">
@@ -405,10 +377,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 8: Feature Breakdown */}
+          {/* Section 6: Feature Breakdown */}
           <section id="feature-breakdown" ref={el => { sectionRefs.current['feature-breakdown'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">08</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">06</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Feature Breakdown</h2>
             </div>
             
@@ -452,10 +424,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 9: Functional Requirements */}
+          {/* Section 7: Functional Requirements */}
           <section id="functional-requirements" ref={el => { sectionRefs.current['functional-requirements'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">09</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">07</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Functional Requirements</h2>
             </div>
             
@@ -469,10 +441,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 10: Non-Functional Requirements */}
+          {/* Section 8: Non-Functional Requirements */}
           <section id="non-functional-requirements" ref={el => { sectionRefs.current['non-functional-requirements'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">10</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">08</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Non-Functional Requirements</h2>
             </div>
 
@@ -486,10 +458,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 11: Information Architecture */}
+          {/* Section 9: Information Architecture */}
           <section id="information-architecture" ref={el => { sectionRefs.current['information-architecture'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">11</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">09</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Information Architecture</h2>
             </div>
             <p className="leading-relaxed text-ink/75 text-xs font-light">
@@ -516,10 +488,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 12: End-to-End User Flow */}
+          {/* Section 10: End-to-End User Flow */}
           <section id="user-flows" ref={el => { sectionRefs.current['user-flows'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">12</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">10</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">End-to-End User Flows</h2>
             </div>
             
@@ -554,10 +526,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 13: Technical Architecture */}
+          {/* Section 11: Technical Architecture */}
           <section id="technical-architecture" ref={el => { sectionRefs.current['technical-architecture'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">13</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">11</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Technical Architecture</h2>
             </div>
             
@@ -580,10 +552,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 14: System Component Design */}
+          {/* Section 12: System Component Design */}
           <section id="system-design" ref={el => { sectionRefs.current['system-design'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">14</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">12</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">System Component Design</h2>
             </div>
 
@@ -598,7 +570,7 @@ export default function DocsPage() {
           {/* Section 16 & 17: Data Flows & Security Layer */}
           <section id="data-flow-diagrams" ref={el => { sectionRefs.current['data-flow-diagrams'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">15</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">13</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Data Flow Diagrams</h2>
             </div>
             
@@ -606,7 +578,7 @@ export default function DocsPage() {
               <p className="leading-relaxed text-ink/75">
                 The vault lifecycle can be represented across two fundamental paths:
               </p>
-              <div className="p-4 bg-ink text-offwhite font-mono rounded-xl space-y-2 text-[0.7rem]">
+              <div className="p-4 bg-ink text-offwhite font-mono rounded-xl space-y-2 text-[0.7rem] overflow-x-auto whitespace-pre-wrap break-words">
                 <div className="text-warm-clay font-bold">// Vault Creation Data Pipeline</div>
                 <div>User Input → Client AES-GCM Encrypt → Story CDR Allocate UUID → Contract Register Whitelist → On-Chain Payload Submit</div>
                 <div className="mt-2 text-warm-clay font-bold">// File Attachment Pipeline (Walrus)</div>
@@ -615,10 +587,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 16: Security Architecture */}
+          {/* Section 14: Security Architecture */}
           <section id="security-architecture" ref={el => { sectionRefs.current['security-architecture'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">16</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">14</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Security Architecture</h2>
             </div>
             
@@ -653,10 +625,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 17: Threat Model (STRIDE) */}
+          {/* Section 15: Threat Model (STRIDE) */}
           <section id="threat-model" ref={el => { sectionRefs.current['threat-model'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">17</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">15</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Threat Modeling (STRIDE)</h2>
             </div>
             
@@ -690,10 +662,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 18: Recovery Engine Design (Interactive) */}
+          {/* Section 16: Recovery Engine Design (Interactive) */}
           <section id="recovery-process-design" ref={el => { sectionRefs.current['recovery-process-design'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">18</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">16</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Recovery Engine Design</h2>
             </div>
             <p className="leading-relaxed text-ink/75 font-light">
@@ -742,10 +714,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 19: Smart Contract Requirements */}
+          {/* Section 17: Smart Contract Requirements */}
           <section id="smart-contract-requirements" ref={el => { sectionRefs.current['smart-contract-requirements'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">19</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">17</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Smart Contract Requirements</h2>
             </div>
             
@@ -774,10 +746,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 20: API Documentation Structure */}
+          {/* Section 18: API Documentation Structure */}
           <section id="api-documentation" ref={el => { sectionRefs.current['api-documentation'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">20</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">18</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">API Documentation</h2>
             </div>
             
@@ -812,10 +784,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 21: Database & Storage Structure */}
+          {/* Section 19: Database & Storage Structure */}
           <section id="database-storage-structure" ref={el => { sectionRefs.current['database-storage-structure'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">21</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">19</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Database & Walrus Schema</h2>
             </div>
             
@@ -838,10 +810,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 22: Design System Guidelines */}
+          {/* Section 20: Design System Guidelines */}
           <section id="design-system-guidelines" ref={el => { sectionRefs.current['design-system-guidelines'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">22</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">20</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Design System & Palette</h2>
             </div>
             
@@ -970,10 +942,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 23: MVP Scope */}
+          {/* Section 21: MVP Scope */}
           <section id="mvp-scope" ref={el => { sectionRefs.current['mvp-scope'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">23</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">21</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">MVP Scope Definition</h2>
             </div>
             
@@ -1000,46 +972,13 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 24: Strategic Roadmap */}
-          <section id="future-roadmap" ref={el => { sectionRefs.current['future-roadmap'] = el; }} className="scroll-mt-24 space-y-6">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">24</span>
-              <h2 className="font-display text-3xl font-bold tracking-tight">Strategic Roadmap</h2>
-            </div>
-            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
-              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">Detailed Strategic Milestones</span>
-              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
-            </div>
-          </section>
 
-          {/* Section 25: Key Success Metrics */}
-          <section id="success-metrics" ref={el => { sectionRefs.current['success-metrics'] = el; }} className="scroll-mt-24 space-y-6">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">25</span>
-              <h2 className="font-display text-3xl font-bold tracking-tight">Key Success Metrics</h2>
-            </div>
-            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
-              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">KPIs & Platform Analytics</span>
-              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
-            </div>
-          </section>
 
-          {/* Section 26: Risk Assessment Matrix */}
-          <section id="risk-assessment" ref={el => { sectionRefs.current['risk-assessment'] = el; }} className="scroll-mt-24 space-y-6">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">26</span>
-              <h2 className="font-display text-3xl font-bold tracking-tight">Risk Assessment Matrix</h2>
-            </div>
-            <div className="p-6 border border-dashed border-ink/20 rounded-2xl bg-white text-center">
-              <span className="font-mono text-xs text-ink/40 uppercase tracking-widest block mb-2">Formal Risk & Vulnerability Metrics</span>
-              <span className="font-display text-sm font-bold text-ink">Coming Soon</span>
-            </div>
-          </section>
 
-          {/* Section 27: Audit Requirements */}
+          {/* Section 22: Audit Requirements */}
           <section id="audit-requirements" ref={el => { sectionRefs.current['audit-requirements'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">27</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">22</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Audit Requirements</h2>
             </div>
             
@@ -1052,10 +991,10 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 28: Deployment Pipeline */}
+          {/* Section 23: Deployment Pipeline */}
           <section id="deployment-strategy" ref={el => { sectionRefs.current['deployment-strategy'] = el; }} className="scroll-mt-24 space-y-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">28</span>
+              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">23</span>
               <h2 className="font-display text-3xl font-bold tracking-tight">Deployment Pipeline</h2>
             </div>
 
@@ -1067,35 +1006,6 @@ export default function DocsPage() {
             </div>
           </section>
 
-          {/* Section 29: Interactive Launch Checklist */}
-          <section id="launch-checklist" ref={el => { sectionRefs.current['launch-checklist'] = el; }} className="scroll-mt-24 space-y-6">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-warm-clay border border-warm-clay/30 px-2 py-0.5 rounded">29</span>
-              <h2 className="font-display text-3xl font-bold tracking-tight">Launch Checklist</h2>
-            </div>
-            <p className="leading-relaxed text-ink/75 font-light">
-              Review our live target checklist before migrating from the current testnet phase:
-            </p>
-
-            <div className="space-y-3 font-light text-xs">
-              <label className="flex items-center gap-3 p-3 bg-white border border-ink/[0.04] rounded-lg cursor-pointer hover:bg-ink/[0.01]">
-                <input type="checkbox" defaultChecked className="w-4 h-4 accent-warm-clay" />
-                <span className="line-through text-ink/45">Setup Privy embedded login flows on Story Aeneid network.</span>
-              </label>
-              <label className="flex items-center gap-3 p-3 bg-white border border-ink/[0.04] rounded-lg cursor-pointer hover:bg-ink/[0.01]">
-                <input type="checkbox" defaultChecked className="w-4 h-4 accent-warm-clay" />
-                <span className="line-through text-ink/45">Implement responsive layouts and custom mobile sidebar drawers.</span>
-              </label>
-              <label className="flex items-center gap-3 p-3 bg-white border border-ink/[0.04] rounded-lg cursor-pointer hover:bg-ink/[0.01]">
-                <input type="checkbox" className="w-4 h-4 accent-warm-clay" />
-                <span>Perform formal third-party contract audits pre-mainnet.</span>
-              </label>
-              <label className="flex items-center gap-3 p-3 bg-white border border-ink/[0.04] rounded-lg cursor-pointer hover:bg-ink/[0.01]">
-                <input type="checkbox" className="w-4 h-4 accent-warm-clay" />
-                <span>Hardcode secure production Supabase Row Level Security (RLS) filters.</span>
-              </label>
-            </div>
-          </section>
 
           {/* Table of Contents Appendix */}
           <div className="border-t border-ink/[0.08] pt-12 text-center">
