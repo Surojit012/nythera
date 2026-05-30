@@ -365,7 +365,7 @@ export default function DocsPage() {
                   <strong>Target Chain:</strong> Story Aeneid Testnet (Chain ID 1315)
                 </div>
                 <div>
-                  <strong>Auth Method:</strong> Privy (Email/Google/Wallet)
+                  <strong>Auth Method:</strong> Privy (Email/Wallet)
                 </div>
                 <div>
                   <strong>Max File Size:</strong> 4MB (Walrus aggregate ceiling)

@@ -26,10 +26,10 @@ export default function Web3Providers({
           theme: 'dark',
           accentColor: '#7C5CFF',
           landingHeader: 'Sign in to Nythera',
-          loginMessage: 'Create a secure recovery account with email, Google, or a wallet.',
+          loginMessage: 'Create a secure recovery account with email or a wallet.',
           showWalletLoginFirst: false,
         },
-        loginMethods: ['email', 'google', 'wallet'],
+        loginMethods: ['email', 'wallet'],
         embeddedWallets: {
           ethereum: {
             createOnLogin: 'users-without-wallets',
