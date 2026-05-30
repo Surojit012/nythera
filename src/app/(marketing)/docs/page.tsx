@@ -269,7 +269,7 @@ export default function DocsPage() {
               <div className="border-t md:border-t-0 md:border-l border-ink/[0.06] pt-6 md:pt-0 md:pl-6">
                 <h4 className="font-display text-xs font-bold uppercase tracking-wider text-ink/35 mb-2">Technological Core</h4>
                 <p className="text-[0.88rem] leading-relaxed text-ink/70 font-light font-mono">
-                  AES-256-GCM + Story Protocol Confidential Data Registry (CDR) + Threshold validator-decryption + Walrus blob integration. Zero-keys are sent to any database, ensuring a true zero-knowledge architectural pattern.
+                  AES-256-GCM + Story Protocol Confidential Data Rails (CDR) + Threshold validator-decryption + Walrus blob integration. Zero-keys are sent to any database, ensuring a true zero-knowledge architectural pattern.
                 </p>
               </div>
             </div>
