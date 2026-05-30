@@ -194,7 +194,7 @@ export default function DocsPage() {
       <div className="mx-auto flex w-full max-w-[1400px] gap-8 px-6 py-10 md:px-16 relative">
         
         {/* LEFT COLUMN: Sticky Navigation Sidebar (Desktop) */}
-        <aside className="w-[280px] shrink-0 sticky top-[95px] h-[calc(100vh-140px)] overflow-y-auto hidden lg:block pr-4 border-r border-ink/[0.04] scrollbar-thin">
+        <aside className="w-[280px] shrink-0 sticky top-[95px] h-[calc(100vh-140px)] overflow-y-auto hidden lg:block pr-4 border-r border-ink/[0.04] scrollbar-thin self-start">
           <div className="space-y-6 pb-12">
             {documentCategories.map((category) => (
               <div key={category.title} className="space-y-2">
