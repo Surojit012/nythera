@@ -13,6 +13,7 @@ import { createPrivyWalletClient } from '@/lib/privy';
 import { accessSecretFromCDR } from '@/lib/crypto/cdr';
 import { encodedAccessConditionAbi, WHITELIST_CONDITION, whitelistConditionAbi } from '@/lib/contracts';
 import { useWalletVaults } from '@/lib/hooks/use-wallet-vaults';
+import { useAuthFetch } from '@/lib/hooks/use-auth-fetch';
 import {
   decryptWalrusFile,
   parseWalrusFilePayload,
@@ -88,6 +89,7 @@ function detectSecretType(secret: string): 'seed' | 'private-key' | 'note' {
 
 export default function RecoverPage() {
   const { activeWallet: wallet, activeAddress: address } = useNytheraWallet();
+  const authFetch = useAuthFetch();
   const router = useRouter();
   const [selectedId, setSelectedId] = useState('');
   const [uuidInput, setUuidInput] = useState('');
@@ -113,6 +115,7 @@ export default function RecoverPage() {
   const { vaults, hydrating, hydrateError } = useWalletVaults(address, {
     cdrOnly: true,
     recoverableOnly: true,
+    fetchFn: authFetch,
   });
   const activeSelectedId = selectedId || vaults[0]?.id || '';
   const selectedVault = vaults.find((v) => v.id === activeSelectedId) ?? null;
@@ -280,7 +283,7 @@ export default function RecoverPage() {
       }
 
       // Also persist to Supabase database
-      void fetch('/api/vault-recoveries', {
+      void authFetch('/api/vault-recoveries', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({

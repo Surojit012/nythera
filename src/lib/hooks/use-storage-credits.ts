@@ -18,7 +18,8 @@ type StorageCreditsResponse = {
   error?: string;
 };
 
-export function useStorageCredits(walletAddress?: string): StorageCreditsState {
+export function useStorageCredits(walletAddress?: string, options: { fetchFn?: typeof fetch } = {}): StorageCreditsState {
+  const fetchFn = options.fetchFn ?? fetch;
   const [balance, setBalance] = useState<number | null>(null);
   const [requiredForUpload, setRequiredForUpload] = useState(2);
   const [loading, setLoading] = useState(false);
@@ -37,7 +38,7 @@ export function useStorageCredits(walletAddress?: string): StorageCreditsState {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch(`/api/storage/credits?wallet=${encodeURIComponent(walletAddress)}`);
+      const response = await fetchFn(`/api/storage/credits?wallet=${encodeURIComponent(walletAddress)}`);
       const body = (await response.json().catch(() => ({}))) as StorageCreditsResponse;
       if (!response.ok && !body.skipped) {
         throw new Error(body.error ?? `Could not load storage credits (${response.status})`);
@@ -52,7 +53,7 @@ export function useStorageCredits(walletAddress?: string): StorageCreditsState {
     } finally {
       setLoading(false);
     }
-  }, [walletAddress]);
+  }, [fetchFn, walletAddress]);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {

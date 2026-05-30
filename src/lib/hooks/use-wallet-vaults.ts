@@ -38,7 +38,8 @@ function reconcileSyncedVaults(localVaults: VaultData[], remoteVaults: VaultData
   return [...remoteVaults, ...localOnlyVaults].sort((a, b) => b.createdAt - a.createdAt);
 }
 
-export function useWalletVaults(walletAddress?: string, options: UseWalletVaultsOptions = {}) {
+export function useWalletVaults(walletAddress?: string, options: UseWalletVaultsOptions & { fetchFn?: typeof fetch } = {}) {
+  const fetchFn = options.fetchFn ?? fetch;
   const [vaults, setVaults] = useState<VaultData[]>([]);
   const [hydrating, setHydrating] = useState(false);
   const [hydrateError, setHydrateError] = useState('');
@@ -59,7 +60,7 @@ export function useWalletVaults(walletAddress?: string, options: UseWalletVaults
     setHydrateError('');
 
     try {
-      const response = await fetch(`/api/vault-records?wallet=${encodeURIComponent(walletAddress)}`);
+      const response = await fetchFn(`/api/vault-records?wallet=${encodeURIComponent(walletAddress)}`);
       const body = (await response.json().catch(() => ({}))) as VaultRecordsResponse;
       if (!response.ok && !body.skipped) {
         throw new Error(body.error ?? `Could not sync vault records (${response.status})`);
@@ -75,7 +76,7 @@ export function useWalletVaults(walletAddress?: string, options: UseWalletVaults
     } finally {
       setHydrating(false);
     }
-  }, [cdrOnly, recoverableOnly, walletAddress]);
+  }, [cdrOnly, fetchFn, recoverableOnly, walletAddress]);
 
   useEffect(() => {
     let cancelled = false;
@@ -96,7 +97,7 @@ export function useWalletVaults(walletAddress?: string, options: UseWalletVaults
       }
 
       try {
-        const response = await fetch(`/api/vault-records?wallet=${encodeURIComponent(walletAddress)}`);
+        const response = await fetchFn(`/api/vault-records?wallet=${encodeURIComponent(walletAddress)}`);
         const body = (await response.json().catch(() => ({}))) as VaultRecordsResponse;
         if (!response.ok && !body.skipped) {
           throw new Error(body.error ?? `Could not sync vault records (${response.status})`);
@@ -121,7 +122,7 @@ export function useWalletVaults(walletAddress?: string, options: UseWalletVaults
     return () => {
       cancelled = true;
     };
-  }, [cdrOnly, recoverableOnly, walletAddress]);
+  }, [cdrOnly, fetchFn, recoverableOnly, walletAddress]);
 
   return { vaults, hydrating, hydrateError, refreshVaults };
 }

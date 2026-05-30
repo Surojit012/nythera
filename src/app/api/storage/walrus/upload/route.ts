@@ -3,24 +3,29 @@ import { MAX_WALRUS_FILE_BYTES, MAX_WALRUS_FILE_LABEL } from '@/lib/crypto/file/
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { grantCredits, spendCredits } from '@/lib/supabase/vault-records';
 import { getDefaultWalrusEpochs, uploadWalrusBlob, waitForWalrusBlob } from '@/lib/walrus/client';
+import { withAuth, type AuthContext } from '@/lib/auth/server-auth';
 
 export const runtime = 'nodejs';
 
-export async function POST(request: NextRequest) {
+export const POST = withAuth(async (request: NextRequest, auth: AuthContext) => {
   const form = await request.formData();
   const file = form.get('file');
-  const creatorWallet = String(form.get('creatorWallet') ?? '').toLowerCase();
+  const formWallet = String(form.get('creatorWallet') ?? '').toLowerCase();
   const epochs = normalizeEpochs(form.get('epochs'));
 
   if (!(file instanceof Blob)) {
     return NextResponse.json({ error: 'Encrypted file bytes are required.' }, { status: 400 });
   }
-  if (!/^0x[a-fA-F0-9]{40}$/.test(creatorWallet)) {
+  // Still validate the form field for backward compat, but override with authenticated wallet
+  if (!/^0x[a-fA-F0-9]{40}$/.test(formWallet)) {
     return NextResponse.json({ error: 'creatorWallet must be a wallet address.' }, { status: 400 });
   }
   if (file.size > MAX_WALRUS_FILE_BYTES + 1024) {
     return NextResponse.json({ error: `Encrypted file must be under ${MAX_WALRUS_FILE_LABEL}.` }, { status: 400 });
   }
+
+  // Use the authenticated wallet for all credit operations
+  const creatorWallet = auth.walletAddress;
 
   const supabase = getSupabaseAdmin();
   let creditsSpent = 0;
@@ -51,7 +56,7 @@ export async function POST(request: NextRequest) {
     const status = message.toLowerCase().includes('insufficient storage credits') ? 402 : 500;
     return NextResponse.json({ error: message }, { status });
   }
-}
+});
 
 function normalizeEpochs(value: FormDataEntryValue | null): number {
   const parsed = Number(value ?? getDefaultWalrusEpochs());

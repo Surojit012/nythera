@@ -2,16 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { ensureStorageAccount } from '@/lib/supabase/vault-records';
 import { getDefaultWalrusEpochs } from '@/lib/walrus/client';
+import { withAuth, type AuthContext } from '@/lib/auth/server-auth';
 
 export const runtime = 'nodejs';
 
-export async function GET(request: NextRequest) {
-  const wallet = request.nextUrl.searchParams.get('wallet')?.trim().toLowerCase();
+export const GET = withAuth(async (_request: NextRequest, auth: AuthContext) => {
+  const wallet = auth.walletAddress;
   const requiredForUpload = getDefaultWalrusEpochs();
-
-  if (!wallet || !/^0x[a-fA-F0-9]{40}$/.test(wallet)) {
-    return NextResponse.json({ error: 'wallet is required.' }, { status: 400 });
-  }
 
   const supabase = getSupabaseAdmin();
   if (!supabase) {
@@ -39,4 +36,4 @@ export async function GET(request: NextRequest) {
       { status: 500 },
     );
   }
-}
+});

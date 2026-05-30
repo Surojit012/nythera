@@ -11,6 +11,7 @@ import { createPrivyWalletClient } from '@/lib/privy';
 import { classifyRecipient, dedupeAddresses } from '@/lib/recipients';
 import { WHITELIST_CONDITION } from '@/lib/contracts';
 import { useStorageCredits } from '@/lib/hooks/use-storage-credits';
+import { useAuthFetch } from '@/lib/hooks/use-auth-fetch';
 import {
   encryptFileForWalrus,
   exactArrayBuffer,
@@ -176,7 +177,8 @@ function fileSizeLabel(file: File): string {
 export default function CreateVaultPage() {
   const { activeWallet: wallet, activeAddress: address } = useNytheraWallet();
   const router = useRouter();
-  const storageCredits = useStorageCredits(address);
+  const authFetch = useAuthFetch();
+  const storageCredits = useStorageCredits(address, { fetchFn: authFetch });
   const [vaultName, setVaultName] = useState('');
   const [vaultDescription, setVaultDescription] = useState('');
   const [tags, setTags] = useState<string[]>([]);
@@ -384,7 +386,7 @@ export default function CreateVaultPage() {
       });
 
       const filePayload = secretType === 'file' && file
-        ? await prepareWalrusFilePayload(file, address, renewalMode, fileNote, storageCreditsRequired)
+        ? await prepareWalrusFilePayload(file, address, renewalMode, fileNote, storageCreditsRequired, authFetch)
         : null;
       const cdrPayload = filePayload ? JSON.stringify(filePayload) : buildSecretPayload();
 
@@ -429,6 +431,7 @@ export default function CreateVaultPage() {
         walletRecipients,
         emailRecipients,
         resolvedEmailWallets,
+        fetchFn: authFetch,
       });
 
       saveVault(address, vault);
@@ -946,6 +949,7 @@ async function prepareWalrusFilePayload(
   renewalMode: RenewalMode,
   note: string,
   epochs: number,
+  fetchFn: typeof fetch = fetch,
 ): Promise<WalrusFilePayload> {
   const encrypted = await encryptFileForWalrus(file);
   const body = new FormData();
@@ -961,7 +965,7 @@ async function prepareWalrusFilePayload(
   body.append('renewalMode', renewalMode);
   body.append('epochs', String(epochs));
 
-  const response = await fetch('/api/storage/walrus/upload', {
+  const response = await fetchFn('/api/storage/walrus/upload', {
     method: 'POST',
     body,
   });
@@ -1000,6 +1004,7 @@ async function persistVaultRecord({
   walletRecipients,
   emailRecipients,
   resolvedEmailWallets,
+  fetchFn,
 }: {
   vault: Awaited<ReturnType<typeof createVaultWithCDR>>['vault'];
   address: string;
@@ -1011,7 +1016,9 @@ async function persistVaultRecord({
   walletRecipients: `0x${string}`[];
   emailRecipients: string[];
   resolvedEmailWallets: `0x${string}`[];
+  fetchFn?: typeof fetch;
 }) {
+  const effectiveFetch = fetchFn ?? fetch;
   if (!vault.cdr) return;
 
   const recipients = [
@@ -1022,7 +1029,7 @@ async function persistVaultRecord({
     }),
   ];
 
-  const response = await fetch('/api/vault-records', {
+  const response = await effectiveFetch('/api/vault-records', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({

@@ -11,6 +11,7 @@ import { createPrivyWalletClient } from '@/lib/privy';
 import { CDR_DEFAULTS } from '@/lib/crypto/cdr-config';
 import { encodedAccessConditionAbi, WHITELIST_CONDITION, whitelistConditionAbi } from '@/lib/contracts';
 import { useWalletVaults } from '@/lib/hooks/use-wallet-vaults';
+import { useAuthFetch } from '@/lib/hooks/use-auth-fetch';
 import SuccessMotion from '@/components/ui/SuccessMotion';
 import { useNytheraWallet } from '@/lib/hooks/use-nythera-wallet';
 
@@ -18,6 +19,7 @@ export default function VaultDetailsPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const { activeWallet: wallet, activeAddress: address } = useNytheraWallet();
+  const authFetch = useAuthFetch();
 
   const initialVault = address && params?.id ? getVault(address, params.id) : null;
   const [vaultOverride, setVaultOverride] = useState<VaultData | null>(null);
@@ -29,7 +31,7 @@ export default function VaultDetailsPage() {
   const [deleteError, setDeleteError] = useState('');
   const [signatureChecksum, setSignatureChecksum] = useState('');
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
-  const { vaults, hydrating, hydrateError } = useWalletVaults(address);
+  const { vaults, hydrating, hydrateError } = useWalletVaults(address, { fetchFn: authFetch });
   const hydratedVault = vaults.find((cachedVault) => cachedVault.id === params?.id) ?? null;
   const vault = vaultOverride ?? hydratedVault ?? initialVault;
   const defaultRecipientText = vault?.recipients
@@ -210,7 +212,7 @@ export default function VaultDetailsPage() {
             : [];
         }),
       ];
-      const metadataResponse = await fetch('/api/vault-recipients', {
+      const metadataResponse = await authFetch('/api/vault-recipients', {
         method: 'PATCH',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
@@ -260,7 +262,7 @@ export default function VaultDetailsPage() {
       const checksum = `${signature.slice(0, 10)}...${signature.slice(-8)}`;
       setSignatureChecksum(checksum);
 
-      const response = await fetch('/api/vault-records', {
+      const response = await authFetch('/api/vault-records', {
         method: 'DELETE',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({

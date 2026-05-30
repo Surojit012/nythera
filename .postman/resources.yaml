@@ -1,0 +1,9 @@
+# Use this workspace to collaborate
+workspace:
+  id: a44ded0c-027e-465d-8612-13437e41e83e
+
+localResources:
+  docs:
+    - ../CLAUDE.md
+    - ../README.md
+    - ../AGENTS.md

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { withAuth } from '@/lib/auth/server-auth';
 
 export const runtime = 'nodejs';
 
@@ -9,7 +10,7 @@ type RecipientInput = {
   resolvedWallet: string;
 };
 
-export async function PATCH(request: NextRequest) {
+export const PATCH = withAuth(async (request: NextRequest, auth) => {
   const supabase = getSupabaseAdmin();
   if (!supabase) {
     return NextResponse.json({
@@ -32,13 +33,29 @@ export async function PATCH(request: NextRequest) {
 
     const { data: vaultRecord, error: vaultError } = await supabase
       .from('vault_records')
-      .select('id')
+      .select('id, creator_wallet')
       .eq('cdr_uuid', body.cdrUuid)
       .maybeSingle();
     if (vaultError) throw vaultError;
     if (!vaultRecord?.id) {
       return NextResponse.json({ ok: false, error: 'Vault record not found for this Vault ID.' }, { status: 404 });
     }
+
+    // Verify ownership
+    if (vaultRecord.creator_wallet?.toLowerCase() !== auth.walletAddress) {
+      return NextResponse.json(
+        { ok: false, error: 'Forbidden: you are not the owner of this vault.' },
+        { status: 403 },
+      );
+    }
+
+    console.info(
+      '[VAULT_RECIPIENTS] User %s (%s) updating recipients for vault cdr_uuid=%d (record id=%s)',
+      auth.userId,
+      auth.walletAddress,
+      body.cdrUuid,
+      vaultRecord.id,
+    );
 
     const { error: deleteError } = await supabase
       .from('vault_recipients')
@@ -77,4 +94,4 @@ export async function PATCH(request: NextRequest) {
       { status: 500 },
     );
   }
-}
+});

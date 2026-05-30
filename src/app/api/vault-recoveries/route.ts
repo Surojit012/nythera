@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { withAuth } from '@/lib/auth/server-auth';
 
 export const runtime = 'nodejs';
 
-export async function POST(request: NextRequest) {
+export const POST = withAuth(async (request: NextRequest, auth) => {
   const supabase = getSupabaseAdmin();
   if (!supabase) {
     return NextResponse.json({
@@ -17,12 +18,7 @@ export async function POST(request: NextRequest) {
     const body = (await request.json().catch(() => ({}))) as {
       localVaultId?: string;
       cdrUuid?: number;
-      recoveredBy?: string;
     };
-
-    if (!body.recoveredBy) {
-      return NextResponse.json({ ok: false, error: 'recoveredBy is required.' }, { status: 400 });
-    }
 
     if (!body.cdrUuid && !body.localVaultId) {
       return NextResponse.json(
@@ -49,12 +45,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 2. Insert the recovery event
+    // 2. Insert the recovery event – use the authenticated wallet, not body input
     const { data: event, error: insertError } = await supabase
       .from('vault_recoveries')
       .insert({
         vault_record_id: record.id,
-        recovered_by_wallet: body.recoveredBy.toLowerCase(),
+        recovered_by_wallet: auth.walletAddress,
       })
       .select('*')
       .single();
@@ -68,4 +64,4 @@ export async function POST(request: NextRequest) {
       { status: 500 },
     );
   }
-}
+});

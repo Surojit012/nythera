@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { createVaultRecord, listVaultsForWallet } from '@/lib/supabase/vault-records';
+import { withAuth } from '@/lib/auth/server-auth';
 
 export const runtime = 'nodejs';
 
-export async function GET(request: NextRequest) {
+export const GET = withAuth(async (request: NextRequest, auth) => {
   const supabase = getSupabaseAdmin();
   if (!supabase) {
     return NextResponse.json({
@@ -16,10 +17,8 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const wallet = request.nextUrl.searchParams.get('wallet')?.trim();
-    if (!wallet || !/^0x[a-fA-F0-9]{40}$/.test(wallet)) {
-      return NextResponse.json({ ok: false, error: 'wallet is required.' }, { status: 400 });
-    }
+    // Always use the authenticated wallet address, ignore the query param
+    const wallet = auth.walletAddress;
 
     const vaults = await listVaultsForWallet(supabase, wallet);
     return NextResponse.json({ ok: true, vaults });
@@ -29,9 +28,9 @@ export async function GET(request: NextRequest) {
       { status: 500 },
     );
   }
-}
+});
 
-export async function POST(request: NextRequest) {
+export const POST = withAuth(async (request: NextRequest, auth) => {
   const supabase = getSupabaseAdmin();
   if (!supabase) {
     return NextResponse.json({
@@ -43,6 +42,8 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
+    // Override creatorWallet with the authenticated wallet to prevent spoofing
+    body.creatorWallet = auth.walletAddress;
     const record = await createVaultRecord(supabase, body);
     return NextResponse.json({ ok: true, record });
   } catch (error) {
@@ -51,9 +52,9 @@ export async function POST(request: NextRequest) {
       { status: 500 },
     );
   }
-}
+});
 
-export async function DELETE(request: NextRequest) {
+export const DELETE = withAuth(async (request: NextRequest, auth) => {
   const supabase = getSupabaseAdmin();
 
   try {
@@ -77,13 +78,32 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    let query = supabase.from('vault_records').delete();
+    // Verify ownership before deleting
+    let lookupQuery = supabase.from('vault_records').select('id, creator_wallet');
     if (body.cdrUuid) {
-      query = query.eq('cdr_uuid', body.cdrUuid);
+      lookupQuery = lookupQuery.eq('cdr_uuid', body.cdrUuid);
     } else if (body.localVaultId) {
-      query = query.eq('local_vault_id', body.localVaultId);
+      lookupQuery = lookupQuery.eq('local_vault_id', body.localVaultId);
     }
-    const { error } = await query;
+
+    const { data: record, error: lookupError } = await lookupQuery.maybeSingle();
+    if (lookupError) throw lookupError;
+
+    if (!record) {
+      return NextResponse.json(
+        { ok: false, error: 'Vault record not found.' },
+        { status: 404 },
+      );
+    }
+
+    if (record.creator_wallet?.toLowerCase() !== auth.walletAddress) {
+      return NextResponse.json(
+        { ok: false, error: 'Forbidden: you are not the owner of this vault.' },
+        { status: 403 },
+      );
+    }
+
+    const { error } = await supabase.from('vault_records').delete().eq('id', record.id);
     if (error) throw error;
 
     return NextResponse.json({ ok: true });
@@ -93,4 +113,4 @@ export async function DELETE(request: NextRequest) {
       { status: 500 },
     );
   }
-}
+});

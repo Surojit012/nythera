@@ -9,11 +9,13 @@ import { deleteVault as deleteLocalVault } from '@/lib/store/vault-store';
 import { createPrivyWalletClient } from '@/lib/privy';
 import { useWalletVaults } from '@/lib/hooks/use-wallet-vaults';
 import { useStorageCredits } from '@/lib/hooks/use-storage-credits';
+import { useAuthFetch } from '@/lib/hooks/use-auth-fetch';
 import SuccessMotion from '@/components/ui/SuccessMotion';
 import { useNytheraWallet } from '@/lib/hooks/use-nythera-wallet';
 
 export default function DashboardPage() {
   const { activeWallet, activeAddress: address } = useNytheraWallet();
+  const authFetch = useAuthFetch();
   const [deletedVaultIds, setDeletedVaultIds] = useState<string[]>([]);
   const [pendingDelete, setPendingDelete] = useState<VaultData | null>(null);
   const [deleteError, setDeleteError] = useState('');
@@ -22,8 +24,8 @@ export default function DashboardPage() {
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState('');
-  const { vaults: hydratedVaults, hydrating, hydrateError } = useWalletVaults(address);
-  const storageCredits = useStorageCredits(address);
+  const { vaults: hydratedVaults, hydrating, hydrateError } = useWalletVaults(address, { fetchFn: authFetch });
+  const storageCredits = useStorageCredits(address, { fetchFn: authFetch });
   const vaults = hydratedVaults.filter((vault) => !deletedVaultIds.includes(vault.id));
   const availableTags = useMemo(
     () => [...new Set(vaults.flatMap((vault) => vault.tags ?? []))].sort((a, b) => a.localeCompare(b)),
@@ -78,7 +80,7 @@ export default function DashboardPage() {
       const checksum = `${signature.slice(0, 10)}...${signature.slice(-8)}`;
       setSignatureChecksum(checksum);
 
-      const response = await fetch('/api/vault-records', {
+      const response = await authFetch('/api/vault-records', {
         method: 'DELETE',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
