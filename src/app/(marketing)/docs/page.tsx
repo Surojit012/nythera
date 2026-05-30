@@ -158,7 +158,7 @@ export default function DocsPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-offwhite text-ink font-body overflow-x-hidden">
+    <div className="relative min-h-screen bg-offwhite text-ink font-body" style={{ overflowX: 'clip' }}>
       {/* Visual noise backdrop */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="nythera-noise absolute inset-0 opacity-[0.035]" />
@@ -191,10 +191,10 @@ export default function DocsPage() {
       </header>
 
       {/* Main Documentation Frame */}
-      <div className="mx-auto flex w-full max-w-[1400px] gap-8 px-6 py-10 md:px-16 relative">
+      <div className="mx-auto flex w-full max-w-[1400px] gap-8 px-6 py-10 md:px-16 relative items-start">
         
         {/* LEFT COLUMN: Sticky Navigation Sidebar (Desktop) */}
-        <aside className="w-[280px] shrink-0 sticky top-[95px] h-[calc(100vh-140px)] overflow-y-auto hidden lg:block pr-4 border-r border-ink/[0.04] scrollbar-thin self-start">
+        <aside className="w-[280px] shrink-0 sticky top-[95px] h-[calc(100vh-120px)] overflow-y-auto hidden lg:block pr-4 border-r border-ink/[0.04] scrollbar-thin">
           <div className="space-y-6 pb-12">
             {documentCategories.map((category) => (
               <div key={category.title} className="space-y-2">
